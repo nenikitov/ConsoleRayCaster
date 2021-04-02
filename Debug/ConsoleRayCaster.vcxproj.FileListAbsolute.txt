@@ -1,2 +1,0 @@
-D:\Projects\VisualStudio\ConsoleRayCaster\Debug\ConsoleRayCaster.exe
-D:\Projects\VisualStudio\ConsoleRayCaster\Debug\ConsoleRayCaster.pdb
