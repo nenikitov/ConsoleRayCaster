@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include "Tile.h"
 #include <vector>
+#include "../Tile/Tile.h"
 
 class Level
 {
