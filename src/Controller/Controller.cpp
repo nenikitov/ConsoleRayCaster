@@ -2,13 +2,13 @@
 
 char Controller::getForward()
 {
-    return GetAsyncKeyState(this->FORWARD_KEY) - GetAsyncKeyState(this->BACKWARD_KEY);
+    return (bool)GetAsyncKeyState(this->FORWARD_KEY) - (bool)GetAsyncKeyState(this->BACKWARD_KEY);
 }
 char Controller::getRightward()
 {
-    return GetAsyncKeyState(this->RIGHTWARD_KEY) - GetAsyncKeyState(this->LEFTWARD_KEY);
+    return (bool)GetAsyncKeyState(this->RIGHTWARD_KEY) - (bool)GetAsyncKeyState(this->LEFTWARD_KEY);
 }
 char Controller::getTurn()
 {
-    return GetAsyncKeyState(this->TURN_RIGHT_KEY) - GetAsyncKeyState(this->TURN_LEFT_KEY);
+    return (bool)GetAsyncKeyState(this->TURN_RIGHT_KEY) - (bool)GetAsyncKeyState(this->TURN_LEFT_KEY);
 }
