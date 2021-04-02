@@ -6,10 +6,14 @@ class Player
 	public:
 		Player(float positionX = 8.f, float positionY = 8.f, float angle = 0.f);
 		void update(double deltaTime);
-		Controller controller;
+		double getPositionX();
+		double getPositionY();
+		double getAngle();
 	private:
-		
-		float positionX;
-		float positionY;
-		float angle;
+		Controller controller;
+		const double MOVE_SPEED = 5;
+		const double TURN_SPEED = 5;
+		double positionX;
+		double positionY;
+		double angle;
 };

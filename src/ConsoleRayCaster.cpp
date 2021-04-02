@@ -17,7 +17,8 @@ int main()
         double deltaTime = deltaTimeChrono.count();
         previousTime = currentTime;
 
-        std::cout << deltaTime << std::endl;
+        player.update(deltaTime);
+        std::cout << "X: " << player.getPositionX() << ", Y: " << player.getPositionY() << ", A: " << player.getAngle() << std::endl;
     }
     
 }
