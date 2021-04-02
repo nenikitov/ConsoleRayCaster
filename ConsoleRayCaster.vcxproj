@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp" />
     <ClCompile Include="src\Controller\Controller.cpp" />
     <ClCompile Include="src\Player\Player.cpp" />
     <ClCompile Include="src\ConsoleRayCaster.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />
     <ClInclude Include="src\Controller\Controller.h" />
     <ClInclude Include="src\Player\Player.h" />
     <ClInclude Include="src\Level\Level.h" />
