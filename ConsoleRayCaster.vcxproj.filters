@@ -13,10 +13,26 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Levels">
+      <UniqueIdentifier>{c7cdfbd3-d07b-488c-b3a6-13cd8d120cf0}</UniqueIdentifier>
+      <Extensions>.lvl</Extensions>
+    </Filter>
+    <Filter Include="Tiles">
+      <UniqueIdentifier>{28e49fdf-46a1-4052-9462-4b7f1b0eec17}</UniqueIdentifier>
+      <Extensions>.tl</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleRayCaster.cpp">
+    <ClCompile Include="src\ConsoleRayCaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

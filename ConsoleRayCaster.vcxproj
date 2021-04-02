@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleRayCaster.cpp" />
+    <ClCompile Include="src\ConsoleRayCaster.cpp" />
+    <ClCompile Include="src\Level.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Level.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
