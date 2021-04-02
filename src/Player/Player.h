@@ -4,7 +4,8 @@
 class Player
 {
 	public:
-		Player(float positionX = 8.f, float postitionY = 8.f, float angle = 0.f);
+		Player(float positionX = 8.f, float positionY = 8.f, float angle = 0.f);
+		void update(double deltaTime);
 	private:
 		Controller controller;
 		float positionX;
