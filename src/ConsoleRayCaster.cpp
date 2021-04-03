@@ -4,6 +4,7 @@
 #include "Player/Player.h"
 #include "Level/Level.h"
 #include "ConsoleHandler/ConsoleHandler.h"
+#include "RayCaster/RayCaster.h"
 
 int main()
 {
@@ -16,14 +17,10 @@ int main()
 
     auto previousTime = std::chrono::system_clock::now();
 
-    for (int i = 0; i < level.tiles.size(); ++i)
-    {
-        for (int j = 0; j < level.tiles[i].size(); ++j)
-        {
-            std::cout << level.tiles[i][j] << ' ';
-        }
-        std::cout << std::endl;
-    }
+    RayCaster rayCaster(level);
+    Intersection i = rayCaster.findIntersection(8.f, 7.f, 0);
+
+    std::cout << "X: " << i.x << " Y: " << i.y << std::endl;
 
     /*
     while (true)

@@ -36,3 +36,11 @@ Level::Level(std::string levelName)
 	}
 	this->tiles[row].push_back(value);
 }
+
+int Level::tileAt(unsigned int x, unsigned int y)
+{
+	if (y < tiles.size())
+		if (x < tiles[y].size())
+			return this->tiles[y][x];
+	return 0;
+}
