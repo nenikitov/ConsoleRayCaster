@@ -12,8 +12,9 @@ Player::Player(float positionX, float positionY, float angle)
 void Player::update(double deltaTime)
 {
 	// Update position (Implement collision detection later)
-	this->positionX += this->controller.getRightward() * this->MOVE_SPEED * deltaTime;
-	this->positionY -= this->controller.getForward() * this->MOVE_SPEED * deltaTime;
+	const double movementSpeed = this->MOVE_SPEED * deltaTime;
+	this->positionX += movementSpeed * (cos(this->angle) * this->controller.getForward() - sin(this->angle) * this->controller.getRightward());
+	this->positionY += movementSpeed * (sin(this->angle) * this->controller.getForward() + cos(this->angle) * this->controller.getRightward());
 
 	// Update rotation
 	this->angle += this->controller.getTurn() * this->TURN_SPEED * deltaTime;

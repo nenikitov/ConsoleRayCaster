@@ -9,5 +9,5 @@ class RayCaster
 		Intersection findIntersection(double startX, double startY, double angle);
 	private:
 		Level& level;
-		const double MAX_RAY_LENGTH = 1000.f;
+		const double MAX_RAY_LENGTH = 32.f;
 };

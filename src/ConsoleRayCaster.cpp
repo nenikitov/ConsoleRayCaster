@@ -18,11 +18,8 @@ int main()
     auto previousTime = std::chrono::system_clock::now();
 
     RayCaster rayCaster(level);
-    Intersection i = rayCaster.findIntersection(8.f, 7.f, 0);
+    
 
-    std::cout << "X: " << i.x << " Y: " << i.y << std::endl;
-
-    /*
     while (true)
     {
         const auto currentTime = std::chrono::system_clock::now();
@@ -30,15 +27,31 @@ int main()
         double deltaTime = deltaTimeChrono.count();
         previousTime = currentTime;
 
-        //consoleHandler.printChars(0, 1, char_type, 10, BACKGROUND_RED);
-        player.update(deltaTime);
-        //std::cout << "X: " << player.getPositionX() << ", Y: " << player.getPositionY() << ", A: " << player.getAngle() << std::endl;
-    }
-    */
-    
-}
+        unsigned int consoleWidth = consoleHandler.getConsoleWidth();
+        unsigned int consoleHeight = consoleHandler.getConsoleHeight();
+        char* screen = new char[consoleWidth * consoleHeight];
+        screen[consoleWidth * consoleHeight - 1] = '\0';
 
-void printCharacter(HANDLE handle, SHORT x, SHORT y, const char character[], WORD attributes)
-{
-    
+        player.update(deltaTime);
+
+        for (unsigned int i = 0; i < consoleWidth; i++)
+        {
+            double angle = player.getAngle() + (double)(i - (double)consoleWidth / 2) / consoleWidth * 2;
+            Intersection intersection = rayCaster.findIntersection(player.getPositionX(), player.getPositionY(), angle);
+
+            int ceiling = (float)(consoleHeight) / 2 - consoleHeight / intersection.distance;
+            int floor = consoleHeight - ceiling;
+
+            for (unsigned int j = 0; j < consoleHeight; j++)
+            {
+                if (j < ceiling)
+                    screen[j * consoleWidth + i] = ' ';
+                else if (j > ceiling && j < floor)
+                    screen[j * consoleWidth + i] = '#';
+                else
+                    screen[j * consoleWidth + i] = '.';
+            }
+        }
+        consoleHandler.printChars(0, 0, screen, consoleWidth * consoleHeight, FOREGROUND_INTENSITY);
+    }
 }
