@@ -1,4 +1,6 @@
+#pragma once
 #include "WallNormalDirection.cpp"
+
 struct Intersection
 {
 	bool inersects;

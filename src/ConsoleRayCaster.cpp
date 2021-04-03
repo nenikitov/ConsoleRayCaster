@@ -17,9 +17,6 @@ int main()
 
     auto previousTime = std::chrono::system_clock::now();
 
-    RayCaster rayCaster(level);
-    
-
     while (true)
     {
         const auto currentTime = std::chrono::system_clock::now();
@@ -34,24 +31,6 @@ int main()
 
         player.update(deltaTime);
 
-        for (unsigned int i = 0; i < consoleWidth; i++)
-        {
-            double angle = player.getAngle() + (double)(i - (double)consoleWidth / 2) / consoleWidth * 2;
-            Intersection intersection = rayCaster.findIntersection(player.getPositionX(), player.getPositionY(), angle);
 
-            int ceiling = (float)(consoleHeight) / 2 - consoleHeight / intersection.distance;
-            int floor = consoleHeight - ceiling;
-
-            for (unsigned int j = 0; j < consoleHeight; j++)
-            {
-                if (j < ceiling)
-                    screen[j * consoleWidth + i] = ' ';
-                else if (j > ceiling && j < floor)
-                    screen[j * consoleWidth + i] = '#';
-                else
-                    screen[j * consoleWidth + i] = '.';
-            }
-        }
-        consoleHandler.printChars(0, 0, screen, consoleWidth * consoleHeight, FOREGROUND_INTENSITY);
     }
 }

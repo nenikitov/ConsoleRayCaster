@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Intersection\Intersection.cpp" />
     <ClCompile Include="src\Intersection\WallNormalDirection.cpp" />
     <ClCompile Include="src\RayCaster\RayCaster.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\RayCaster\RayCaster.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />
     <ClInclude Include="src\Controller\Controller.h" />
