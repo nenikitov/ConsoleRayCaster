@@ -11,12 +11,21 @@ int main()
     if (!consoleHandler.initialize())
         return -1;
 
-    Level level(std::string("test.lvl"), new std::string[1] {"test"} );
+    Level level("test.lvl");
     Player player = Player();
 
     auto previousTime = std::chrono::system_clock::now();
-    char* consoleText = new char[3];
 
+    for (int i = 0; i < level.tiles.size(); ++i)
+    {
+        for (int j = 0; j < level.tiles[i].size(); ++j)
+        {
+            std::cout << level.tiles[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    /*
     while (true)
     {
         const auto currentTime = std::chrono::system_clock::now();
@@ -28,6 +37,7 @@ int main()
         player.update(deltaTime);
         //std::cout << "X: " << player.getPositionX() << ", Y: " << player.getPositionY() << ", A: " << player.getAngle() << std::endl;
     }
+    */
     
 }
 

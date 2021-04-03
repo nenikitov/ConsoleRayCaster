@@ -1,16 +1,37 @@
 #include "Level.h"
+#include <fstream>
+#include <iostream>
 
-Level::Level(std::string levelName, std::string tileNames[])
+Level::Level(std::string levelName)
 {
-}
+	char currentChar;
+	std::string word = "";
+	unsigned int value;
+	unsigned int row = 0;
 
-/*
-Tile Level::getTileAt(unsigned int x, unsigned int y)
-{
-    return Tile();
-}
+	this->tiles.push_back({});
 
-void Level::updateTileAt(Tile tile, unsigned int x, unsigned int y)
-{
+	std::string path = "data/levels/" + levelName;
+	std::fstream fileData(path, std::fstream::in);
+	while (fileData >> std::noskipws >> currentChar)
+	{
+		if (currentChar == ' ' || currentChar == '\n')
+		{
+			if (word.length() != 0)
+			{
+				value = std::stoi(word);
+
+				this->tiles[row].push_back(value);
+				if (currentChar == '\n')
+				{
+					this->tiles.push_back({});
+					row++;
+				}
+				
+				word = "";
+			}
+		}
+		else
+			word += currentChar;
+	}
 }
-*/
