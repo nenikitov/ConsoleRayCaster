@@ -34,4 +34,5 @@ Level::Level(std::string levelName)
 		else
 			word += currentChar;
 	}
+	this->tiles[row].push_back(value);
 }
