@@ -13,18 +13,41 @@ bool ConsoleHandler::initialize()
 	if (!SetConsoleMode(this->newStdOut, this->outMode))
 		return false;
 
+	CONSOLE_CURSOR_INFO cursorInfo;
+	if (!GetConsoleCursorInfo(this->newStdOut, &cursorInfo))
+		return false;
+
+	cursorInfo.bVisible = false;
+
+	if (!SetConsoleCursorInfo(this->newStdOut, &cursorInfo))
+		return false;
+
 	return true;
 }
 
-void ConsoleHandler::printChar(SHORT x, SHORT y, const char* character, WORD attibutes)
+void ConsoleHandler::printChars(SHORT x, SHORT y, const char* characters, DWORD length, WORD attributes)
 {
 	COORD coords;
 	coords.X = x;
 	coords.Y = y;
 
-	WORD lAttributes = attibutes;
+	std::vector<WORD> lAttributes (length, attributes);
 	DWORD written;
 
-	WriteConsoleOutputAttribute(this->newStdOut, &lAttributes, 1, coords, &written);
-	WriteConsoleOutputCharacterA(this->newStdOut, character, 1, coords, &written);
+	WriteConsoleOutputAttribute(this->newStdOut, &lAttributes[0], length, coords, &written);
+	WriteConsoleOutputCharacterA(this->newStdOut, characters, length, coords, &written);
+}
+
+int ConsoleHandler::getConsoleWidth()
+{
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	GetConsoleScreenBufferInfo(this->newStdOut, &info);
+	return info.srWindow.Right - info.srWindow.Left + 1;
+}
+
+int ConsoleHandler::getConsoleHeight()
+{
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	GetConsoleScreenBufferInfo(this->newStdOut, &info);
+	return info.srWindow.Bottom - info.srWindow.Top + 1;
 }

@@ -1,5 +1,6 @@
 #include <chrono>
 #include <iostream>
+#include <sstream>
 #include "Player/Player.h"
 #include "Level/Level.h"
 #include "ConsoleHandler/ConsoleHandler.h"
@@ -14,6 +15,7 @@ int main()
     Player player = Player();
 
     auto previousTime = std::chrono::system_clock::now();
+    char* consoleText = new char[3];
 
     while (true)
     {
@@ -22,8 +24,7 @@ int main()
         double deltaTime = deltaTimeChrono.count();
         previousTime = currentTime;
 
-        consoleHandler.printChar(0, 0, "A", BACKGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY);
-
+        //consoleHandler.printChars(0, 1, char_type, 10, BACKGROUND_RED);
         player.update(deltaTime);
         //std::cout << "X: " << player.getPositionX() << ", Y: " << player.getPositionY() << ", A: " << player.getAngle() << std::endl;
     }
