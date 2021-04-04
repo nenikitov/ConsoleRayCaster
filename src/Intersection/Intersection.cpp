@@ -3,7 +3,12 @@
 
 struct Intersection
 {
-	bool inersects;
+	Intersection()
+		: intersects(false), x(0), y(0), distance(0), tile(0), normalDirection(WallNormalDirection::NORTH) { };
+	Intersection(bool intersects, double x, double y, double distance, int tile, WallNormalDirection normalDirection)
+		: intersects(intersects), x(x), y(y), distance(distance), tile(tile), normalDirection(normalDirection) { };
+
+	bool intersects;
 	double x;
 	double y;
 	double distance;

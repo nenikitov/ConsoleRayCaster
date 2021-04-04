@@ -1,13 +1,17 @@
 #include "Renderer.h"
-#include "../Intersection/Intersection.cpp"
 
 Renderer::Renderer(Player& player, Level& level) : player(player), level(level), rayCaster(RayCaster(level)) {}
 
-char* Renderer::render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight)
+RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight)
 {
-    char* renderResult = new char[resolutionX * resolutionY];
+    RenderResult renderResult;
+
+    char* renderChars = new char[resolutionX * resolutionY];
+    WORD* renderAtributes = new WORD[resolutionX * resolutionY];
+
     const double PERPENDICULAR_LENGTH = resolutionX / 2.f / tan(fov / 2.f);
     Intersection intersection;
+
     for (unsigned int x = 0; x < resolutionX; x++)
     {
         const double RAY_OFFSET = (double)x - resolutionX / 2.f;
@@ -15,7 +19,7 @@ char* Renderer::render(unsigned short resolutionX, unsigned short resolutionY, u
         
         intersection = this->rayCaster.findIntersection(player.getPositionX(), player.getPositionY(), player.getAngle() + ANGLE);
 
-        if (intersection.inersects)
+        if (intersection.intersects)
         {
             const double DELTA_X = intersection.x - player.getPositionX();
             const double DELTA_Y = intersection.y - player.getPositionY();
@@ -28,28 +32,51 @@ char* Renderer::render(unsigned short resolutionX, unsigned short resolutionY, u
             for (int y = 0; y < resolutionY; y++)
             {
                 if (y < CEILING)
-                    renderResult[y * resolutionX + x] = ' ';
+                {
+                    renderAtributes[y * resolutionX + x] = FOREGROUND_INTENSITY;
+                    renderChars[y * resolutionX + x] = ' ';
+                }
                 else if (y > FLOOR)
-                    renderResult[y * resolutionX + x] = '.';
+                {
+                    renderAtributes[y * resolutionX + x] = FOREGROUND_RED;
+                    renderChars[y * resolutionX + x] = '.';
+                }
                 else
                 {
-                    if (intersection.distance < 2)
-                        renderResult[y * resolutionX + x] = 219;
+                    renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
+
+                    if (intersection.distance < 1)
+                        renderChars[y * resolutionX + x] = 219;
+                    else if (intersection.distance < 2)
+                        renderChars[y * resolutionX + x] = '&';
+                    else if (intersection.distance < 3)
+                        renderChars[y * resolutionX + x] = '$';
                     else if (intersection.distance < 4)
-                        renderResult[y * resolutionX + x] = 178;
+                        renderChars[y * resolutionX + x] = 'X';
+                    else if (intersection.distance < 5)
+                        renderChars[y * resolutionX + x] = 'x';
                     else if (intersection.distance < 6)
-                        renderResult[y * resolutionX + x] = 177;
+                        renderChars[y * resolutionX + x] = '+';
+                    else if (intersection.distance < 7)
+                        renderChars[y * resolutionX + x] = '=';
+                    else if (intersection.distance < 8)
+                        renderChars[y * resolutionX + x] = ';';
+                    else if (intersection.distance < 8)
+                        renderChars[y * resolutionX + x] = ':';
                     else
-                        renderResult[y * resolutionX + x] = 176;
+                        renderChars[y * resolutionX + x] = '.';
                 }
             }
         }
         else
         {
             for (int y = 0; y < resolutionY; y++)
-                renderResult[y * resolutionX + x] = ' ';
+                renderChars[y * resolutionX + x] = ' ';
         }
     }
 
+
+    renderResult.characters = renderChars;
+    renderResult.attributes = renderAtributes;
     return renderResult;
 }

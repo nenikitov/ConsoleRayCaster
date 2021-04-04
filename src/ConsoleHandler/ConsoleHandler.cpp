@@ -25,17 +25,16 @@ bool ConsoleHandler::initialize()
 	return true;
 }
 
-void ConsoleHandler::printChars(SHORT x, SHORT y, const char* characters, DWORD length, WORD attributes)
+void ConsoleHandler::printChars(SHORT x, SHORT y, const char* characters, const WORD* attributes, DWORD length)
 {
 	COORD coords;
 	coords.X = x;
 	coords.Y = y;
 
-	std::vector<WORD> lAttributes (length, attributes);
 	DWORD written;
 
-	WriteConsoleOutputAttribute(this->newStdOut, &lAttributes[0], length, coords, &written);
 	WriteConsoleOutputCharacterA(this->newStdOut, characters, length, coords, &written);
+	WriteConsoleOutputAttribute(this->newStdOut, attributes, length, coords, &written);
 }
 
 int ConsoleHandler::getConsoleWidth()

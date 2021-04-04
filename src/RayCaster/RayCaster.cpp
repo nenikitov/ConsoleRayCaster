@@ -1,12 +1,11 @@
 #include "RayCaster.h"
 #include <iostream>
+#include "../Intersection/Intersection.cpp"
 
 RayCaster::RayCaster(Level& level) : level(level) {}
 
 Intersection RayCaster::findIntersection(double startX, double startY, double angle)
 {
-	Intersection output;
-
 	double dirX = cos(angle);
 	double dirY = sin(angle);
 
@@ -60,24 +59,11 @@ Intersection RayCaster::findIntersection(double startX, double startY, double an
 			rayLengthY += unitStepY;
 		}
 
-		if (this->level.tileAt(mapCheckX, mapCheckY))
-		{
-			output.inersects = true;
-			output.x = startX + dirX * distance;
-			output.y = startY + dirY * distance;
-			output.distance = distance;
-			output.tile = level.tileAt(mapCheckX, mapCheckY);
-			// Change this later
-			output.normalDirection = WallNormalDirection::NORTH;
-			return output;
-		}
+		int levelTile = this->level.tileAt(mapCheckX, mapCheckY);
+
+		if (levelTile)
+			return Intersection(true, startX + dirX * distance, startY + dirY * distance, distance, levelTile, WallNormalDirection::NORTH);
 	}
 
-	output.inersects = false;
-	output.x = 0;
-	output.y = 0;
-	output.distance = 0;
-	output.tile = 0;
-	output.normalDirection = WallNormalDirection::NORTH;
-	return output;
+	return Intersection();
 }
