@@ -14,8 +14,23 @@ char* Renderer::render(unsigned short resolutionX, unsigned short resolutionY, u
         const double ANGLE = atan(RAY_OFFSET / PERPENDICULAR_LENGTH);
         
         intersection = this->rayCaster.findIntersection(player.getPositionX(), player.getPositionY(), player.getAngle() + ANGLE);
-        //const double PROJECTED_DISTANCE = 
-        
+        const double DELTA_X = intersection.x - player.getPositionX();
+        const double DELTA_Y = intersection.y - player.getPositionY();
+        const double PROJECTED_DISTANCE = cos(player.getAngle()) * DELTA_X + sin(player.getAngle()) * DELTA_Y;
+
+        const int HEIGHT = abs(wallHeight / PROJECTED_DISTANCE);
+        const int CEILING = (resolutionY - HEIGHT) / 2;
+        const int FLOOR = CEILING + HEIGHT;
+
+        for (int y = 0; y < resolutionY; y++)
+        {
+            if (y > FLOOR)
+                renderResult[y * resolutionX + x] = '.';
+            else if (y < CEILING)
+                    renderResult[y * resolutionX + x] = ' ';
+            else
+                renderResult[y * resolutionX + x] = 219;
+        }
     }
 
     return renderResult;

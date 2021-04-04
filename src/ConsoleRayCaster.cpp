@@ -5,6 +5,7 @@
 #include "Level/Level.h"
 #include "ConsoleHandler/ConsoleHandler.h"
 #include "RayCaster/RayCaster.h"
+#include "Renderer/Renderer.h"
 
 int main()
 {
@@ -14,6 +15,8 @@ int main()
 
     Level level("test.lvl");
     Player player = Player();
+
+    Renderer renderer(player, level);
 
     auto previousTime = std::chrono::system_clock::now();
 
@@ -26,11 +29,12 @@ int main()
 
         unsigned int consoleWidth = consoleHandler.getConsoleWidth();
         unsigned int consoleHeight = consoleHandler.getConsoleHeight();
-        char* screen = new char[consoleWidth * consoleHeight];
-        screen[consoleWidth * consoleHeight - 1] = '\0';
+        char* screen = renderer.render(consoleWidth, consoleHeight, 1.5708, consoleHeight);
 
         player.update(deltaTime);
+        consoleHandler.printChars(0, 0, screen, consoleWidth * consoleHeight, FOREGROUND_INTENSITY);
 
 
+        delete screen;
     }
 }
