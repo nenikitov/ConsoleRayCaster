@@ -11,8 +11,8 @@ class Player
 		double getAngle();
 	private:
 		Controller controller;
-		const double MOVE_SPEED = 5;
-		const double TURN_SPEED = 5;
+		const double MOVE_SPEED = 2;
+		const double TURN_SPEED = 2;
 		double positionX;
 		double positionY;
 		double angle;

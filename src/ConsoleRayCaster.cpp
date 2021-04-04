@@ -32,7 +32,16 @@ int main()
         char* screen = renderer.render(consoleWidth, consoleHeight, 1.5708, consoleHeight);
 
         player.update(deltaTime);
+
+        int frameRate = 1 / deltaTime;
+        screen[4] = '0' + frameRate % 10;
+        screen[3] = '0' + frameRate / 10 % 10;
+        screen[2] = '0' + frameRate / 100 % 10;
+        screen[1] = '0' + frameRate / 1000 % 10;
+        screen[0] = '0' + frameRate / 10000 % 10;
         consoleHandler.printChars(0, 0, screen, consoleWidth * consoleHeight, FOREGROUND_INTENSITY);
+
+
 
 
         delete screen;
