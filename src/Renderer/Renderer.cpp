@@ -44,7 +44,7 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                 else
                 {
                     renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
-
+                    
                     if (intersection.distance < 1)
                         renderChars[y * resolutionX + x] = 219;
                     else if (intersection.distance < 2)
@@ -61,7 +61,7 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                         renderChars[y * resolutionX + x] = '=';
                     else if (intersection.distance < 8)
                         renderChars[y * resolutionX + x] = ';';
-                    else if (intersection.distance < 8)
+                    else if (intersection.distance < 9)
                         renderChars[y * resolutionX + x] = ':';
                     else
                         renderChars[y * resolutionX + x] = '.';
@@ -71,10 +71,13 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
         else
         {
             for (int y = 0; y < resolutionY; y++)
+            {
                 renderChars[y * resolutionX + x] = ' ';
+                renderAtributes[y * resolutionX + x] = 0;
+            }
+                
         }
     }
-
 
     renderResult.characters = renderChars;
     renderResult.attributes = renderAtributes;

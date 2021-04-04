@@ -39,8 +39,9 @@ Level::Level(std::string levelName)
 
 int Level::tileAt(unsigned int x, unsigned int y)
 {
-	if (y < tiles.size())
-		if (x < tiles[y].size())
-			return this->tiles[y][x];
+	if (y < 16)
+		if (x < 16)
+			return this->level[y][x];
+	
 	return 0;
 }
