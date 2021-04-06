@@ -20,6 +20,7 @@ int main()
 
     auto previousTime = std::chrono::system_clock::now();
 
+    //for (int i = 0; i < 10000; i++)
     while (true)
     {
         const auto currentTime = std::chrono::system_clock::now();
@@ -57,5 +58,5 @@ int main()
         delete renderChars;
         delete renderAttributes;
     }
-    std::cout << std::endl << "END";
+    //std::cout << std::endl << "END";
 }
