@@ -4,12 +4,14 @@
 
 Level::Level(std::string levelName)
 {
+	std::vector<std::vector<unsigned int>> tiles;
+
 	char currentChar;
 	std::string word = "";
 	unsigned int value;
 	unsigned int row = 0;
 
-	this->tiles.push_back({});
+	tiles.push_back({});
 
 	std::string path = "data/levels/" + levelName;
 	std::fstream fileData(path, std::fstream::in);
@@ -21,10 +23,10 @@ Level::Level(std::string levelName)
 			{
 				value = std::stoi(word);
 
-				this->tiles[row].push_back(value);
+				tiles[row].push_back(value);
 				if (currentChar == '\n')
 				{
-					this->tiles.push_back({});
+					tiles.push_back({});
 					row++;
 				}
 				
@@ -34,14 +36,25 @@ Level::Level(std::string levelName)
 		else
 			word += currentChar;
 	}
-	this->tiles[row].push_back(value);
+	tiles[row].push_back(value);
+	this->height = tiles.size();
+	this->widths = new unsigned int[height];
+
+	this->levelData = new int* [tiles.size()];
+	for (unsigned int y = 0; y < this->height; y++)
+	{
+		this->widths[y] = tiles[y].size();
+		this->levelData[y] = new int[this->widths[y]];
+		for (unsigned int x = 0; x < this->widths[y]; x++)
+			this->levelData[y][x] = tiles[y][x];
+	}
 }
 
 int Level::tileAt(unsigned int x, unsigned int y)
 {
-	if (y < 16)
-		if (x < 16)
-			return this->level[y][x];
+	if (y < this->height)
+		if (x < this->widths[y])
+			return this->levelData[y][x];
 	
 	return 0;
 }
