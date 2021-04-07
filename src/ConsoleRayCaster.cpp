@@ -9,6 +9,14 @@
 
 int main()
 {
+    /*
+    TODO
+    - Console is a limiting factor here. It can barely handle this many characters written in it, but it breaks as soon as I introduce colors.
+    - To fix it, I should implement a framerate cap and rework how the console is handled
+    - Also I should pass the wall normal to intersection data
+    - Level data is not included in the compiled version, I should figure this out.
+    */
+
     ConsoleHandler consoleHandler;
     if (!consoleHandler.initialize())
         return -1;
