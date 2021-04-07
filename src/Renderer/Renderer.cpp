@@ -31,21 +31,19 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
 
             for (int y = 0; y < resolutionY; y++)
             {
-                renderAtributes[y * resolutionX + x] = FOREGROUND_INTENSITY;
-
                 if (y < CEILING)
                 {
-                    //renderAtributes[y * resolutionX + x] = FOREGROUND_INTENSITY;
+                    renderAtributes[y * resolutionX + x] = FOREGROUND_INTENSITY;
                     renderChars[y * resolutionX + x] = ' ';
                 }
                 else if (y > FLOOR)
                 {
-                    //renderAtributes[y * resolutionX + x] = FOREGROUND_RED;
+                    renderAtributes[y * resolutionX + x] = FOREGROUND_RED;
                     renderChars[y * resolutionX + x] = '.';
                 }
                 else
                 {
-                    //renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
+                    renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
                     
                     if (intersection.distance < 1)
                         renderChars[y * resolutionX + x] = 219;

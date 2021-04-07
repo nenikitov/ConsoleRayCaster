@@ -1,5 +1,6 @@
 #include <chrono>
 #include <iostream>
+#include <thread>
 #include <sstream>
 #include "Player/Player.h"
 #include "Level/Level.h"
@@ -14,7 +15,7 @@ int main()
     - Console is a limiting factor here. It can barely handle this many characters written in it, but it breaks as soon as I introduce colors.
     - To fix it, I should implement a framerate cap and rework how the console is handled
     - Also I should pass the wall normal to intersection data
-    - Level data is not included in the compiled version, I should figure this out.
+    + Level data is not included in the compiled version, I should figure this out.
     */
 
     ConsoleHandler consoleHandler;
@@ -27,11 +28,12 @@ int main()
     Renderer renderer(player, level);
 
     auto previousTime = std::chrono::system_clock::now();
+    auto currentTime = std::chrono::system_clock::now();
 
     //for (int i = 0; i < 10000; i++)
     while (true)
     {
-        const auto currentTime = std::chrono::system_clock::now();
+        currentTime = std::chrono::system_clock::now();
         const std::chrono::duration<double> deltaTimeChrono = currentTime - previousTime;
         double deltaTime = deltaTimeChrono.count();
         previousTime = currentTime;
@@ -41,7 +43,6 @@ int main()
         RenderResult render = renderer.render(consoleWidth, consoleHeight, 2.26893, consoleHeight);
         char* renderChars = render.characters;
         WORD* renderAttributes = render.attributes;
-
 
         player.update(deltaTime);
 
