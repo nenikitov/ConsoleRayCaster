@@ -43,7 +43,10 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                 }
                 else
                 {
-                    renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
+                    if (intersection.normalDirection == WallNormalDirection::NORTH || intersection.normalDirection == WallNormalDirection::SOUTH)
+                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
+                    else
+                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
                     
                     if (intersection.distance < 1)
                         renderChars[y * resolutionX + x] = 219;

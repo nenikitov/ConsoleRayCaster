@@ -46,7 +46,8 @@ Intersection RayCaster::findIntersection(double startX, double startY, double an
 	double distance = 0.f;
 	while (distance < this->MAX_RAY_LENGTH)
 	{
-		if (rayLengthX < rayLengthY)
+		double goX = rayLengthX < rayLengthY;
+		if (goX)
 		{
 			mapCheckX += stepX;
 			distance = rayLengthX;
@@ -62,7 +63,22 @@ Intersection RayCaster::findIntersection(double startX, double startY, double an
 		int levelTile = this->level.tileAt(mapCheckX, mapCheckY);
 
 		if (levelTile)
-			return Intersection(startX + dirX * distance, startY + dirY * distance, distance, levelTile, WallNormalDirection::NORTH);
+		{
+			WallNormalDirection intersectionDirection;
+			if (goX)
+				if (stepY < 0)
+					intersectionDirection = WallNormalDirection::NORTH;
+				else
+					intersectionDirection = WallNormalDirection::SOUTH;
+			else
+				if (stepX < 0)
+					intersectionDirection = WallNormalDirection::WEST;
+				else
+					intersectionDirection = WallNormalDirection::EAST;
+
+			return Intersection(startX + dirX * distance, startY + dirY * distance, distance, levelTile, intersectionDirection);
+		}
+			
 	}
 
 	return Intersection();
