@@ -29,9 +29,6 @@ int main()
 
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
-    const int TARGET_FPS = 100;
-    const double TARGET_FRAMETIME = 1.f / TARGET_FPS;
-    double timeSinceRender = 0;
 
     //for (int i = 0; i < 10000; i++)
     while (true)
@@ -43,39 +40,32 @@ int main()
         previousTime = currentTime;
         player.update(DELTA_TIME);
 
-        if (timeSinceRender >= TARGET_FRAMETIME)
-        {
-            unsigned int consoleWidth = consoleHandler.getConsoleWidth();
-            unsigned int consoleHeight = consoleHandler.getConsoleHeight();
-            RenderResult render = renderer.render(consoleWidth, consoleHeight, 2.26893, consoleHeight);
-            char* renderChars = render.characters;
-            WORD* renderAttributes = render.attributes;
+        unsigned int consoleWidth = consoleHandler.getConsoleWidth();
+        unsigned int consoleHeight = consoleHandler.getConsoleHeight();
+        RenderResult render = renderer.render(consoleWidth, consoleHeight, 2.f, consoleHeight);
+        char* renderChars = render.characters;
+        WORD* renderAttributes = render.attributes;
 
-            renderChars[7] = '0' + fmod(DELTA_TIME * 1000000, 1) * 10;
-            renderChars[6] = '0' + fmod(DELTA_TIME * 100000, 1) * 10;
-            renderChars[5] = '0' + fmod(DELTA_TIME * 10000, 1) * 10;
-            renderChars[4] = '0' + fmod(DELTA_TIME * 1000, 1) * 10;
-            renderChars[3] = '0' + fmod(DELTA_TIME * 100, 1) * 10;
-            renderChars[2] = '0' + fmod(DELTA_TIME * 100, 1) * 10;
-            renderChars[1] = '0' + fmod(DELTA_TIME * 10, 1) * 10;
-            renderChars[0] = '0' + fmod(DELTA_TIME, 1) * 10;
+        renderChars[7] = '0' + fmod(DELTA_TIME * 1000000, 1) * 10;
+        renderChars[6] = '0' + fmod(DELTA_TIME * 100000, 1) * 10;
+        renderChars[5] = '0' + fmod(DELTA_TIME * 10000, 1) * 10;
+        renderChars[4] = '0' + fmod(DELTA_TIME * 1000, 1) * 10;
+        renderChars[3] = '0' + fmod(DELTA_TIME * 100, 1) * 10;
+        renderChars[2] = '0' + fmod(DELTA_TIME * 100, 1) * 10;
+        renderChars[1] = '0' + fmod(DELTA_TIME * 10, 1) * 10;
+        renderChars[0] = '0' + fmod(DELTA_TIME, 1) * 10;
 
-            int frameRate = 1 / DELTA_TIME;
-            renderChars[4 + consoleWidth] = '0' + frameRate % 10;
-            renderChars[3 + consoleWidth] = '0' + frameRate / 10 % 10;
-            renderChars[2 + consoleWidth] = '0' + frameRate / 100 % 10;
-            renderChars[1 + consoleWidth] = '0' + frameRate / 1000 % 10;
-            renderChars[0 + consoleWidth] = '0' + frameRate / 10000 % 10;
+        int frameRate = 1 / DELTA_TIME;
+        renderChars[4 + consoleWidth] = '0' + frameRate % 10;
+        renderChars[3 + consoleWidth] = '0' + frameRate / 10 % 10;
+        renderChars[2 + consoleWidth] = '0' + frameRate / 100 % 10;
+        renderChars[1 + consoleWidth] = '0' + frameRate / 1000 % 10;
+        renderChars[0 + consoleWidth] = '0' + frameRate / 10000 % 10;
 
-            consoleHandler.printChars(0, 0, renderChars, renderAttributes, consoleWidth * consoleHeight);
+        consoleHandler.printChars(0, 0, renderChars, renderAttributes, consoleWidth * consoleHeight);
 
-            delete renderChars;
-            delete renderAttributes;
-            timeSinceRender = 0;
-        }
-        else
-            timeSinceRender += DELTA_TIME;
-        
+        delete renderChars;
+        delete renderAttributes;        
     }
     //std::cout << std::endl << "END";
 }
