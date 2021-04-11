@@ -70,9 +70,9 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                     else if (intersection.distance < 6)
                         renderChars[y * resolutionX + x] = '+';
                     else if (intersection.distance < 7)
-                        renderChars[y * resolutionX + x] = '=';
-                    else if (intersection.distance < 8)
                         renderChars[y * resolutionX + x] = ';';
+                    else if (intersection.distance < 8)
+                        renderChars[y * resolutionX + x] = '=';
                     else if (intersection.distance < 9)
                         renderChars[y * resolutionX + x] = ':';
                     else
