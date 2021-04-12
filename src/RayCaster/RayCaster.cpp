@@ -47,37 +47,35 @@ Intersection RayCaster::findIntersection(double startX, double startY, double an
 	while (distance < this->MAX_RAY_LENGTH)
 	{
 		double goX = rayLengthX < rayLengthY;
+		WallNormalDirection intersectionDirection;
+
 		if (goX)
 		{
 			mapCheckX += stepX;
 			distance = rayLengthX;
 			rayLengthX += unitStepX;
+
+			if (stepX < 0)
+				intersectionDirection = WallNormalDirection::EAST;
+			else
+				intersectionDirection = WallNormalDirection::WEST;
 		}
 		else
 		{
 			mapCheckY += stepY;
 			distance = rayLengthY;
 			rayLengthY += unitStepY;
+
+			if (stepY < 0)
+				intersectionDirection = WallNormalDirection::SOUTH;
+			else
+				intersectionDirection = WallNormalDirection::NORTH;
 		}
 
 		int levelTile = this->level.tileAt(mapCheckX, mapCheckY);
 
 		if (levelTile)
-		{
-			WallNormalDirection intersectionDirection;
-			if (goX)
-				if (stepY < 0)
-					intersectionDirection = WallNormalDirection::NORTH;
-				else
-					intersectionDirection = WallNormalDirection::SOUTH;
-			else
-				if (stepX < 0)
-					intersectionDirection = WallNormalDirection::WEST;
-				else
-					intersectionDirection = WallNormalDirection::EAST;
-
 			return Intersection(startX + dirX * distance, startY + dirY * distance, distance, levelTile, intersectionDirection);
-		}
 			
 	}
 

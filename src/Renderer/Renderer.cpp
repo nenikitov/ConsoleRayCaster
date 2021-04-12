@@ -44,13 +44,13 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                 else
                 {
                     if (intersection.normalDirection == WallNormalDirection::NORTH)
-                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_GREEN;
+                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
                     else if (intersection.normalDirection == WallNormalDirection::SOUTH)
                         renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
                     else if (intersection.normalDirection == WallNormalDirection::WEST)
-                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_RED;
+                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_GREEN;
                     else if (intersection.normalDirection == WallNormalDirection::EAST)
-                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
 
                     //if (intersection.normalDirection == WallNormalDirection::NORTH || intersection.normalDirection == WallNormalDirection::SOUTH)
                     //    renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
