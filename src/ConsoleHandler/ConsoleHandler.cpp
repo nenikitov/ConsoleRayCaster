@@ -25,19 +25,7 @@ bool ConsoleHandler::initialize()
 	return true;
 }
 
-void ConsoleHandler::printChars(SHORT x, SHORT y, const char* characters, const WORD* attributes, DWORD length)
-{
-	COORD coords;
-	coords.X = x;
-	coords.Y = y;
-
-	DWORD written;
-
-	WriteConsoleOutputCharacterA(this->newStdOut, characters, length, coords, &written);
-	WriteConsoleOutputAttribute(this->newStdOut, attributes, length, coords, &written);
-}
-
-void ConsoleHandler::printChar2(const CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
+void ConsoleHandler::printChars(const CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
 {
 	SMALL_RECT rect = { 0, 0, lengthX, lengthY };
 	WriteConsoleOutputA(this->newStdOut, characters, { lengthX, lengthY }, { x, y }, &rect);

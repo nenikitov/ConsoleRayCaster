@@ -14,8 +14,6 @@ int main()
     TODO
     - Console is a limiting factor here. It can barely handle this many characters written in it, but it breaks as soon as I introduce colors.
     - To fix it, I should implement a framerate cap and rework how the console is handled
-    - Also I should pass the wall normal to intersection data
-    + Level data is not included in the compiled version, I should figure this out.
     */
 
     ConsoleHandler consoleHandler;
@@ -30,7 +28,6 @@ int main()
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
 
-    //for (int i = 0; i < 10000; i++)
     while (true)
     {
         currentTime = std::chrono::system_clock::now();
@@ -67,10 +64,8 @@ int main()
         render[1 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 1000 % 10;
         render[0 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 10000 % 10;
 
-        //consoleHandler.printChars(0, 0, renderChars, renderAttributes, CONSOLE_WIDTH * CONSOLE_HEIGHT);
-        consoleHandler.printChar2(render, 0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
+        consoleHandler.printChars(render, 0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
 
         delete render;
     }
-    //std::cout << std::endl << "END";
 }

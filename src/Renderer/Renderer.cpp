@@ -44,29 +44,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                         characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE;
                     else
                         characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-                   
-                    /*
-                    if (intersection.distance < 1)
-                        renderChars[y * resolutionX + x] = 219;
-                    else if (intersection.distance < 2)
-                        renderChars[y * resolutionX + x] = '&';
-                    else if (intersection.distance < 3)
-                        renderChars[y * resolutionX + x] = '$';
-                    else if (intersection.distance < 4)
-                        renderChars[y * resolutionX + x] = 'X';
-                    else if (intersection.distance < 5)
-                        renderChars[y * resolutionX + x] = 'x';
-                    else if (intersection.distance < 6)
-                        renderChars[y * resolutionX + x] = '+';
-                    else if (intersection.distance < 7)
-                        renderChars[y * resolutionX + x] = ';';
-                    else if (intersection.distance < 8)
-                        renderChars[y * resolutionX + x] = '=';
-                    else if (intersection.distance < 9)
-                        renderChars[y * resolutionX + x] = ':';
-                    else
-                        renderChars[y * resolutionX + x] = '.';
-                    */
+
 
                     if (intersection.distance < 2)
                         characters[y * resolutionX + x].Char.AsciiChar = 219;
