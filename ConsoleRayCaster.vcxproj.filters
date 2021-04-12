@@ -81,9 +81,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\tiles\test.lvl">
-      <Filter>Resource Files\Levels</Filter>
-    </None>
     <None Include="data\levels\test.lvl" />
   </ItemGroup>
 </Project>

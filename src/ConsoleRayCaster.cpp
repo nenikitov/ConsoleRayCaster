@@ -46,6 +46,9 @@ int main()
         char* renderChars = render.characters;
         WORD* renderAttributes = render.attributes;
 
+        for (unsigned int i = 0; i < 8; i++)
+            renderAttributes[i] = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
+
         renderChars[7] = '0' + fmod(DELTA_TIME * 1000000, 1) * 10;
         renderChars[6] = '0' + fmod(DELTA_TIME * 100000, 1) * 10;
         renderChars[5] = '0' + fmod(DELTA_TIME * 10000, 1) * 10;
@@ -54,6 +57,9 @@ int main()
         renderChars[2] = '0' + fmod(DELTA_TIME * 100, 1) * 10;
         renderChars[1] = '0' + fmod(DELTA_TIME * 10, 1) * 10;
         renderChars[0] = '0' + fmod(DELTA_TIME, 1) * 10;
+
+        for (unsigned int i = 0; i < 5; i++)
+            renderAttributes[i + consoleWidth] = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
 
         int frameRate = 1 / DELTA_TIME;
         renderChars[4 + consoleWidth] = '0' + frameRate % 10;
