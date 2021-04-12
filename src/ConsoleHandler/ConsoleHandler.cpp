@@ -37,6 +37,12 @@ void ConsoleHandler::printChars(SHORT x, SHORT y, const char* characters, const 
 	WriteConsoleOutputAttribute(this->newStdOut, attributes, length, coords, &written);
 }
 
+void ConsoleHandler::printChar2(const CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
+{
+	SMALL_RECT rect = { 0, 0, lengthX, lengthY };
+	WriteConsoleOutputA(this->newStdOut, characters, { lengthX, lengthY }, { x, y }, &rect);
+}
+
 int ConsoleHandler::getConsoleWidth()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;

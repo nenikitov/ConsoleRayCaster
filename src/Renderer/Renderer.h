@@ -8,7 +8,7 @@ class Renderer
 {
 	public:
 		Renderer(Player& player, Level& level);
-		RenderResult render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight);
+		CHAR_INFO* render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight);
 	private:
 		RayCaster rayCaster;
 		Player& player;

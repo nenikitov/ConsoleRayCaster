@@ -2,12 +2,9 @@
 
 Renderer::Renderer(Player& player, Level& level) : player(player), level(level), rayCaster(RayCaster(level)) {}
 
-RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight)
+CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight)
 {
-    RenderResult renderResult;
-
-    char* renderChars = new char[resolutionX * resolutionY];
-    WORD* renderAtributes = new WORD[resolutionX * resolutionY];
+    CHAR_INFO* characters = new CHAR_INFO[resolutionX * resolutionY];
 
     const double PERPENDICULAR_LENGTH = resolutionX / 2.f / tan(fov / 2.f);
     Intersection intersection;
@@ -33,20 +30,20 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
             {
                 if (y < CEILING)
                 {
-                    renderAtributes[y * resolutionX + x] = FOREGROUND_INTENSITY;
-                    renderChars[y * resolutionX + x] = ' ';
+                    characters[y * resolutionX + x].Attributes = FOREGROUND_INTENSITY;
+                    characters[y * resolutionX + x].Char.AsciiChar = ' ';
                 }
                 else if (y > FLOOR)
                 {
-                    renderAtributes[y * resolutionX + x] = FOREGROUND_RED;
-                    renderChars[y * resolutionX + x] = '.';
+                    characters[y * resolutionX + x].Attributes = FOREGROUND_RED;
+                    characters[y * resolutionX + x].Char.AsciiChar = '.';
                 }
                 else
                 {
                     if (intersection.normalDirection == WallNormalDirection::NORTH || intersection.normalDirection == WallNormalDirection::SOUTH)
-                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
+                        characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE;
                     else
-                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+                        characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
                    
                     /*
                     if (intersection.distance < 1)
@@ -72,13 +69,13 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                     */
 
                     if (intersection.distance < 2)
-                        renderChars[y * resolutionX + x] = 219;
+                        characters[y * resolutionX + x].Char.AsciiChar = 219;
                     else if (intersection.distance < 4)
-                        renderChars[y * resolutionX + x] = 178;
+                        characters[y * resolutionX + x].Char.AsciiChar = 178;
                     else if (intersection.distance < 6)
-                        renderChars[y * resolutionX + x] = 177;
+                        characters[y * resolutionX + x].Char.AsciiChar = 177;
                     else
-                        renderChars[y * resolutionX + x] = 176;
+                        characters[y * resolutionX + x].Char.AsciiChar = 176;
                 }
             }
         }
@@ -86,14 +83,12 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
         {
             for (int y = 0; y < resolutionY; y++)
             {
-                renderChars[y * resolutionX + x] = ' ';
-                renderAtributes[y * resolutionX + x] = 0;
+                characters[y * resolutionX + x].Char.AsciiChar = ' ';
+                characters[y * resolutionX + x].Attributes = 0;
             }
                 
         }
     }
 
-    renderResult.characters = renderChars;
-    renderResult.attributes = renderAtributes;
-    return renderResult;
+    return characters;
 }

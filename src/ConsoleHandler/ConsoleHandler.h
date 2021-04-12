@@ -8,6 +8,7 @@ class ConsoleHandler
 	public:
 		bool initialize();
 		void printChars(SHORT x, SHORT y, const char* characters, const WORD* attributes, DWORD length);
+		void printChar2(const CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY);
 		int getConsoleWidth();
 		int getConsoleHeight();
 	private:

@@ -40,38 +40,37 @@ int main()
         previousTime = currentTime;
         player.update(DELTA_TIME);
 
-        unsigned int consoleWidth = consoleHandler.getConsoleWidth();
-        unsigned int consoleHeight = consoleHandler.getConsoleHeight();
-        RenderResult render = renderer.render(consoleWidth, consoleHeight, 2.f, consoleHeight);
-        char* renderChars = render.characters;
-        WORD* renderAttributes = render.attributes;
+        unsigned const int CONSOLE_WIDTH = consoleHandler.getConsoleWidth();
+        unsigned const int CONSOLE_HEIGHT = consoleHandler.getConsoleHeight();
+        unsigned const int CONSOLE_SIZE = CONSOLE_WIDTH * CONSOLE_HEIGHT;
+        CHAR_INFO* render = renderer.render(CONSOLE_WIDTH, CONSOLE_HEIGHT, 2.f, CONSOLE_HEIGHT);
 
         for (unsigned int i = 0; i < 8; i++)
-            renderAttributes[i] = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
+            render[i].Attributes = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
 
-        renderChars[7] = '0' + fmod(DELTA_TIME * 1000000, 1) * 10;
-        renderChars[6] = '0' + fmod(DELTA_TIME * 100000, 1) * 10;
-        renderChars[5] = '0' + fmod(DELTA_TIME * 10000, 1) * 10;
-        renderChars[4] = '0' + fmod(DELTA_TIME * 1000, 1) * 10;
-        renderChars[3] = '0' + fmod(DELTA_TIME * 100, 1) * 10;
-        renderChars[2] = '0' + fmod(DELTA_TIME * 100, 1) * 10;
-        renderChars[1] = '0' + fmod(DELTA_TIME * 10, 1) * 10;
-        renderChars[0] = '0' + fmod(DELTA_TIME, 1) * 10;
+        render[7].Char.AsciiChar = '0' + fmod(DELTA_TIME * 1000000, 1) * 10;
+        render[6].Char.AsciiChar = '0' + fmod(DELTA_TIME * 100000, 1) * 10;
+        render[5].Char.AsciiChar = '0' + fmod(DELTA_TIME * 10000, 1) * 10;
+        render[4].Char.AsciiChar = '0' + fmod(DELTA_TIME * 1000, 1) * 10;
+        render[3].Char.AsciiChar = '0' + fmod(DELTA_TIME * 100, 1) * 10;
+        render[2].Char.AsciiChar = '0' + fmod(DELTA_TIME * 100, 1) * 10;
+        render[1].Char.AsciiChar = '0' + fmod(DELTA_TIME * 10, 1) * 10;
+        render[0].Char.AsciiChar = '0' + fmod(DELTA_TIME, 1) * 10;
 
         for (unsigned int i = 0; i < 5; i++)
-            renderAttributes[i + consoleWidth] = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
+            render[i + CONSOLE_WIDTH].Attributes = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
 
         int frameRate = 1 / DELTA_TIME;
-        renderChars[4 + consoleWidth] = '0' + frameRate % 10;
-        renderChars[3 + consoleWidth] = '0' + frameRate / 10 % 10;
-        renderChars[2 + consoleWidth] = '0' + frameRate / 100 % 10;
-        renderChars[1 + consoleWidth] = '0' + frameRate / 1000 % 10;
-        renderChars[0 + consoleWidth] = '0' + frameRate / 10000 % 10;
+        render[4 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate % 10;
+        render[3 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 10 % 10;
+        render[2 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 100 % 10;
+        render[1 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 1000 % 10;
+        render[0 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 10000 % 10;
 
-        consoleHandler.printChars(0, 0, renderChars, renderAttributes, consoleWidth * consoleHeight);
+        //consoleHandler.printChars(0, 0, renderChars, renderAttributes, CONSOLE_WIDTH * CONSOLE_HEIGHT);
+        consoleHandler.printChar2(render, 0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
 
-        delete renderChars;
-        delete renderAttributes;        
+        delete render;
     }
     //std::cout << std::endl << "END";
 }
