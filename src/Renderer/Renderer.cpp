@@ -43,20 +43,12 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                 }
                 else
                 {
-                    if (intersection.normalDirection == WallNormalDirection::NORTH)
+                    if (intersection.normalDirection == WallNormalDirection::NORTH || intersection.normalDirection == WallNormalDirection::SOUTH)
                         renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
-                    else if (intersection.normalDirection == WallNormalDirection::SOUTH)
+                    else
                         renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-                    else if (intersection.normalDirection == WallNormalDirection::WEST)
-                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_GREEN;
-                    else if (intersection.normalDirection == WallNormalDirection::EAST)
-                        renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-
-                    //if (intersection.normalDirection == WallNormalDirection::NORTH || intersection.normalDirection == WallNormalDirection::SOUTH)
-                    //    renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE;
-                    //else
-                    //    renderAtributes[y * resolutionX + x] = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-                    
+                   
+                    /*
                     if (intersection.distance < 1)
                         renderChars[y * resolutionX + x] = 219;
                     else if (intersection.distance < 2)
@@ -77,6 +69,16 @@ RenderResult Renderer::render(unsigned short resolutionX, unsigned short resolut
                         renderChars[y * resolutionX + x] = ':';
                     else
                         renderChars[y * resolutionX + x] = '.';
+                    */
+
+                    if (intersection.distance < 2)
+                        renderChars[y * resolutionX + x] = 219;
+                    else if (intersection.distance < 4)
+                        renderChars[y * resolutionX + x] = 178;
+                    else if (intersection.distance < 6)
+                        renderChars[y * resolutionX + x] = 177;
+                    else
+                        renderChars[y * resolutionX + x] = 176;
                 }
             }
         }
