@@ -148,7 +148,6 @@
     <ClCompile Include="src\Player\Player.cpp" />
     <ClCompile Include="src\ConsoleRayCaster.cpp" />
     <ClCompile Include="src\Level\Level.cpp" />
-    <ClCompile Include="src\Renderer\RenderResult.cpp" />
     <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,6 @@
 #include "../Player/Player.h"
 #include "../Level/Level.h"
 #include "../RayCaster/RayCaster.h"
-#include "RenderResult.cpp"
 
 class Renderer
 {
