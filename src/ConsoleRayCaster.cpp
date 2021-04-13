@@ -22,7 +22,7 @@ int main()
     if (!consoleHandler.initialize())
         return -1;
 
-    Level level("test.lvl");
+    Level level("test.lvl.json");
     Player player = Player();
 
     Renderer renderer(player, level);

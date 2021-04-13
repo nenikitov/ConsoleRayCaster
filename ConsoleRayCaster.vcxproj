@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Intersection\Intersection.cpp" />
     <ClCompile Include="src\Intersection\WallNormalDirection.cpp" />
@@ -151,6 +152,8 @@
     <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\JsonCpp\json\json-forwards.h" />
+    <ClInclude Include="src\JsonCpp\json\json.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\RayCaster\RayCaster.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />
@@ -160,12 +163,12 @@
     <ClInclude Include="src\Tile\Tile.h" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\levels\test.lvl">
+    <Content Include="data\levels\test.lvl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\levels\test.lvl" />
+    <None Include="data\levels\test.lvl.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
