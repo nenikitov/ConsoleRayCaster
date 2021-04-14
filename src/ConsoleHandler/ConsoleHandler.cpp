@@ -34,6 +34,11 @@ void ConsoleHandler::printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT l
 	WriteConsoleOutputA(this->newStdOut, characters, { lengthX, lengthY }, { x, y }, &rect);
 }
 
+void ConsoleHandler::setTitle(LPCSTR title)
+{
+	SetConsoleTitleA(title);
+}
+
 int ConsoleHandler::getConsoleWidth()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <thread>
 #include <sstream>
+#include <string> 
 #include "Player/Player.h"
 #include "Level/Level.h"
 #include "ConsoleHandler/ConsoleHandler.h"
@@ -60,11 +61,8 @@ int main()
             render[i + CONSOLE_WIDTH].Attributes = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;
 
         int frameRate = 1 / DELTA_TIME;
-        render[4 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate % 10;
-        render[3 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 10 % 10;
-        render[2 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 100 % 10;
-        render[1 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 1000 % 10;
-        render[0 + CONSOLE_WIDTH].Char.AsciiChar = '0' + frameRate / 10000 % 10;
+        std::string title = "Console Ray Caster: FPS - " + std::to_string(frameRate);
+        consoleHandler.setTitle(title.c_str());
 
         consoleHandler.printChars(render, 0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
 

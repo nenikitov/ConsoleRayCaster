@@ -8,6 +8,7 @@ class ConsoleHandler
 	public:
 		bool initialize();
 		void printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY);
+		void setTitle(LPCSTR title);
 		int getConsoleWidth();
 		int getConsoleHeight();
 	private:
