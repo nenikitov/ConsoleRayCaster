@@ -28,7 +28,7 @@ bool ConsoleHandler::initialize()
 	return true;
 }
 
-void ConsoleHandler::printChars(const CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
+void ConsoleHandler::printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
 {
 	SMALL_RECT rect = { 0, 0, lengthX, lengthY };
 	WriteConsoleOutputA(this->newStdOut, characters, { lengthX, lengthY }, { x, y }, &rect);

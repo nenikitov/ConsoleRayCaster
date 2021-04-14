@@ -7,7 +7,11 @@ class ConsoleHandler
 {
 	public:
 		bool initialize();
-		void printChars(const CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY);
+		bool generateScreenBuffer();
+		void printChar(CHAR_INFO c, SHORT x, SHORT y);
+		void printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY);
+		void printString(std::string text, SHORT attributes, SHORT x, SHORT y);
+		void draw();
 		int getConsoleWidth();
 		int getConsoleHeight();
 	private:
