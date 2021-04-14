@@ -152,6 +152,7 @@
     <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ConsoleHandler\ConsoleColors.h" />
     <ClInclude Include="src\JsonCpp\json\json-forwards.h" />
     <ClInclude Include="src\JsonCpp\json\json.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\levels\test.lvl.json" />
+    <None Include="data\tiles\bricks.tl.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

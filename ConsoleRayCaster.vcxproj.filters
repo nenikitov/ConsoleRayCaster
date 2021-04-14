@@ -85,8 +85,12 @@
     <ClInclude Include="src\JsonCpp\json\json-forwards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ConsoleHandler\ConsoleColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\levels\test.lvl.json" />
+    <None Include="data\tiles\bricks.tl.json" />
   </ItemGroup>
 </Project>
