@@ -20,7 +20,7 @@ int main()
 
     ConsoleHandler consoleHandler;
     if (!consoleHandler.initialize())
-        return -1;
+        return 1;
 
     Level level("test.lvl.json");
     Player player = Player();
