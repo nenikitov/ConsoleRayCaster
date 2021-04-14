@@ -2,6 +2,7 @@
 #include "../Player/Player.h"
 #include "../Level/Level.h"
 #include "../RayCaster/RayCaster.h"
+#include "../ConsoleHandler/ConsoleColors.h"
 
 class Renderer
 {
