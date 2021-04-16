@@ -30,12 +30,12 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
             {
                 if (y < CEILING)
                 {
-                    characters[y * resolutionX + x].Attributes = FOREGROUND_INTENSITY;
-                    characters[y * resolutionX + x].Char.AsciiChar = ' ';
+                    characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_CYAN;
+                    characters[y * resolutionX + x].Char.AsciiChar = '`';
                 }
                 else if (y > FLOOR)
                 {
-                    characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_GREEN;
+                    characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_GREEN;
                     characters[y * resolutionX + x].Char.AsciiChar = '.';
                 }
                 else
