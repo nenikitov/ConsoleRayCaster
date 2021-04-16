@@ -34,14 +34,15 @@ Tile::Tile(std::string tileName)
 		for (int x = 0; x < this->textureDimensions; x++)
 		{
 			this->textureBrightness[y][x] = (short)json["rendering"]["brightness"][y][x].asInt();
-			this->textureColors[y][x] = (WORD)json["rendering"]["colors"][y][x].asInt();
+			if (json["rendering"]["colors"][y][x].asInt() > 7)
+				throw std::invalid_argument("Color is illegal");
+			this->textureColors[y][x] = json["rendering"]["colors"][y][x].asInt();
 		}
 	}
 }
 
 CHAR_INFO Tile::sampleTexture(double x, double y, int lightness, TileTypes type, WallNormalDirection normal)
 {
-	//TODO fix gray and dark gray (thanks microsoft)
 	if (x > 1 || x < -1)
 		x = fmod(x, 1);
 	if (x < 0)
