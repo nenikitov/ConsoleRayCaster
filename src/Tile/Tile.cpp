@@ -46,12 +46,12 @@ CHAR_INFO Tile::sampleTexture(double x, double y, int lightness, TileTypes type,
 	if (x > 1 || x < -1)
 		x = fmod(x, 1);
 	if (x < 0)
-		x = 1 - x;
+		x = 1 + x;
 
 	if (y > 1 || y < -1)
 		y = fmod(y, 1);
 	if (y < 0)
-		y = 1 - y;
+		y = 1 + y;
 
 	int intX = (int)(x * (this->textureDimensions - 1));
 	int intY = (int)(y * (this->textureDimensions - 1));

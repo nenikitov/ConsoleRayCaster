@@ -40,12 +40,38 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 }
                 else
                 {
+                    double sampleX = 0;
+                    switch (intersection.normalDirection)
+                    {
+                        case NORTH:
+                            sampleX = intersection.x;
+                            break;
+                        case SOUTH:
+                            sampleX = -intersection.x;
+                            break;
+                        case WEST:
+                            sampleX = intersection.y;
+                            break;
+                        case EAST:
+                            sampleX = -intersection.y;
+                            break;
+                    }
+
+                    double sampleY = double(y - CEILING) / HEIGHT;
+
+                    CHAR_INFO texure = tile.sampleTexture(sampleX, sampleY, 1);
+                    characters[y * resolutionX + x] = texure;
+
+
+
+                    /*
                     if (intersection.normalDirection == WallNormalDirection::NORTH || intersection.normalDirection == WallNormalDirection::SOUTH)
                         characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE;
                     else
                         characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
 
 
+                    
                     if (intersection.distance < 2)
                         characters[y * resolutionX + x].Char.AsciiChar = 219;
                     else if (intersection.distance < 4)
@@ -54,6 +80,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                         characters[y * resolutionX + x].Char.AsciiChar = 177;
                     else
                         characters[y * resolutionX + x].Char.AsciiChar = 176;
+                    */
                 }
             }
         }
