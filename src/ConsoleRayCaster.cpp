@@ -36,7 +36,7 @@ int main()
     {
         for (int x = 0; x < 16; x++)
         {
-            std::cout << tile.sampleTexture((double)x / 8, (double)y / 8, 1).Char.AsciiChar;
+            std::cout << tile.sampleTexture((double)x / 8, (double)y / 8, 1).Attributes;
         }
         std::cout << std::endl;
     }

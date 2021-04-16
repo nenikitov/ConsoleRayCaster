@@ -21,12 +21,12 @@ Tile::Tile(std::string tileName)
 		throw std::invalid_argument("Texture dimensions are not consistent");
 
 	this->textureBrightness = new unsigned short*[this->textureDimensions];
-	this->textureColors = new WORD* [this->textureDimensions];
+	this->textureColors = new unsigned short*[this->textureDimensions];
 
 	for (int y = 0; y < this->textureDimensions; y++)
 	{
-		this->textureBrightness[y] = new unsigned short [this->textureDimensions];
-		this->textureColors[y] = new WORD [this->textureDimensions];
+		this->textureBrightness[y] = new unsigned short[this->textureDimensions];
+		this->textureColors[y] = new unsigned short[this->textureDimensions];
 
 		if (json["rendering"]["brightness"][y].size() != this->textureDimensions || json["rendering"]["colors"][y].size() != this->textureDimensions)
 			throw std::invalid_argument("Texture dimensions are not consistent");
@@ -58,25 +58,45 @@ CHAR_INFO Tile::sampleTexture(double x, double y, int lightness, TileTypes type,
 	double relativeBrightness = (double)this->textureBrightness[intY][intX] * lightness;
 	relativeBrightness = min(max(0, relativeBrightness), 7);
 
+	int brightnessLookUp = (int)relativeBrightness;
+	unsigned short color = this->textureColors[intY][intX];
+
 	switch (type)
 	{
 		case WALL:
 			if (normal == WallNormalDirection::NORTH || normal == WallNormalDirection::SOUTH)
 				return {
-					(WCHAR)this->wallCharLookUp[(int)relativeBrightness],
-					(WORD)(this->textureColors[intY][intX] + 8) };
+					(WCHAR)this->wallCharLookUp[brightnessLookUp],
+					processColor(this->textureColors[intY][intX], true) };
 			else
 				return {
-					(WCHAR)this->wallCharLookUp[(int)relativeBrightness],
-					(WORD)this->textureColors[intY][intX] };
+					(WCHAR)this->wallCharLookUp[brightnessLookUp],
+					processColor(this->textureColors[intY][intX]) };
 		case FLOOR:
 			return {
-				(WCHAR)this->floorCharLookUp[(int)relativeBrightness],
-				(WORD)(this->textureColors[intY][intX] + 8) };
+				(WCHAR)this->floorCharLookUp[brightnessLookUp],
+				processColor(this->textureColors[intY][intX], true) };
 		case CEILING:
 			return {
-				(WCHAR)this->ceilingCharLookUp[(int)relativeBrightness],
-				(WORD)this->textureColors[intY][intX] };
+				(WCHAR)this->ceilingCharLookUp[brightnessLookUp],
+				processColor(this->textureColors[intY][intX]) };
 	}
-	
+}
+
+WORD Tile::processColor(unsigned short color, bool brighten)
+{
+	if (brighten)
+	{
+		if (color != 7)
+			return color + 8;
+		else
+			return 7;
+	}
+	else
+	{
+		if (color != 7)
+			return color;
+		else
+			return 8;
+	}
 }

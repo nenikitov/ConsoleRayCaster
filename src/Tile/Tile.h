@@ -13,8 +13,10 @@ class Tile
 		Tile(std::string tileName);
 		CHAR_INFO sampleTexture(double x, double y, int lightness, TileTypes type = TileTypes::WALL, WallNormalDirection normal = WallNormalDirection::NORTH);
 	private:
+		WORD processColor(unsigned short color, bool brighten = false);
+
 		unsigned short** textureBrightness;
-		WORD** textureColors;
+		unsigned short** textureColors;
 		unsigned short textureDimensions;
 		static const char wallCharLookUp[8];
 		static const char floorCharLookUp[8];
