@@ -30,54 +30,6 @@ Level::Level(std::string levelName)
 			this->levelData[y][x] = TILE;
 		}
 	}
-
-	/*
-	char currentChar;
-	std::string word = "";
-	unsigned int value;
-	unsigned int row = 0;
-
-	tiles.push_back({});
-
-	std::string path = "data/levels/" + levelName;
-	std::fstream fileData(path, std::fstream::in);
-	while (fileData >> std::noskipws >> currentChar)
-	{
-		if (currentChar == ' ' || currentChar == '\n')
-		{
-			if (word.length() != 0)
-			{
-				value = std::stoi(word);
-
-				tiles[row].push_back(value);
-				if (currentChar == '\n')
-				{
-					tiles.push_back({});
-					row++;
-				}
-				
-				word = "";
-			}
-		}
-		else
-			word += currentChar;
-	}
-	tiles[row].push_back(value);
-	
-
-
-	//this->height = tiles.size();
-	//this->widths = new unsigned int[height];
-
-	
-	for (unsigned int y = 0; y < this->height; y++)
-	{
-		this->widths[y] = tiles[y].size();
-		this->levelData[y] = new int[this->widths[y]];
-		for (unsigned int x = 0; x < this->widths[y]; x++)
-			this->levelData[y][x] = tiles[y][x];
-	}
-	*/
 }
 
 int Level::tileAt(unsigned int x, unsigned int y)
