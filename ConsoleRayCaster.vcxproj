@@ -142,7 +142,7 @@
     <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Intersection\Intersection.cpp" />
-    <ClCompile Include="src\Intersection\WallNormalDirection.cpp" />
+    <ClCompile Include="src\Intersection\WallNormalDirection.h" />
     <ClCompile Include="src\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp" />
     <ClCompile Include="src\Controller\Controller.cpp" />
@@ -162,6 +162,7 @@
     <ClInclude Include="src\Player\Player.h" />
     <ClInclude Include="src\Level\Level.h" />
     <ClInclude Include="src\Tile\Tile.h" />
+    <ClInclude Include="src\Tile\TileTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\levels\test.lvl.json">

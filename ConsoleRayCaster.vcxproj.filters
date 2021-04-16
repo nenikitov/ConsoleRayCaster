@@ -47,13 +47,13 @@
     <ClCompile Include="src\Intersection\Intersection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Intersection\WallNormalDirection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\JsonCpp\jsoncpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Intersection\WallNormalDirection.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,6 +86,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ConsoleHandler\ConsoleColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile\TileTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

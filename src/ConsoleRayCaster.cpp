@@ -31,6 +31,19 @@ int main()
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
 
+    Tile tile("bricks.tl.json");
+    for (int y = 0; y < 16; y++)
+    {
+        for (int x = 0; x < 16; x++)
+        {
+            std::cout << tile.sampleTexture((double)x / 8, (double)y / 8, 1).Char.AsciiChar;
+        }
+        std::cout << std::endl;
+    }
+
+    
+
+    /*
     while (true)
     {
         currentTime = std::chrono::system_clock::now();
@@ -68,4 +81,5 @@ int main()
 
         delete render;
     }
+    */
 }
