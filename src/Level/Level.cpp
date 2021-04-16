@@ -10,9 +10,7 @@ Level::Level(std::string levelName)
 	Json::CharReaderBuilder builder;
 	JSONCPP_STRING errs;
 	if (!parseFromStream(builder, ifs, &json, &errs))
-	{
 		throw std::invalid_argument("Recieved invalid JSON file");
-	}
 
 	this->height = json["tileData"]["wall"].size();
 	this->levelData = new int* [this->height];

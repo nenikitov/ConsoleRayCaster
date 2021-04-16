@@ -1,5 +1,5 @@
 #pragma once
-#include "WallNormalDirection.cpp"
+#include "WallNormalDirection.h"
 
 struct Intersection
 {

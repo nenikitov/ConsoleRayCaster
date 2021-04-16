@@ -1,5 +1,4 @@
 #pragma once
-
 enum WallNormalDirection
 {
 	NORTH,
