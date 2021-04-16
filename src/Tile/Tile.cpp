@@ -1,5 +1,9 @@
 #include "Tile.h"
 
+const char Tile::wallCharLookUp[8]    = { '.',  ':', ';', '+', '=', 'x', 'X', '#' };
+const char Tile::floorCharLookUp[8]   = { '`', '\'', '"', '<', '?', 'f', '8', '@' };
+const char Tile::ceilingCharLookUp[8] = { '.',  '-', '_', '(', '7', '}', 'E', '%' };
+
 Tile::Tile(std::string tileName)
 {
 	Json::Value json;
@@ -34,8 +38,43 @@ Tile::Tile(std::string tileName)
 	}
 }
 
-CHAR_INFO Tile::sample(TileTypes type, WallNormalDirection normal, double x, double y, int lightness)
+CHAR_INFO Tile::sampleTexture(double x, double y, int lightness, TileTypes type = TileTypes::WALL, WallNormalDirection normal = WallNormalDirection::NORTH)
 {
-	return CHAR_INFO();
+	if (x > 1 || x < -1)
+		x = fmod(x, 1);
+	if (x < 0)
+		x = 1 - x;
+
+	if (x > 1 || x < -1)
+		y = fmod(x, 1);
+	if (y < 0)
+		y = 1 - y;
+
+	int intX = (int)(x * this->textureDimensions);
+	int intY = (int)(y * this->textureDimensions);
+
+	double relativeBrightness = this->textureBrightness[intX][intY] / 7 * lightness;
+	relativeBrightness = min(max(0, relativeBrightness), 7);
+	
+	switch (type)
+	{
+		case WALL:
+			if (normal == WallNormalDirection::NORTH || normal == WallNormalDirection::SOUTH)
+				return {
+					this->wallCharLookUp[(int)relativeBrightness], 
+					this->textureColors[intX][intY] + 8 };
+			else
+				return {
+					this->wallCharLookUp[(int)relativeBrightness],
+					this->textureColors[intX][intY] };
+		case FLOOR:
+			return {
+				this->floorCharLookUp[(int)relativeBrightness],
+				this->textureColors[intX][intY] + 8 };
+		case CEILING:
+			return {
+				this->ceilingCharLookUp[(int)relativeBrightness],
+				this->textureColors[intX][intY] };
+	}
 }
 

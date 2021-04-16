@@ -11,10 +11,12 @@ class Tile
 {
 	public:
 		Tile(std::string tileName);
-		CHAR_INFO sample(TileTypes type, WallNormalDirection normal, double x, double y, int lightness);
+		CHAR_INFO sampleTexture(double x, double y, int lightness, TileTypes type = TileTypes::WALL, WallNormalDirection normal = WallNormalDirection::NORTH);
 	private:
 		unsigned short** textureBrightness;
 		WORD** textureColors;
 		unsigned short textureDimensions;
-
+		static const char wallCharLookUp[8];
+		static const char floorCharLookUp[8];
+		static const char ceilingCharLookUp[8];
 };
