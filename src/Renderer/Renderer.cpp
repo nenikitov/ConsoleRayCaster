@@ -35,7 +35,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 }
                 else if (y > FLOOR)
                 {
-                    characters[y * resolutionX + x].Attributes = FOREGROUND_RED;
+                    characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_GREEN;
                     characters[y * resolutionX + x].Char.AsciiChar = '.';
                 }
                 else
@@ -57,30 +57,12 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                             break;
                     }
 
-                    double sampleY = double(y - CEILING) / HEIGHT;
-
-                    CHAR_INFO texure = tile.sampleTexture(sampleX, sampleY, 1);
-                    characters[y * resolutionX + x] = texure;
-
-
-
-                    /*
-                    if (intersection.normalDirection == WallNormalDirection::NORTH || intersection.normalDirection == WallNormalDirection::SOUTH)
-                        characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE;
-                    else
-                        characters[y * resolutionX + x].Attributes = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
-
-
+                    double sampleY = (double(y) - CEILING) / HEIGHT;
                     
-                    if (intersection.distance < 2)
-                        characters[y * resolutionX + x].Char.AsciiChar = 219;
-                    else if (intersection.distance < 4)
-                        characters[y * resolutionX + x].Char.AsciiChar = 178;
-                    else if (intersection.distance < 6)
-                        characters[y * resolutionX + x].Char.AsciiChar = 177;
-                    else
-                        characters[y * resolutionX + x].Char.AsciiChar = 176;
-                    */
+                    double lightness = 1 - (intersection.distance / 7);
+
+                    CHAR_INFO texure = tile.sampleTexture(sampleX * 2, sampleY * 2, lightness, TileTypes::WALL, intersection.normalDirection);
+                    characters[y * resolutionX + x] = texure;
                 }
             }
         }

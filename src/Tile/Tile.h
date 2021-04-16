@@ -11,7 +11,7 @@ class Tile
 {
 	public:
 		Tile(std::string tileName);
-		CHAR_INFO sampleTexture(double x, double y, int lightness, TileTypes type = TileTypes::WALL, WallNormalDirection normal = WallNormalDirection::NORTH);
+		CHAR_INFO sampleTexture(double x, double y, double lightness, TileTypes type = TileTypes::WALL, WallNormalDirection normal = WallNormalDirection::NORTH);
 	private:
 		WORD processColor(unsigned short color, bool brighten = false);
 

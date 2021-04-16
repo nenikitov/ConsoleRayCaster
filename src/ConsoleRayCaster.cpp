@@ -43,7 +43,7 @@ int main()
         unsigned const int CONSOLE_WIDTH = consoleHandler.getConsoleWidth();
         unsigned const int CONSOLE_HEIGHT = consoleHandler.getConsoleHeight();
         unsigned const int CONSOLE_SIZE = CONSOLE_WIDTH * CONSOLE_HEIGHT;
-        CHAR_INFO* render = renderer.render(CONSOLE_WIDTH, CONSOLE_HEIGHT, 2.f, CONSOLE_HEIGHT);
+        CHAR_INFO* render = renderer.render(CONSOLE_WIDTH, CONSOLE_HEIGHT, 2.f, 32);
 
         for (unsigned int i = 0; i < 8; i++)
             render[i].Attributes = BACKGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY;

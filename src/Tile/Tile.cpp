@@ -41,7 +41,7 @@ Tile::Tile(std::string tileName)
 	}
 }
 
-CHAR_INFO Tile::sampleTexture(double x, double y, int lightness, TileTypes type, WallNormalDirection normal)
+CHAR_INFO Tile::sampleTexture(double x, double y, double lightness, TileTypes type, WallNormalDirection normal)
 {
 	if (x > 1 || x < -1)
 		x = fmod(x, 1);
@@ -53,13 +53,16 @@ CHAR_INFO Tile::sampleTexture(double x, double y, int lightness, TileTypes type,
 	if (y < 0)
 		y = 1 + y;
 
-	int intX = (int)(x * (this->textureDimensions - 1));
-	int intY = (int)(y * (this->textureDimensions - 1));
+	int intX = (int)(x * (this->textureDimensions));
+	int intY = (int)(y * (this->textureDimensions));
+
+	intX %= this->textureDimensions;
+	intY %= this->textureDimensions;
 
 	double relativeBrightness = (double)this->textureBrightness[intY][intX] * lightness;
 	relativeBrightness = min(max(0, relativeBrightness), 7);
 
-	int brightnessLookUp = (int)relativeBrightness;
+	int brightnessLookUp = relativeBrightness;
 	unsigned short color = this->textureColors[intY][intX];
 
 	switch (type)
