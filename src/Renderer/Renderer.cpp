@@ -28,12 +28,12 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
 
             for (int y = 0; y < resolutionY; y++)
             {
-                if (y < CEILING)
+                if (y <= CEILING)
                 {
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_CYAN;
                     characters[y * resolutionX + x].Char.AsciiChar = '`';
                 }
-                else if (y > FLOOR)
+                else if (y >= FLOOR)
                 {
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_GREEN;
                     characters[y * resolutionX + x].Char.AsciiChar = '.';
