@@ -8,7 +8,7 @@ Tile::Tile(std::string tileName)
 {
 	Json::Value json;
 	std::ifstream ifs;
-	ifs.open("../data/tiles/" + tileName);
+	ifs.open("data/tiles/" + tileName);
 	Json::CharReaderBuilder builder;
 	JSONCPP_STRING errs;
 
