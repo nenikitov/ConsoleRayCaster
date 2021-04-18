@@ -10,9 +10,11 @@ class Level
 		Level(std::string levelName);
 		int tileIndexAt(unsigned int x, unsigned int y);
 	private:
-		int** levelData;
-		unsigned int* widths;
+		int** wallData;
+		int** floorData;
+		int** ceilingData;
 		unsigned int height;
+		unsigned int* widths;
 		int playerStartX;
 		int playerStartY;
 		double playerStartAngle;

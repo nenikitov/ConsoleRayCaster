@@ -30,7 +30,10 @@ Level::Level(std::string levelName)
 	if (this->height != json["tileData"]["floor"].size() ||  this->height != json["tileData"]["ceiling"].size())
 		throw std::invalid_argument(levelName + " - the height of a level is different for walls, ceiling and floor");
 
-	this->levelData = new int* [this->height];
+	// Initialize pointers
+	this->wallData = new int* [this->height];
+	this->floorData = new int* [this->height];
+	this->ceilingData = new int* [this->height];
 	this->widths = new unsigned int[height];
 
 	// Read level data row by row
@@ -47,20 +50,35 @@ Level::Level(std::string levelName)
 		if (WIDTH != json["tileData"]["floor"][y].size() || this->height != json["tileData"]["ceiling"][y].size())
 			throw std::invalid_argument(levelName + " - the width of a level is different for walls, ceiling and floor on the line " + std::to_string(y));
 
-		// Assign it to internal array
+		// Assign it to internal arrays
 		this->widths[y] = WIDTH;
-		this->levelData[y] = new int[WIDTH];
+		this->wallData[y] = new int[WIDTH];
+		this->floorData[y] = new int[WIDTH];
+		this->ceilingData[y] = new int[WIDTH];
 
 		// Read the tile data
 		for (unsigned int x = 0; x < WIDTH; x++)
 		{
-			const unsigned int TILE = json["tileData"]["wall"][y][x].asInt();
-		
+			// Get wall tile data
+			const int WALL_DATA = json["tileData"]["wall"][y][x].asInt();
 			// ERROR CATCHING - Invalid tile data
-			if (TILE < 0)
-				throw std::invalid_argument(levelName + " - invalid tile index at " + std::to_string(x) + ", " + std::to_string(y));
+			if (WALL_DATA < 0)
+				throw std::invalid_argument(levelName + " - invalid wall data index at " + std::to_string(x) + ", " + std::to_string(y));
+			this->wallData[y][x] = WALL_DATA;
 
-			this->levelData[y][x] = TILE;
+			// Get floor tile data
+			const int FLOOR_DATA = json["tileData"]["floor"][y][x].asInt();
+			// ERROR CATCHING - Invalid tile data
+			if (WALL_DATA < 0)
+				throw std::invalid_argument(levelName + " - invalid floor data index at " + std::to_string(x) + ", " + std::to_string(y));
+			this->floorData[y][x] = FLOOR_DATA;
+
+			// Get ceiling tile data
+			const int CEILING_DATA = json["tileData"]["ceiling"][y][x].asInt();
+			// ERROR CATCHING - Invalid tile data
+			if (WALL_DATA < 0)
+				throw std::invalid_argument(levelName + " - invalid ceiling data index at " + std::to_string(x) + ", " + std::to_string(y));
+			this->ceilingData[y][x] = CEILING_DATA;
 		}
 	}
 }
@@ -69,7 +87,7 @@ int Level::tileIndexAt(unsigned int x, unsigned int y)
 {
 	if (y < this->height)
 		if (x < this->widths[y])
-			return this->levelData[y][x];
+			return this->wallData[y][x];
 	
 	return 0;
 }
