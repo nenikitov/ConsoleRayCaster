@@ -6,37 +6,59 @@ const char Tile::ceilingCharLookUp[8] = { '.',  '-', '_', '(', '7', '}', 'E', '%
 
 Tile::Tile(std::string tileName)
 {
+	// Load JSON data from file
 	Json::Value json;
 	std::ifstream ifs;
 	ifs.open("data/tiles/" + tileName);
 	Json::CharReaderBuilder builder;
 	JSONCPP_STRING errs;
 
+	// ERROR CATCHING - Invalid file
 	if (!parseFromStream(builder, ifs, &json, &errs))
-		throw std::invalid_argument("Recieved invalid JSON file");
+		throw std::invalid_argument(tileName + " - recieved invalid JSON file");
 
+	// Set texture dimensions 
 	this->textureDimensions = json["rendering"]["brightness"].size();
 
-	if (json["rendering"]["colors"].size() != this->textureDimensions)
-		throw std::invalid_argument("Texture dimensions are not consistent");
+	// ERROR CATCHING - Dimensions are 0
+	if (this->textureDimensions == 0)
+		throw std::invalid_argument(tileName + " - the height of a level is 0");
 
+	// ERROR CATCHING - Inconsistent dimensions between color and brightness data
+	if (json["rendering"]["colors"].size() != this->textureDimensions)
+		throw std::invalid_argument(tileName + " - brightness and color data have different sizes");
+
+	// Initialize internal arrays
 	this->textureBrightness = new unsigned short*[this->textureDimensions];
 	this->textureColors = new unsigned short*[this->textureDimensions];
 
+	// Read data line by line
 	for (int y = 0; y < this->textureDimensions; y++)
 	{
+		// Initialize internal arrays
 		this->textureBrightness[y] = new unsigned short[this->textureDimensions];
 		this->textureColors[y] = new unsigned short[this->textureDimensions];
 
+		// ERROR CATCHING - Inconsistent dimensions between color and brightness data
 		if (json["rendering"]["brightness"][y].size() != this->textureDimensions || json["rendering"]["colors"][y].size() != this->textureDimensions)
-			throw std::invalid_argument("Texture dimensions are not consistent");
+			throw std::invalid_argument(tileName + " - texture dimensions are not square");
 
 		for (int x = 0; x < this->textureDimensions; x++)
 		{
-			this->textureBrightness[y][x] = (short)json["rendering"]["brightness"][y][x].asInt();
-			if (json["rendering"]["colors"][y][x].asInt() > 7)
-				throw std::invalid_argument("Color is illegal");
-			this->textureColors[y][x] = json["rendering"]["colors"][y][x].asInt();
+			// Get brightness
+			const short BRIGHTNESS = json["rendering"]["brightness"][y][x].asInt();
+			// ERROR CATCHING - Brightness data is invalid
+			if (BRIGHTNESS < 0)
+				throw std::invalid_argument(tileName + " - brightness is illegal at " + std::to_string(x) + ", " + std::to_string(y));
+			this->textureBrightness[y][x] = BRIGHTNESS;
+
+			// Get color
+			const short COLOR = json["rendering"]["colors"][y][x].asInt();
+			// ERROR CATCHING - Color data is invalid
+			if (COLOR > 7 || COLOR < 0)
+				throw std::invalid_argument(tileName + " - color is illegal at " + std::to_string(x) + ", " + std::to_string(y));
+
+			this->textureColors[y][x] = COLOR;
 		}
 	}
 }
