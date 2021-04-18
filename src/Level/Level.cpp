@@ -1,7 +1,4 @@
 #include "Level.h"
-#include <fstream>
-#include <iostream>
-
 
 Level::Level(std::string levelName)
 {
@@ -83,11 +80,44 @@ Level::Level(std::string levelName)
 	}
 }
 
-int Level::tileIndexAt(unsigned int x, unsigned int y)
+int Level::wallIndexAt(unsigned int x, unsigned int y)
 {
 	if (y < this->height)
 		if (x < this->widths[y])
 			return this->wallData[y][x];
 	
 	return 0;
+}
+
+int Level::floorIndexAt(unsigned int x, unsigned int y)
+{
+	if (y < this->height)
+		if (x < this->widths[y])
+			return this->floorData[y][x];
+
+	return 0;
+}
+
+int Level::ceilingIndexAt(unsigned int x, unsigned int y)
+{
+	if (y < this->height)
+		if (x < this->widths[y])
+			return this->ceilingData[y][x];
+
+	return 0;
+}
+
+int Level::getPlayerStartX()
+{
+	return this->playerStartX;
+}
+
+int Level::getPlayerStartY()
+{
+	return this->playerStartY;
+}
+
+double Level::getPlayerStartAngle()
+{
+	return this->playerStartAngle;
 }

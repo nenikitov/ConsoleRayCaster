@@ -46,7 +46,7 @@ int main()
         return 1;
     }
     
-    Player player = Player();
+    Player player = Player(level->getPlayerStartX(), level->getPlayerStartY(), level->getPlayerStartAngle());
 
 
     Renderer renderer(player, *level);
