@@ -48,6 +48,7 @@ int main()
     
     Player player = Player();
 
+
     Renderer renderer(player, *level);
 
     auto previousTime = std::chrono::system_clock::now();

@@ -13,4 +13,7 @@ class Level
 		int** levelData;
 		unsigned int* widths;
 		unsigned int height;
+		int playerStartX;
+		int playerStartY;
+		double playerStartAngle;
 };
