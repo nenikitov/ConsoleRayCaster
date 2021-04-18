@@ -24,7 +24,8 @@ int main()
     - Console is a limiting factor here. It can barely handle this many characters written in it, but it breaks as soon as I introduce colors.
     - To fix it, I should implement a framerate cap and rework how the console is handled
 
-    - Maybe use .json for storing level and tile data?
+    - Implement tile lookup in level
+    - Implement multiple tiles
     */
 
     ConsoleHandler consoleHandler;
