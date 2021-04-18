@@ -9,6 +9,14 @@
 #include "RayCaster/RayCaster.h"
 #include "Renderer/Renderer.h"
 
+void errorExit(std::string process, std::invalid_argument exception)
+{
+    std::cout << "ERROR DURING " << process
+        << std::endl << exception.what()
+        << std::endl << "Press ENTER to exit...";
+    std::cin.get();
+}
+
 int main()
 {
     /*
@@ -23,10 +31,20 @@ int main()
     if (!consoleHandler.initialize())
         return 1;
 
-    Level level("test.lvl.json");
+    Level* level;
+    try
+    {
+        level = new Level("test.lvl.json");
+    }
+    catch (std::invalid_argument exception)
+    {
+        errorExit("Level loading", exception);
+        return 1;
+    }
+    
     Player player = Player();
 
-    Renderer renderer(player, level);
+    Renderer renderer(player, *level);
 
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
