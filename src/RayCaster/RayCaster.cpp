@@ -72,7 +72,7 @@ Intersection RayCaster::findIntersection(double startX, double startY, double an
 				intersectionDirection = WallNormalDirection::NORTH;
 		}
 
-		int levelTile = this->level.tileAt(mapCheckX, mapCheckY);
+		int levelTile = this->level.tileIndexAt(mapCheckX, mapCheckY);
 
 		if (levelTile)
 			return Intersection(startX + dirX * distance, startY + dirY * distance, distance, levelTile, intersectionDirection);

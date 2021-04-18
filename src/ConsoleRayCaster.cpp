@@ -9,10 +9,10 @@
 #include "RayCaster/RayCaster.h"
 #include "Renderer/Renderer.h"
 
-void errorExit(std::string process, std::invalid_argument exception)
+void errorExit(std::string process, std::string exception)
 {
     std::cout << "ERROR DURING " << process
-        << std::endl << exception.what()
+        << std::endl << exception
         << std::endl << "Press ENTER to exit...";
     std::cin.get();
 }
@@ -29,7 +29,11 @@ int main()
 
     ConsoleHandler consoleHandler;
     if (!consoleHandler.initialize())
+    {
+        errorExit("Console initialization", "Console does not support fast output");
         return 1;
+    }
+        
 
     Level* level;
     try
@@ -38,7 +42,7 @@ int main()
     }
     catch (std::invalid_argument exception)
     {
-        errorExit("Level loading", exception);
+        errorExit("Level loading", exception.what());
         return 1;
     }
     
@@ -73,6 +77,6 @@ int main()
 
         consoleHandler.printChars(render, 0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
 
-        delete render;
+        delete [] render;
     }
 }

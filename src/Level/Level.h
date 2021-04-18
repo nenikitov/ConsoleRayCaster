@@ -8,8 +8,7 @@ class Level
 {
 	public:
 		Level(std::string levelName);
-		Level getLevel();
-		int tileAt(unsigned int x, unsigned int y);
+		int tileIndexAt(unsigned int x, unsigned int y);
 	private:
 		int** levelData;
 		unsigned int* widths;

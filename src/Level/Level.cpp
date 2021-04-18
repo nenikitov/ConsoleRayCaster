@@ -43,7 +43,7 @@ Level::Level(std::string levelName)
 	}
 }
 
-int Level::tileAt(unsigned int x, unsigned int y)
+int Level::tileIndexAt(unsigned int x, unsigned int y)
 {
 	if (y < this->height)
 		if (x < this->widths[y])
