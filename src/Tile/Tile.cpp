@@ -1,7 +1,7 @@
 #include "Tile.h"
 
 const char Tile::wallCharLookUp[8]    = { '.',  ':', ';', '+', '=', 'x', 'X', '#' };
-const char Tile::floorCharLookUp[8]   = { '`', '\'', '"', '<', '?', 'f', '8', '@' };
+const char Tile::floorCharLookUp[8]   = { '`', '\'', '"', '<', 'f', '?', '8', '@' };
 const char Tile::ceilingCharLookUp[8] = { '.',  '-', '_', '(', '7', '}', 'E', '%' };
 
 Tile::Tile(std::string tileName)
