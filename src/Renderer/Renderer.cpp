@@ -44,10 +44,10 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     switch (intersection.normalDirection)
                     {
                         case NORTH:
-                            sampleX = intersection.x;
+                            sampleX = -intersection.x;
                             break;
                         case SOUTH:
-                            sampleX = -intersection.x;
+                            sampleX = intersection.x;
                             break;
                         case WEST:
                             sampleX = intersection.y;
@@ -61,7 +61,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     
                     double lightness = 1 - (intersection.distance / 7);
 
-                    CHAR_INFO texure = tile.sampleTexture(sampleX * 2, sampleY * 2, lightness, TileTypes::WALL, intersection.normalDirection);
+                    CHAR_INFO texure = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::WALL, intersection.normalDirection);
                     characters[y * resolutionX + x] = texure;
                 }
             }
