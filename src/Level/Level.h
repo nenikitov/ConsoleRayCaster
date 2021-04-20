@@ -13,10 +13,16 @@ class Level
 		int wallIndexAt(unsigned int x, unsigned int y);
 		int floorIndexAt(unsigned int x, unsigned int y);
 		int ceilingIndexAt(unsigned int x, unsigned int y);
+		Tile wallTileAt(unsigned int x, unsigned int y);
+		Tile floorTileAt(unsigned int x, unsigned int y);
+		Tile ceilingTileAt(unsigned int x, unsigned int y);
 		int getPlayerStartX();
 		int getPlayerStartY();
 		double getPlayerStartAngle();
 	private:
+		Tile* wallLookup;
+		Tile* floorLookup;
+		Tile* ceilingLookup;
 		int** wallData;
 		int** floorData;
 		int** ceilingData;

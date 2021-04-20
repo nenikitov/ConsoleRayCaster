@@ -17,6 +17,17 @@ Level::Level(std::string levelName)
 	this->playerStartY = json["player"]["y"].asInt();
 	this->playerStartAngle = (double)json["player"]["angle"].asInt() / 0.017453292; // Transform degrees to radians
 
+	// Get data from wall lookup
+	const int WALL_LOOKUP_SIZE = json["tileLookUp"]["wall"].size();
+	// ERROR CATCHING - No wall lookup present
+	if (WALL_LOOKUP_SIZE == 0)
+		throw std::invalid_argument(levelName + " - the lookup for walls is empty");
+
+
+	this->wallLookup = (Tile*) malloc(WALL_LOOKUP_SIZE * sizeof(Tile));
+	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
+		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString() + ".tl.json");
+
 	// Get height of the level
 	this->height = json["tileData"]["wall"].size();
 	// ERROR CATCHING - Height is 0
