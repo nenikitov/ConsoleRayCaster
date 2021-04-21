@@ -58,8 +58,8 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     }
 
                     double sampleY = (double(y) - CEILING) / HEIGHT;
-                    
                     double lightness = 1 - (intersection.distance / 7);
+                    Tile tile = level.wallTileFrom(intersection.tile);
 
                     CHAR_INFO texure = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::WALL, intersection.normalDirection);
                     characters[y * resolutionX + x] = texure;

@@ -13,9 +13,9 @@ class Level
 		int wallIndexAt(unsigned int x, unsigned int y);
 		int floorIndexAt(unsigned int x, unsigned int y);
 		int ceilingIndexAt(unsigned int x, unsigned int y);
-		Tile wallTileAt(unsigned int x, unsigned int y);
-		Tile floorTileAt(unsigned int x, unsigned int y);
-		Tile ceilingTileAt(unsigned int x, unsigned int y);
+		Tile wallTileFrom(unsigned int i);
+		Tile floorTileFrom(unsigned int i);
+		Tile ceilingTileFrom(unsigned int i);
 		int getPlayerStartX();
 		int getPlayerStartY();
 		double getPlayerStartAngle();

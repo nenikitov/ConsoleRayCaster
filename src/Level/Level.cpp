@@ -131,10 +131,12 @@ int Level::ceilingIndexAt(unsigned int x, unsigned int y)
 	return 0;
 }
 
-Tile Level::wallTileAt(unsigned int x, unsigned int y)
+Tile Level::wallTileFrom(unsigned int i)
 {
-	int wallIndex = wallIndexAt(x, y);
-	return this->wallLookup[wallIndex];
+	if (i < 0 || i > this->wallTiles)
+		return this->wallLookup[0];
+	else
+		return this->wallLookup[i];
 }
 
 int Level::getPlayerStartX()

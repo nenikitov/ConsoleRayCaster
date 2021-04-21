@@ -13,5 +13,4 @@ class Renderer
 		RayCaster rayCaster;
 		Player& player;
 		Level& level;
-		Tile tile = Tile("test.tl.json");
 };
