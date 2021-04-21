@@ -2,6 +2,7 @@
 
 Level::Level(std::string levelName)
 {
+	#pragma region Load JSON
 	// Load JSON data from file
 	Json::Value json;
 	std::ifstream ifs;
@@ -12,22 +13,29 @@ Level::Level(std::string levelName)
 	// ERROR CATCHING - Invalid file
 	if (!parseFromStream(builder, ifs, &json, &errs))
 		throw std::invalid_argument(levelName + " - recieved invalid JSON file");
+	#pragma endregion
 
+	#pragma region Load player data
 	this->playerStartX = json["player"]["x"].asInt();
 	this->playerStartY = json["player"]["y"].asInt();
 	this->playerStartAngle = (double)json["player"]["angle"].asInt() / 0.017453292; // Transform degrees to radians
+	#pragma endregion
 
+	#pragma region Load lookup
+	#pragma region Wall lookup
 	// Get data from wall lookup
 	const int WALL_LOOKUP_SIZE = json["tileLookUp"]["wall"].size();
 	// ERROR CATCHING - No wall lookup present
 	if (WALL_LOOKUP_SIZE == 0)
 		throw std::invalid_argument(levelName + " - the lookup for walls is empty");
 
-
 	this->wallLookup = (Tile*) malloc(WALL_LOOKUP_SIZE * sizeof(Tile));
 	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
 		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString() + ".tl.json");
+	#pragma endregion
+	#pragma endregion
 
+	#pragma region Initialize height
 	// Get height of the level
 	this->height = json["tileData"]["wall"].size();
 	// ERROR CATCHING - Height is 0
@@ -37,12 +45,14 @@ Level::Level(std::string levelName)
 	// ERROR CATCHING - Inconsistent heights for wall, ceiling and floor data
 	if (this->height != json["tileData"]["floor"].size() ||  this->height != json["tileData"]["ceiling"].size())
 		throw std::invalid_argument(levelName + " - the height of a level is different for walls, ceiling and floor");
+	#pragma endregion
 
-	// Initialize pointers
+	#pragma region Initialize pointers
 	this->wallData = new int* [this->height];
 	this->floorData = new int* [this->height];
 	this->ceilingData = new int* [this->height];
 	this->widths = new unsigned int[height];
+	#pragma endregion
 
 	// Read level data row by row
 	for (unsigned int y = 0; y < this->height; y++)
