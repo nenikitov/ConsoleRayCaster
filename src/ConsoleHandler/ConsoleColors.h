@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// The list of every possible console foreground color
+/// </summary>
 enum ConsoleFGColors
 {
 	FG_BLACK = 0x0000,
@@ -20,6 +23,9 @@ enum ConsoleFGColors
 	FG_WHITE = 0x000F
 };
 
+/// <summary>
+/// The list of every possible console background color
+/// </summary>
 enum ConsoleBGColors
 {
 	BG_BLACK = 0x0000,
