@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Intersection\Intersection.cpp" />
+    <ClCompile Include="src\Intersection\Intersection.h" />
     <ClCompile Include="src\Intersection\WallNormalDirection.h" />
     <ClCompile Include="src\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp" />

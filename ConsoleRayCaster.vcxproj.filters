@@ -44,9 +44,6 @@
     <ClCompile Include="src\RayCaster\RayCaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Intersection\Intersection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Intersection\WallNormalDirection.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Intersection\Intersection.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -91,8 +91,5 @@
     <ClInclude Include="src\Tile\TileTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data\tiles\arrow.tl.json" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #include "RayCaster.h"
 #include <iostream>
-#include "../Intersection/Intersection.cpp"
+#include "../Intersection/Intersection.h"
 
 RayCaster::RayCaster(Level& level) : level(level) {}
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "../Level/Level.h"
-#include "../Intersection/Intersection.cpp"
+#include "../Intersection/Intersection.h"
 
 class RayCaster
 {
