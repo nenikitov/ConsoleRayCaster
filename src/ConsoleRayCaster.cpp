@@ -39,7 +39,7 @@ int main()
     Level* level;
     try
     {
-        level = new Level("test.lvl.json");
+        level = new Level("test");
     }
     catch (std::invalid_argument exception)
     {

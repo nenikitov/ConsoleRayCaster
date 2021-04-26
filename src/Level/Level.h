@@ -9,6 +9,11 @@
 class Level
 {
 	public:
+		/// <summary>
+		/// Initialize the level
+		/// </summary>
+		/// <param name="levelName">The name of the level (should not contain ".lvl.json")</param>
+		/// <returns></returns>
 		Level(std::string levelName);
 		int wallIndexAt(unsigned int x, unsigned int y);
 		int floorIndexAt(unsigned int x, unsigned int y);

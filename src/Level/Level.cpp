@@ -6,7 +6,7 @@ Level::Level(std::string levelName)
 	// Load JSON data from file
 	Json::Value json;
 	std::ifstream ifs;
-	ifs.open("data/levels/" + levelName);
+	ifs.open("data/levels/" + levelName + ".lvl.json");
 	Json::CharReaderBuilder builder;
 	JSONCPP_STRING errs;
 

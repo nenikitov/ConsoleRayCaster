@@ -24,25 +24,25 @@ struct Intersection
 	/// <summary>
 	/// If the intersection really occured
 	/// </summary>
-	const bool intersects;
+	bool intersects;
 	/// <summary>
 	/// The X coordinate of the intersection
 	/// </summary>
-	const double x;
+	double x;
 	/// <summary>
 	/// The Y coordinate of the intersection
 	/// </summary>
-	const double y;
+	double y;
 	/// <summary>
 	/// The distance from the start point to the coordinate of the intersection
 	/// </summary>
-	const double distance;
+	double distance;
 	/// <summary>
 	/// The index of a type of the tile that the intersection occured with
 	/// </summary>
-	const int tile;
+	int tile;
 	/// <summary>
 	/// The normal direction of the wall
 	/// </summary>
-	const WallNormalDirection normalDirection;
+	WallNormalDirection normalDirection;
 };
