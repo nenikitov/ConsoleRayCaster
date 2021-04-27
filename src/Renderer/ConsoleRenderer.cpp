@@ -1,4 +1,4 @@
-#include "Renderer.h"
+#include "ConsoleRenderer.h"
 
 Renderer::Renderer(Player& player, Level& level) : player(player), level(level), rayCaster(RayCaster(level)) {}
 

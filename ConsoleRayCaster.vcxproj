@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
-    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
     <ClCompile Include="src\Intersection\Intersection.h" />
     <ClCompile Include="src\Intersection\WallNormalDirection.h" />
     <ClCompile Include="src\RayCaster\RayCaster.cpp" />
@@ -155,7 +155,7 @@
     <ClInclude Include="src\ConsoleHandler\ConsoleColors.h" />
     <ClInclude Include="src\JsonCpp\json\json-forwards.h" />
     <ClInclude Include="src\JsonCpp\json\json.h" />
-    <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Renderer\ConsoleRenderer.h" />
     <ClInclude Include="src\RayCaster\RayCaster.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />
     <ClInclude Include="src\Controller\Controller.h" />

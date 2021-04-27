@@ -7,7 +7,7 @@
 #include "Level/Level.h"
 #include "ConsoleHandler/ConsoleHandler.h"
 #include "RayCaster/RayCaster.h"
-#include "Renderer/Renderer.h"
+#include "Renderer/ConsoleRenderer.h"
 
 void errorExit(std::string process, std::string exception)
 {
