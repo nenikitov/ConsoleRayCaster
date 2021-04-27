@@ -32,7 +32,7 @@ Level::Level(std::string levelName)
 	this->wallLookup = (Tile*) malloc(WALL_LOOKUP_SIZE * sizeof(Tile));
 	this->wallTiles = WALL_LOOKUP_SIZE - 1;
 	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
-		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString() + ".tl.json");
+		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString());
 	#pragma endregion
 	#pragma endregion
 

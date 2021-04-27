@@ -9,7 +9,7 @@ Tile::Tile(std::string tileName)
 	// Load JSON data from file
 	Json::Value json;
 	std::ifstream ifs;
-	ifs.open("data/tiles/" + tileName);
+	ifs.open("data/tiles/" + tileName + ".tl.json");
 	Json::CharReaderBuilder builder;
 	JSONCPP_STRING errs;
 
@@ -65,6 +65,7 @@ Tile::Tile(std::string tileName)
 
 CHAR_INFO Tile::sampleTexture(double x, double y, double lightness, TileTypes type, WallNormalDirection normal)
 {
+	// Limit the texture to be only from 0 to 1
 	if (x > 1 || x < -1)
 		x = fmod(x, 1);
 	if (x < 0)
@@ -75,34 +76,43 @@ CHAR_INFO Tile::sampleTexture(double x, double y, double lightness, TileTypes ty
 	if (y < 0)
 		y = 1 + y;
 
+	// Pixel to sample
 	int intX = (int)(x * (this->textureDimensions));
 	int intY = (int)(y * (this->textureDimensions));
 
+	// Limit it to be from 0 to texture dimensions
 	intX %= this->textureDimensions;
 	intY %= this->textureDimensions;
 
+	// Calculate the brightness level
 	double relativeBrightness = (double)this->textureBrightness[intY][intX] * lightness;
 	relativeBrightness = min(max(0, relativeBrightness), 7);
-
 	int brightnessLookUp = relativeBrightness;
+
+	// Get the color of the texture
 	unsigned short color = this->textureColors[intY][intX];
 
+	// Return logic
 	switch (type)
 	{
 		case WALL:
+			// Brighten NORTH and SOUTH walls
 			if (normal == WallNormalDirection::NORTH || normal == WallNormalDirection::SOUTH)
 				return {
 					(WCHAR)this->wallCharLookUp[brightnessLookUp],
 					processColor(this->textureColors[intY][intX], true) };
 			else
+			// Return EAST and WEST wall colors as is
 				return {
 					(WCHAR)this->wallCharLookUp[brightnessLookUp],
 					processColor(this->textureColors[intY][intX]) };
 		case FLOOR:
+			// Brighten floor
 			return {
 				(WCHAR)this->floorCharLookUp[brightnessLookUp],
 				processColor(this->textureColors[intY][intX], true) };
 		case CEILING:
+			// Return ceiling colors as is
 			return {
 				(WCHAR)this->ceilingCharLookUp[brightnessLookUp],
 				processColor(this->textureColors[intY][intX]) };
@@ -113,6 +123,7 @@ WORD Tile::processColor(unsigned short color, bool brighten)
 {
 	if (brighten)
 	{
+		// Verify if the color is gray (because for some reason bright and dark gray colors are switched)
 		if (color != 7)
 			return color + 8;
 		else
@@ -120,6 +131,7 @@ WORD Tile::processColor(unsigned short color, bool brighten)
 	}
 	else
 	{
+		// Verify if the color is gray (because for some reason bright and dark gray colors are switched)
 		if (color != 7)
 			return color;
 		else
