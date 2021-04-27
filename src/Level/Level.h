@@ -13,7 +13,7 @@ class Level
 		/// Initialize the level
 		/// </summary>
 		/// <param name="levelName">The name of the level (should not contain ".lvl.json")</param>
-		/// <returns></returns>
+		/// <returns>Level</returns>
 		Level(std::string levelName);
 		/// <summary>
 		/// Find the index of a wall tile in the look up at specific coordinates
