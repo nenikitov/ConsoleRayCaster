@@ -38,14 +38,6 @@ This section describes the information for the rendering. Tile rendering data ar
 * ![#FFFF00](https://via.placeholder.com/15/FFFF00?text=+) ![#808000](https://via.placeholder.com/15/808000?text=+) 6 - yellow / dark yellow
 * ![#FFFFFF](https://via.placeholder.com/15/FFFFFF?text=+) ![#C0C0C0](https://via.placeholder.com/15/C0C0C0?text=+) 7 - white / light gray
 
-* <span style="color:#0000FF">1 - blue / dark blue
-* <span style="color:#00FF00">2 - green / dark green
-* <span style="color:#00FFFF">3 - cyan / dark cyan
-* <span style="color:#FF0000">4 - red / dark red
-* <span style="color:#FF00FF">5 - magenta / dark magenta
-* <span style="color:#FFFF00">6 - yellow / dark yellow
-* <span style="color:#FFFFFF">7 - white / light gray
-
 ## TODO
 * Implementing floor and ceiling rendering
 * Implementing player interaction (collision / use button)
