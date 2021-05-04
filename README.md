@@ -29,7 +29,15 @@ This section describes the information for the rendering. Tile rendering data ar
 2D array of values corresponding to the lightness of the texels. It contains values from 0 to 7.
 #### `colors`
 2D array of values corresponding to the color of the texels. It contains values from 0 to 7 (8 possible colors where light/dark variations are selected depending on the tile orientation). Where:
-* <span style="color:#808080">0 - black / dark gray
+* ![#000000](https://via.placeholder.com/15/000000?text=+) ![#808080](https://via.placeholder.com/15/808080?text=+) 0 - black / dark gray
+* ![#0000FF](https://via.placeholder.com/15/0000FF?text=+) ![#000080](https://via.placeholder.com/15/000080?text=+) 1 - blue / dark blue
+* ![#00FF00](https://via.placeholder.com/15/00FF00?text=+) ![#008000](https://via.placeholder.com/15/008000?text=+) 2 - green / dark green
+* ![#00FFFF](https://via.placeholder.com/15/00FFFF?text=+) ![#008080](https://via.placeholder.com/15/008080?text=+) 3 - cyan / dark cyan
+* ![#FF0000](https://via.placeholder.com/15/FF0000?text=+) ![#800000](https://via.placeholder.com/15/800000?text=+) 4 - red / dark red
+* ![#FF00FF](https://via.placeholder.com/15/FF00FF?text=+) ![#800080](https://via.placeholder.com/15/800080?text=+) 5 - magenta / dark magenta
+* ![#FFFF00](https://via.placeholder.com/15/FFFF00?text=+) ![#808000](https://via.placeholder.com/15/808000?text=+) 6 - yellow / dark yellow
+* ![#FFFFFF](https://via.placeholder.com/15/FFFFFF?text=+) ![#C0C0C0](https://via.placeholder.com/15/C0C0C0?text=+) 7 - white / light gray
+
 * <span style="color:#0000FF">1 - blue / dark blue
 * <span style="color:#00FF00">2 - green / dark green
 * <span style="color:#00FFFF">3 - cyan / dark cyan
