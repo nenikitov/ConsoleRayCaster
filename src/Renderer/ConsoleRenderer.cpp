@@ -40,16 +40,14 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
             {
                 if (y < CEILING)
                 {
-                    // Ceiling rendering
+                    #pragma region Ceiling rendering
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_CYAN;
                     characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    #pragma endregion
                 }
                 else if (y > FLOOR)
                 {
-                    // Floor rendering
-
-                    //TODO If tile index is 0, draw gradient
-
+                    #pragma region Floor rendering
                     // Calculate vertical angle of the pixel
                     const double VERT_ANGLE = (y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
                     // Calculate ratio of distances between floor texel and wall intersection
@@ -59,17 +57,37 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     double floorY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
                     // Find tile
                     int tileIndex = level.floorIndexAt(floorX, floorY);
-                    Tile tile = level.floorTileFrom(tileIndex);
-                    // Sample the texture
-                    double sampleX = floorY;
-                    double sampleY = -floorX;
-                    CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
+                    CHAR_INFO texture;
+
+                    if (tileIndex != 0)
+                    {
+                        Tile tile = level.floorTileFrom(tileIndex);
+                        // Sample the texture
+                        double sampleX = floorY;
+                        double sampleY = -floorX;
+                        texture = tile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
+                    }
+                    else
+                    {
+                        const double VERTICAL_RATIO = (double)y / resolutionY;
+                        texture.Attributes = ConsoleFGColors::FG_DARK_GRAY;
+                        // { '`', '\'', '"', '', 'f', '?', '8', '@' }
+                        if (VERTICAL_RATIO < 0.7)
+                            texture.Char.AsciiChar = ' ';
+                        else if (VERTICAL_RATIO < 0.8)
+                            texture.Char.AsciiChar = '`';
+                        else if (VERTICAL_RATIO < 0.9)
+                            texture.Char.AsciiChar = '\'';
+                        else
+                            texture.Char.AsciiChar = '"';
+                    }
                     // Put it
                     characters[y * resolutionX + x] = texture;
+                    #pragma endregion
                 }
                 else
                 {
-                    // Wall rendering
+                    #pragma region Wall rendering
                     // Find the point where the texture should be sampled
                     double sampleY = ((double)y - CEILING) / ((double)HEIGHT + 1);
                     double sampleX = 0;
@@ -92,9 +110,10 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     double lightness = 1 - (intersection.distance / 7);
                     Tile tile = level.wallTileFrom(intersection.tile);
                     // Sample the textures
-                    CHAR_INFO texure = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::WALL, intersection.normalDirection);
+                    CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::WALL, intersection.normalDirection);
                     // Put it
-                    characters[y * resolutionX + x] = texure;
+                    characters[y * resolutionX + x] = texture;
+                    #pragma endregion
                 }
             }
         }
