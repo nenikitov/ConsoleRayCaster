@@ -38,19 +38,20 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
 
             for (int y = 0; y < resolutionY; y++)
             {
-                if (y <= CEILING)
+                if (y < CEILING)
                 {
                     // Ceiling rendering
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_CYAN;
                     characters[y * resolutionX + x].Char.AsciiChar = '`';
                 }
-                else if (y >= FLOOR)
+                else if (y > FLOOR)
                 {
                     const double VERT_ANGLE = (y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
                     const double PROJECTION_RATIO = (wallHeight / 2 / tan(VERT_ANGLE)) / PROJECTED_DISTANCE / resolutionX;
                     double sampleX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
                     double sampleY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
-                    Tile tile = level.floorTileFrom(level.floorIndexAt(sampleX, sampleY));
+                    int tileIndex = level.floorIndexAt(sampleX, sampleY);
+                    Tile tile = level.floorTileFrom(tileIndex);
                     CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
                     // Floor rendering
                     characters[y * resolutionX + x] = texture;
@@ -59,7 +60,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 {
                     // Wall rendering
                     // Find the point where the texture should be sampled
-                    double sampleY = (double(y) - CEILING) / HEIGHT;
+                    double sampleY = ((double)y - CEILING) / (HEIGHT + 1);
                     double sampleX = 0;
                     switch (intersection.normalDirection)
                     {
