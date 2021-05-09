@@ -47,9 +47,11 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 else if (y >= FLOOR)
                 {
                     double VERT_ANGLE = abs((y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV);
+                    CHAR_INFO texture = testTile.sampleTexture((double)x / 20, VERT_ANGLE * 10, TileTypes::FLOOR);
                     // Floor rendering
-                    characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_GREEN;
+                    characters[y * resolutionX + x] = texture;
 
+                    /*
                     if (VERT_ANGLE < 0.07)
                         characters[y * resolutionX + x].Char.AsciiChar = '`';
                     else if (VERT_ANGLE < 0.14)
@@ -64,22 +66,6 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                         characters[y * resolutionX + x].Char.AsciiChar = '8';
                     else
                         characters[y * resolutionX + x].Char.AsciiChar = '@';
-
-                    /*
-                    if (y < 42) // VERT_ANGLE > 1.2
-                        characters[y * resolutionX + x].Char.AsciiChar = '@';
-                    else if (y < 48) // VERT_ANGLE > 1
-                        characters[y * resolutionX + x].Char.AsciiChar = '8';
-                    else if (y > 54) // VERT_ANGLE > 0.8
-                        characters[y * resolutionX + x].Char.AsciiChar = '?';
-                    else if (y > 60) // VERT_ANGLE > 0.6
-                        characters[y * resolutionX + x].Char.AsciiChar = 'f';
-                    else if (y > 66) // VERT_ANGLE > 0.4
-                        characters[y * resolutionX + x].Char.AsciiChar = '<';
-                    else if (y > 12) // VERT_ANGLE > 0.2
-                        characters[y * resolutionX + x].Char.AsciiChar = '"';
-                    else
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
                     */
                 }
                 else
