@@ -33,7 +33,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
             const double PROJECTED_DISTANCE = cos(player.getAngle()) * DELTA_X + sin(player.getAngle()) * DELTA_Y;
             // The heights of the wall, ceiling and floor
             const int HEIGHT = abs(wallHeight / PROJECTED_DISTANCE);
-            const int CEILING = (resolutionY - HEIGHT) / 2;
+            const double CEILING = ((double)resolutionY - HEIGHT) / 2;
             const int FLOOR = CEILING + HEIGHT;
 
             int lastTexturedFloor = 0;
