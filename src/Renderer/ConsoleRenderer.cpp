@@ -9,7 +9,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
 
     // Used for perspective correction
     const double PERPENDICULAR_LENGTH = resolutionX / 2.f / tan(fov / 2.f);
-    double HALF_VER_FOV = 0.5 * fov / (double)resolutionX * (double)resolutionY;
+    const double HALF_VER_FOV = 0.5 * fov / (double)resolutionX * (double)resolutionY;
     Intersection intersection;
     #pragma endregion
 
@@ -46,27 +46,30 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 }
                 else if (y >= FLOOR)
                 {
-                    double VERT_ANGLE = abs((y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV);
-                    CHAR_INFO texture = testTile.sampleTexture((double)x / 20, VERT_ANGLE * 10, TileTypes::FLOOR);
+                    const double VERT_ANGLE = (y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
+                    const double PROJECTION_RATIO = PROJECTED_DISTANCE / (wallHeight / 2 / tan(VERT_ANGLE));
+                    double sampleX = player.getPositionX() + (player.getPositionX() - intersection.x) * PROJECTION_RATIO;
+                    double sampleY = player.getPositionY() + (player.getPositionY() - intersection.y) * PROJECTION_RATIO;
+                    CHAR_INFO texture = testTile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
                     // Floor rendering
-                    characters[y * resolutionX + x] = texture;
+                    characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_GREEN;
 
-                    /*
-                    if (VERT_ANGLE < 0.07)
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    else if (VERT_ANGLE < 0.14)
-                        characters[y * resolutionX + x].Char.AsciiChar = '"';
-                    else if (VERT_ANGLE < 0.21)
-                        characters[y * resolutionX + x].Char.AsciiChar = '<';
-                    else if (VERT_ANGLE < 0.28)
-                        characters[y * resolutionX + x].Char.AsciiChar = 'f';
-                    else if (VERT_ANGLE < 0.35)
-                        characters[y * resolutionX + x].Char.AsciiChar = '?';
-                    else if (VERT_ANGLE < 0.42)
-                        characters[y * resolutionX + x].Char.AsciiChar = '8';
-                    else
+                    
+                    if (PROJECTION_RATIO < 0.01)
                         characters[y * resolutionX + x].Char.AsciiChar = '@';
-                    */
+                    else if (PROJECTION_RATIO < 0.04)
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    else if (PROJECTION_RATIO < 0.06)
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    else if (PROJECTION_RATIO < 0.08)
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    else if (PROJECTION_RATIO < 0.1)
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    else if (PROJECTION_RATIO < 0.15)
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    else
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    
                 }
                 else
                 {
