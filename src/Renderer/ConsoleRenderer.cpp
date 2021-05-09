@@ -17,10 +17,10 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
     {
         // Angle of the ray from the X position
         const double RAY_OFFSET = (double)x - resolutionX / 2.f;
-        const double ANGLE = atan(RAY_OFFSET / PERPENDICULAR_LENGTH);
+        const double HOR_ANGLE = atan(RAY_OFFSET / PERPENDICULAR_LENGTH);
         
         // Find intersection
-        intersection = this->rayCaster.findIntersection(player.getPositionX(), player.getPositionY(), player.getAngle() + ANGLE);
+        intersection = this->rayCaster.findIntersection(player.getPositionX(), player.getPositionY(), player.getAngle() + HOR_ANGLE);
 
         if (intersection.intersects)
         {
@@ -44,9 +44,23 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 }
                 else if (y >= FLOOR)
                 {
+                    const double VERT_ANGLE = 0;
                     // Floor rendering
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_GREEN;
-                    characters[y * resolutionX + x].Char.AsciiChar = '.';
+                    if (VERT_ANGLE > 1.2)
+                        characters[y * resolutionX + x].Char.AsciiChar = '@';
+                    else if (VERT_ANGLE > 1)
+                        characters[y * resolutionX + x].Char.AsciiChar = '8';
+                    else if (VERT_ANGLE > 0.8)
+                        characters[y * resolutionX + x].Char.AsciiChar = '?';
+                    else if (VERT_ANGLE > 0.6)
+                        characters[y * resolutionX + x].Char.AsciiChar = 'f';
+                    else if (VERT_ANGLE > 0.4)
+                        characters[y * resolutionX + x].Char.AsciiChar = '<';
+                    else if (VERT_ANGLE > 0.2)
+                        characters[y * resolutionX + x].Char.AsciiChar = '"';
+                    else
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
                 }
                 else
                 {
