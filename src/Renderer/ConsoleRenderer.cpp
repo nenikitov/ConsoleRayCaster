@@ -46,21 +46,22 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 }
                 else if (y >= FLOOR)
                 {
-                    double VERT_ANGLE = abs((y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV);
+                    double VERT_ANGLE = abs((y - HALF_HEIGHT) / (double)resolutionY);
+                    //std::cout << VERT_ANGLE << std::endl;
                     // Floor rendering
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_GREEN;
 
-                    if (y < 23) // VERT_ANGLE > 1.2
+                    if (VERT_ANGLE < 0.07)
                         characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    else if (y < 26) // VERT_ANGLE > 1
+                    else if (VERT_ANGLE < 0.14)
                         characters[y * resolutionX + x].Char.AsciiChar = '"';
-                    else if (y < 29) // VERT_ANGLE > 0.8
+                    else if (VERT_ANGLE < 0.21)
                         characters[y * resolutionX + x].Char.AsciiChar = '<';
-                    else if (y < 31) // VERT_ANGLE > 0.6
+                    else if (VERT_ANGLE < 0.28)
                         characters[y * resolutionX + x].Char.AsciiChar = 'f';
-                    else if (y < 34) // VERT_ANGLE > 0.4
+                    else if (VERT_ANGLE < 0.35)
                         characters[y * resolutionX + x].Char.AsciiChar = '?';
-                    else if (y < 37) // VERT_ANGLE > 0.2
+                    else if (VERT_ANGLE < 0.42)
                         characters[y * resolutionX + x].Char.AsciiChar = '8';
                     else
                         characters[y * resolutionX + x].Char.AsciiChar = '@';
