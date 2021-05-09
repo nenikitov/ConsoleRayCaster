@@ -36,6 +36,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
             const int CEILING = (resolutionY - HEIGHT) / 2;
             const int FLOOR = CEILING + HEIGHT;
 
+            int lastTexturedFloor = 0;
             for (int y = 0; y < resolutionY; y++)
             {
                 if (y < CEILING)
@@ -59,6 +60,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     int tileIndex = level.floorIndexAt(floorX, floorY);
                     CHAR_INFO texture;
 
+                    
                     if (tileIndex != 0)
                     {
                         Tile tile = level.floorTileFrom(tileIndex);
@@ -66,20 +68,18 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                         double sampleX = floorY;
                         double sampleY = -floorX;
                         texture = tile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
+                        lastTexturedFloor = y;
                     }
                     else
                     {
-                        const double VERTICAL_RATIO = (double)y / resolutionY;
                         texture.Attributes = ConsoleFGColors::FG_DARK_GRAY;
-                        // { '`', '\'', '"', '', 'f', '?', '8', '@' }
-                        if (VERTICAL_RATIO < 0.7)
-                            texture.Char.AsciiChar = ' ';
-                        else if (VERTICAL_RATIO < 0.8)
-                            texture.Char.AsciiChar = '`';
-                        else if (VERTICAL_RATIO < 0.9)
+                        const double VOID_RATIO = ((double)y - lastTexturedFloor) / VERT_ANGLE / resolutionY;
+                        if (VOID_RATIO < 1)
                             texture.Char.AsciiChar = '\'';
+                        else if (VOID_RATIO < 1.25)
+                            texture.Char.AsciiChar = '`';
                         else
-                            texture.Char.AsciiChar = '"';
+                            texture.Char.AsciiChar = ' ';
                     }
                     // Put it
                     characters[y * resolutionX + x] = texture;
@@ -113,6 +113,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::WALL, intersection.normalDirection);
                     // Put it
                     characters[y * resolutionX + x] = texture;
+                    lastTexturedFloor = y;
                     #pragma endregion
                 }
             }
