@@ -26,7 +26,8 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
 
         if (intersection.intersects)
         {
-            // If the intersection happens, render the walls
+            // If the intersection happens, render the walls, floor and ceiling
+
             const double DELTA_X = intersection.x - player.getPositionX();
             const double DELTA_Y = intersection.y - player.getPositionY();
             // Fix the fisheye effect
@@ -36,7 +37,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
             const double CEILING = ((double)resolutionY - HEIGHT) / 2;
             const int FLOOR = CEILING + HEIGHT;
 
-            int lastTexturedFloor = 0;
+            int lastTexturedFloor = -1;
             for (int y = 0; y < resolutionY; y++)
             {
                 if (y < CEILING)
@@ -120,7 +121,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
         }
         else
         {
-            // If the intersection happens, render empty characters
+            // If there is no intersections, render empty characters
             for (int y = 0; y < resolutionY; y++)
             {
                 characters[y * resolutionX + x].Char.AsciiChar = ' ';
