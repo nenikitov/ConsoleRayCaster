@@ -9,6 +9,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
 
     // Used for perspective correction
     const double PERPENDICULAR_LENGTH = resolutionX / 2.f / tan(fov / 2.f);
+    double HALF_VER_FOV = 0.5 * fov / (double)resolutionX * (double)resolutionY;
     Intersection intersection;
     #pragma endregion
 
@@ -18,6 +19,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
         // Angle of the ray from the X position
         const double RAY_OFFSET = (double)x - resolutionX / 2.f;
         const double HOR_ANGLE = atan(RAY_OFFSET / PERPENDICULAR_LENGTH);
+        const double HALF_HEIGHT = resolutionY / 2.f;
         
         // Find intersection
         intersection = this->rayCaster.findIntersection(player.getPositionX(), player.getPositionY(), player.getAngle() + HOR_ANGLE);
@@ -44,23 +46,41 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 }
                 else if (y >= FLOOR)
                 {
-                    const double VERT_ANGLE = 0;
+                    double VERT_ANGLE = abs((y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV);
                     // Floor rendering
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_GREEN;
-                    if (VERT_ANGLE > 1.2)
-                        characters[y * resolutionX + x].Char.AsciiChar = '@';
-                    else if (VERT_ANGLE > 1)
-                        characters[y * resolutionX + x].Char.AsciiChar = '8';
-                    else if (VERT_ANGLE > 0.8)
-                        characters[y * resolutionX + x].Char.AsciiChar = '?';
-                    else if (VERT_ANGLE > 0.6)
-                        characters[y * resolutionX + x].Char.AsciiChar = 'f';
-                    else if (VERT_ANGLE > 0.4)
+
+                    if (y < 23) // VERT_ANGLE > 1.2
+                        characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    else if (y < 26) // VERT_ANGLE > 1
+                        characters[y * resolutionX + x].Char.AsciiChar = '"';
+                    else if (y < 29) // VERT_ANGLE > 0.8
                         characters[y * resolutionX + x].Char.AsciiChar = '<';
-                    else if (VERT_ANGLE > 0.2)
+                    else if (y < 31) // VERT_ANGLE > 0.6
+                        characters[y * resolutionX + x].Char.AsciiChar = 'f';
+                    else if (y < 34) // VERT_ANGLE > 0.4
+                        characters[y * resolutionX + x].Char.AsciiChar = '?';
+                    else if (y < 37) // VERT_ANGLE > 0.2
+                        characters[y * resolutionX + x].Char.AsciiChar = '8';
+                    else
+                        characters[y * resolutionX + x].Char.AsciiChar = '@';
+
+                    /*
+                    if (y < 42) // VERT_ANGLE > 1.2
+                        characters[y * resolutionX + x].Char.AsciiChar = '@';
+                    else if (y < 48) // VERT_ANGLE > 1
+                        characters[y * resolutionX + x].Char.AsciiChar = '8';
+                    else if (y > 54) // VERT_ANGLE > 0.8
+                        characters[y * resolutionX + x].Char.AsciiChar = '?';
+                    else if (y > 60) // VERT_ANGLE > 0.6
+                        characters[y * resolutionX + x].Char.AsciiChar = 'f';
+                    else if (y > 66) // VERT_ANGLE > 0.4
+                        characters[y * resolutionX + x].Char.AsciiChar = '<';
+                    else if (y > 12) // VERT_ANGLE > 0.2
                         characters[y * resolutionX + x].Char.AsciiChar = '"';
                     else
                         characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    */
                 }
                 else
                 {
