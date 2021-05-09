@@ -48,10 +48,12 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 {
                     const double VERT_ANGLE = (y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
                     const double PROJECTION_RATIO = (wallHeight / 2 / tan(VERT_ANGLE)) / PROJECTED_DISTANCE / resolutionX;
-                    double sampleX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
-                    double sampleY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
-                    int tileIndex = level.floorIndexAt(sampleX, sampleY);
+                    double floorX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
+                    double floorY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
+                    int tileIndex = level.floorIndexAt(floorX, floorY);
                     Tile tile = level.floorTileFrom(tileIndex);
+                    double sampleX = floorY;
+                    double sampleY = -floorX;
                     CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
                     // Floor rendering
                     characters[y * resolutionX + x] = texture;
@@ -60,7 +62,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 {
                     // Wall rendering
                     // Find the point where the texture should be sampled
-                    double sampleY = ((double)y - CEILING) / (HEIGHT + 1);
+                    double sampleY = ((double)y - CEILING) / (HEIGHT + 1.f);
                     double sampleX = 0;
                     switch (intersection.normalDirection)
                     {
