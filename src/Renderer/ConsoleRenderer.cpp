@@ -58,7 +58,11 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     // Sample the texture
                     double sampleX = floorY;
                     double sampleY = -floorX;
-                    texture = tile.sampleTexture(sampleX, sampleY, TileTypes::CEILING);
+
+                    double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
+                    double lightness = 1 - (distance / 49);
+
+                    texture = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::CEILING);
                     characters[y * resolutionX + x] = texture;
 
                     /*
