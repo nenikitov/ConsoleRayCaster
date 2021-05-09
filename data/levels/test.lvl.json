@@ -17,7 +17,9 @@
 			"test",
 			"arrow"
 		],
-		"ceiling": []
+		"ceiling": [
+			"empty"
+		]
 	},
 	"tileData": {
 		"wall": [
