@@ -50,26 +50,10 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     const double PROJECTION_RATIO = (wallHeight / 2 / tan(VERT_ANGLE)) / PROJECTED_DISTANCE / resolutionX;
                     double sampleX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
                     double sampleY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
-                    CHAR_INFO texture = testTile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
+                    Tile tile = level.floorTileFrom(0);
+                    CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
                     // Floor rendering
                     characters[y * resolutionX + x] = texture;
-
-                    /*
-                    if (PROJECTION_RATIO < 0.01)
-                        characters[y * resolutionX + x].Char.AsciiChar = '@';
-                    else if (PROJECTION_RATIO < 0.04)
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    else if (PROJECTION_RATIO < 0.06)
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    else if (PROJECTION_RATIO < 0.08)
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    else if (PROJECTION_RATIO < 0.1)
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    else if (PROJECTION_RATIO < 0.15)
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    else
-                        characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    */
                 }
                 else
                 {

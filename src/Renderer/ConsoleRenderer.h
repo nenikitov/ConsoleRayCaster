@@ -27,5 +27,4 @@ class Renderer
 		RayCaster rayCaster;
 		Player& player;
 		Level& level;
-		Tile testTile = Tile("test");
 };

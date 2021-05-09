@@ -11,7 +11,9 @@
 			"test",
 			"arrow"
 		],
-		"floor": [],
+		"floor": [
+			"empty"
+		],
 		"ceiling": []
 	},
 	"tileData": {

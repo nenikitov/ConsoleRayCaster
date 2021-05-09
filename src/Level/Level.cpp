@@ -34,6 +34,18 @@ Level::Level(std::string levelName)
 	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
 		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString());
 	#pragma endregion
+#	pragma region Floor lookup
+	// Get data from wall lookup
+	const int FLOOR_LOOKUP_SIZE = json["tileLookUp"]["floor"].size();
+	// ERROR CATCHING - No wall lookup present
+	if (FLOOR_LOOKUP_SIZE == 0)
+		throw std::invalid_argument(levelName + " - the lookup for floors is empty");
+
+	this->floorLookup = (Tile*)malloc(FLOOR_LOOKUP_SIZE * sizeof(Tile));
+	this->floorTiles = FLOOR_LOOKUP_SIZE - 1;
+	for (unsigned int i = 0; i < FLOOR_LOOKUP_SIZE; i++)
+		this->floorLookup[i] = Tile(json["tileLookUp"]["floor"][i].asString());
+	#pragma endregion
 	#pragma endregion
 
 	#pragma region Initialize height
@@ -90,14 +102,14 @@ Level::Level(std::string levelName)
 			// Get floor tile data
 			const int FLOOR_DATA = json["tileData"]["floor"][y][x].asInt();
 			// ERROR CATCHING - Invalid tile data
-			if (WALL_DATA < 0)
+			if (FLOOR_DATA < 0)
 				throw std::invalid_argument(levelName + " - invalid floor data index at " + std::to_string(x) + ", " + std::to_string(y));
 			this->floorData[y][x] = FLOOR_DATA;
 
 			// Get ceiling tile data
 			const int CEILING_DATA = json["tileData"]["ceiling"][y][x].asInt();
 			// ERROR CATCHING - Invalid tile data
-			if (WALL_DATA < 0)
+			if (CEILING_DATA < 0)
 				throw std::invalid_argument(levelName + " - invalid ceiling data index at " + std::to_string(x) + ", " + std::to_string(y));
 			this->ceilingData[y][x] = CEILING_DATA;
 		}
@@ -137,6 +149,14 @@ Tile Level::wallTileFrom(unsigned int i)
 		return this->wallLookup[0];
 	else
 		return this->wallLookup[i];
+}
+
+Tile Level::floorTileFrom(unsigned int i)
+{
+	if (i < 0 || i > this->floorTiles)
+		return this->floorLookup[0];
+	else
+		return this->floorLookup[i];
 }
 
 int Level::getPlayerStartX()
