@@ -47,6 +47,9 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 else if (y > FLOOR)
                 {
                     // Floor rendering
+
+                    //TODO If tile index is 0, draw gradient
+
                     // Calculate vertical angle of the pixel
                     const double VERT_ANGLE = (y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
                     // Calculate ratio of distances between floor texel and wall intersection
