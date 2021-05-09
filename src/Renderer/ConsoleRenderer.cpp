@@ -46,8 +46,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 }
                 else if (y >= FLOOR)
                 {
-                    double VERT_ANGLE = abs((y - HALF_HEIGHT) / (double)resolutionY);
-                    //std::cout << VERT_ANGLE << std::endl;
+                    double VERT_ANGLE = abs((y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV);
                     // Floor rendering
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_GREEN;
 
