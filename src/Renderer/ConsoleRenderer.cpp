@@ -50,7 +50,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     const double PROJECTION_RATIO = (wallHeight / 2 / tan(VERT_ANGLE)) / PROJECTED_DISTANCE / resolutionX;
                     double sampleX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
                     double sampleY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
-                    Tile tile = level.floorTileFrom(0);
+                    Tile tile = level.floorTileFrom(level.floorIndexAt(sampleX, sampleY));
                     CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, TileTypes::FLOOR);
                     // Floor rendering
                     characters[y * resolutionX + x] = texture;
