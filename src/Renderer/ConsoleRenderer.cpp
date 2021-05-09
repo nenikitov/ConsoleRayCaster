@@ -43,8 +43,28 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 if (y < CEILING)
                 {
                     #pragma region Ceiling rendering
+                    // Calculate vertical angle of the pixel
+                    const double VERT_ANGLE = -(y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
+                    // Calculate ratio of distances between floor texel and wall intersection
+                    const double PROJECTION_RATIO = (wallHeight / 2 / tan(VERT_ANGLE)) / PROJECTED_DISTANCE / resolutionX;
+                    // Project the point into world space
+                    double floorX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
+                    double floorY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
+                    // Find tile
+                    int tileIndex = level.floorIndexAt(floorX, floorY);
+                    CHAR_INFO texture;
+
+                    Tile tile = level.floorTileFrom(tileIndex);
+                    // Sample the texture
+                    double sampleX = floorY;
+                    double sampleY = -floorX;
+                    texture = tile.sampleTexture(sampleX, sampleY, TileTypes::CEILING);
+                    characters[y * resolutionX + x] = texture;
+
+                    /*
                     characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_CYAN;
                     characters[y * resolutionX + x].Char.AsciiChar = '`';
+                    */
                     #pragma endregion
                 }
                 else if (y > FLOOR)
