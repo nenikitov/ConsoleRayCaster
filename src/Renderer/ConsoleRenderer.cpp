@@ -45,29 +45,35 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     #pragma region Ceiling rendering
                     // Calculate vertical angle of the pixel
                     const double VERT_ANGLE = -(y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
-                    // Calculate ratio of distances between floor texel and wall intersection
+                    // Calculate ratio of distances between ceilng texel and wall intersection
                     const double PROJECTION_RATIO = (wallHeight / 2 / tan(VERT_ANGLE)) / PROJECTED_DISTANCE / resolutionX;
                     // Project the point into world space
                     double ceilingX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
                     double ceilingY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
                     // Find tile
                     int tileIndex = level.ceilingIndexAt(ceilingX, ceilingY);
-                    Tile tile = level.ceilingTileFrom(tileIndex);
-                    // Sample the texture
-                    double sampleX = ceilingY;
-                    double sampleY = -ceilingX;
-
-                    double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
-                    double lightness = 1 - (distance / 49);
 
                     CHAR_INFO texture;
-                    texture = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::CEILING);
-                    characters[y * resolutionX + x] = texture;
+                    if (tileIndex != 0)
+                    {
+                        Tile tile = level.ceilingTileFrom(tileIndex);
+                        // Sample the texture
+                        double sampleX = ceilingY;
+                        double sampleY = -ceilingX;
 
-                    /*
-                    characters[y * resolutionX + x].Attributes = ConsoleFGColors::FG_DARK_CYAN;
-                    characters[y * resolutionX + x].Char.AsciiChar = '`';
-                    */
+                        double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
+                        double lightness = 1 - (distance / 49);
+
+                        texture = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::CEILING);
+                    }
+                    else
+                    {
+                        //TODO Create better sky rendering
+                        texture.Attributes = ConsoleFGColors::FG_CYAN;
+                        texture.Char.AsciiChar = '-';
+                    }
+                    // Put it
+                    characters[y * resolutionX + x] = texture;
                     #pragma endregion
                 }
                 else if (y > FLOOR)
