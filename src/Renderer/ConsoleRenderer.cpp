@@ -48,20 +48,19 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     // Calculate ratio of distances between floor texel and wall intersection
                     const double PROJECTION_RATIO = (wallHeight / 2 / tan(VERT_ANGLE)) / PROJECTED_DISTANCE / resolutionX;
                     // Project the point into world space
-                    double floorX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
-                    double floorY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
+                    double ceilingX = player.getPositionX() + DELTA_X * PROJECTION_RATIO;
+                    double ceilingY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
                     // Find tile
-                    int tileIndex = level.floorIndexAt(floorX, floorY);
-                    CHAR_INFO texture;
-
-                    Tile tile = level.floorTileFrom(tileIndex);
+                    int tileIndex = level.ceilingIndexAt(ceilingX, ceilingY);
+                    Tile tile = level.ceilingTileFrom(tileIndex);
                     // Sample the texture
-                    double sampleX = floorY;
-                    double sampleY = -floorX;
+                    double sampleX = ceilingY;
+                    double sampleY = -ceilingX;
 
                     double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
                     double lightness = 1 - (distance / 49);
 
+                    CHAR_INFO texture;
                     texture = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::CEILING);
                     characters[y * resolutionX + x] = texture;
 
@@ -83,9 +82,8 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     double floorY = player.getPositionY() + DELTA_Y * PROJECTION_RATIO;
                     // Find tile
                     int tileIndex = level.floorIndexAt(floorX, floorY);
-                    CHAR_INFO texture;
 
-                    
+                    CHAR_INFO texture;
                     if (tileIndex != 0)
                     {
                         Tile tile = level.floorTileFrom(tileIndex);
