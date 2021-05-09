@@ -74,9 +74,9 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     {
                         texture.Attributes = ConsoleFGColors::FG_DARK_GRAY;
                         const double VOID_RATIO = ((double)y - lastTexturedFloor) / VERT_ANGLE / resolutionY;
-                        if (VOID_RATIO < 1)
+                        if (VOID_RATIO < 1.25)
                             texture.Char.AsciiChar = '\'';
-                        else if (VOID_RATIO < 1.25)
+                        else if (VOID_RATIO < 1.75)
                             texture.Char.AsciiChar = '`';
                         else
                             texture.Char.AsciiChar = ' ';
