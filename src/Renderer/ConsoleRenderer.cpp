@@ -114,18 +114,6 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                         double lightness = 1 - (distance / 49);
 
                         texture = voidTile.sampleTexture(sampleX, sampleY, lightness, TileTypes::WALL);
-                        
-
-                        /*
-                        texture.Attributes = ConsoleFGColors::FG_DARK_GRAY;
-                        const double VOID_RATIO = ((double)y - lastTexturedFloor) / VERT_ANGLE / resolutionY;
-                        if (VOID_RATIO < 1.25)
-                            texture.Char.AsciiChar = '\'';
-                        else if (VOID_RATIO < 1.75)
-                            texture.Char.AsciiChar = '`';
-                        else
-                            texture.Char.AsciiChar = ' ';
-                        */
                     }
                     // Put it
                     characters[y * resolutionX + x] = texture;
