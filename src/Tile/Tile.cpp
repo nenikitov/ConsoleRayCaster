@@ -29,14 +29,14 @@ Tile::Tile(std::string tileName)
 		throw std::invalid_argument(tileName + " - brightness and color data have different sizes");
 
 	// Initialize internal arrays
-	this->textureBrightness = new unsigned short*[this->textureDimensions];
+	this->textureBrightness = new short*[this->textureDimensions];
 	this->textureColors = new unsigned short*[this->textureDimensions];
 
 	// Read data line by line
 	for (int y = 0; y < this->textureDimensions; y++)
 	{
 		// Initialize internal arrays
-		this->textureBrightness[y] = new unsigned short[this->textureDimensions];
+		this->textureBrightness[y] = new short[this->textureDimensions];
 		this->textureColors[y] = new unsigned short[this->textureDimensions];
 
 		// ERROR CATCHING - Inconsistent dimensions between color and brightness data
@@ -47,9 +47,6 @@ Tile::Tile(std::string tileName)
 		{
 			// Get brightness
 			const short BRIGHTNESS = json["rendering"]["brightness"][y][x].asInt();
-			// ERROR CATCHING - Brightness data is invalid
-			if (BRIGHTNESS < 0)
-				throw std::invalid_argument(tileName + " - brightness is illegal at " + std::to_string(x) + ", " + std::to_string(y));
 			this->textureBrightness[y][x] = BRIGHTNESS;
 
 			// Get color
@@ -85,38 +82,19 @@ CHAR_INFO Tile::sampleTexture(double x, double y, double lightness, TileTypes ty
 	intY %= this->textureDimensions;
 
 	// Calculate the brightness level
+	lightness = min(max(0, lightness), 1);
 	double relativeBrightness = (double)this->textureBrightness[intY][intX] * lightness;
-	relativeBrightness = min(max(0, relativeBrightness), 7);
-	int brightnessLookUp = relativeBrightness;
-
+	
 	// Get the color of the texture
 	unsigned short color = this->textureColors[intY][intX];
 
-	// Return logic
-	switch (type)
-	{
-		case WALL:
-			// Brighten NORTH and SOUTH walls
-			if (normal == WallNormalDirection::NORTH || normal == WallNormalDirection::SOUTH)
-				return {
-					(WCHAR)this->wallCharLookUp[brightnessLookUp],
-					processColor(this->textureColors[intY][intX], true) };
-			else
-			// Return EAST and WEST wall colors as is
-				return {
-					(WCHAR)this->wallCharLookUp[brightnessLookUp],
-					processColor(this->textureColors[intY][intX]) };
-		case FLOOR:
-			// Brighten floor
-			return {
-				(WCHAR)this->floorCharLookUp[brightnessLookUp],
-				processColor(this->textureColors[intY][intX], true) };
-		case CEILING:
-			// Return ceiling colors as is
-			return {
-				(WCHAR)this->ceilingCharLookUp[brightnessLookUp],
-				processColor(this->textureColors[intY][intX]) };
-	}
+	// Brighten the FLOOR or NORTH and SOUTH walls
+	bool brighten = type == TileTypes::FLOOR || (type == TileTypes::WALL && (normal == WallNormalDirection::NORTH || normal == WallNormalDirection::SOUTH));
+
+	WCHAR character = lookupBrightnessChar(relativeBrightness, type);
+	WORD attribures = processColor(this->textureColors[intY][intX], brighten);
+
+	return { character, attribures };
 }
 
 WORD Tile::processColor(unsigned short color, bool brighten)
@@ -137,4 +115,23 @@ WORD Tile::processColor(unsigned short color, bool brighten)
 		else
 			return 8;
 	}
+}
+
+WCHAR Tile::lookupBrightnessChar(double brightness, TileTypes type)
+{
+	int brightnessLookUp = min(brightness, 7);
+	if (brightness >= 0)
+	{
+		switch (type)
+		{
+			case WALL:
+				return (WCHAR)this->wallCharLookUp[brightnessLookUp];
+			case FLOOR:
+				return (WCHAR)this->floorCharLookUp[brightnessLookUp];
+			case CEILING:
+				return (WCHAR)this->ceilingCharLookUp[brightnessLookUp];
+		}
+	}
+	else
+		return (WCHAR)' ';
 }

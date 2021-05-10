@@ -28,8 +28,9 @@ class Tile
 		CHAR_INFO sampleTexture(double x, double y, double lightness, TileTypes type = TileTypes::WALL, WallNormalDirection normal = WallNormalDirection::NORTH);
 	private:
 		WORD processColor(unsigned short color, bool brighten = false);
+		WCHAR lookupBrightnessChar(double brightness, TileTypes type);
 
-		unsigned short** textureBrightness;
+		short** textureBrightness;
 		unsigned short** textureColors;
 		unsigned short textureDimensions;
 		static const char wallCharLookUp[8];
