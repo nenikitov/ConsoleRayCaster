@@ -93,6 +93,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\levels\test.lvl.json" />
+    <None Include="data\tiles\void.tl.json" />
   </ItemGroup>
 </Project>

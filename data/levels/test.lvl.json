@@ -12,7 +12,7 @@
 			"arrow"
 		],
 		"floor": [
-			"empty",
+			"void",
 			"bricks",
 			"test",
 			"arrow"
