@@ -68,9 +68,14 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     }
                     else
                     {
+                        Tile skyTile = level.ceilingTileFrom(1);
                         //TODO Create better sky rendering
-                        texture.Attributes = ConsoleFGColors::FG_CYAN;
-                        texture.Char.AsciiChar = '-';
+                        double sampleX = (double)x / resolutionX;
+                        double sampleY = (double)y / resolutionX;
+
+                        double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
+
+                        texture = skyTile.sampleTexture(sampleX, sampleY, 1, TileTypes::CEILING);
                     }
                     // Put it
                     characters[y * resolutionX + x] = texture;
