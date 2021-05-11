@@ -71,7 +71,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                         Tile skyTile = level.ceilingTileFrom(0);
                         //TODO Create better sky rendering
                         double sampleX = (player.getAngle() + HOR_ANGLE) / 3.141592;
-                        double sampleY = (double)y / resolutionX;
+                        double sampleY = VERT_ANGLE * 3.141592;
 
                         double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
 
