@@ -160,12 +160,36 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
         }
         else
         {
+            for (int y = 0; y < resolutionY; y++)
+            {
+                #pragma region Ceiling rendering
+                // Calculate vertical angle of the pixel
+                const double VERT_ANGLE = -(y - HALF_HEIGHT) / (double)resolutionY * HALF_VER_FOV;
+
+                CHAR_INFO texture;
+                Tile skyTile = level.ceilingTileFrom(0);
+                //TODO Create better sky rendering
+                double sampleX = (player.getAngle() + HOR_ANGLE) / 3.141592 / 2;
+                double sampleY = -VERT_ANGLE / 0.5708 - 0.5;
+                sampleY = fmax(sampleY, -1);
+
+                double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
+
+                texture = skyTile.sampleTexture(sampleX, sampleY, 1, TileTypes::CEILING);
+                // Put it
+                characters[y * resolutionX + x] = texture;
+                #pragma endregion
+            }
+
+
+            /*
             // If there is no intersections, render empty characters
             for (int y = 0; y < resolutionY; y++)
             {
                 characters[y * resolutionX + x].Char.AsciiChar = ' ';
                 characters[y * resolutionX + x].Attributes = 0;
             } 
+            */
         }
     }
 
