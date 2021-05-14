@@ -21,11 +21,9 @@ int main()
 {
     /*
     TODO
-    - Console is a limiting factor here. It can barely handle this many characters written in it, but it breaks as soon as I introduce colors.
-    - To fix it, I should implement a framerate cap and rework how the console is handled
-
-    - Implement tile lookup in level
-    - Implement multiple tiles
+    Major refactoring
+    - Maybe create a struct for rendering result so you can introduce multiple renderers that will transform the result into characters (or pixels in graphics rendering)
+    - Separate game from game engine, so you can create tile and level editors
     */
 
     ConsoleHandler consoleHandler;
