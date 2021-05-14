@@ -73,6 +73,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                         double sampleX = (player.getAngle() + HOR_ANGLE) / 3.141592 / 2;
                         double sampleY = -VERT_ANGLE / 0.5708 - 0.5;
                         sampleY = fmax(sampleY, -1);
+                        sampleY = fmin(sampleY, -0.01);
 
                         double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
 
@@ -172,6 +173,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                 double sampleX = (player.getAngle() + HOR_ANGLE) / 3.141592 / 2;
                 double sampleY = -VERT_ANGLE / 0.5708 - 0.5;
                 sampleY = fmax(sampleY, -1);
+                sampleY = fmin(sampleY, -0.01);
 
                 double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
 
