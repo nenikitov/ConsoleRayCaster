@@ -114,7 +114,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     {
                         Tile voidTile = level.floorTileFrom(0);
                         const double VOID_RATIO = ((double)y - lastTexturedFloor) / VERT_ANGLE / resolutionY;
-                        double sampleY = VOID_RATIO / 4;
+                        double sampleY = fmin(VOID_RATIO * HALF_VER_FOV, 0.99);
                         double sampleX = (double)x / resolutionX * 64;
 
                         double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
