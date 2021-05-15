@@ -68,9 +68,16 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     }
                     else
                     {
+                        Tile skyTile = level.ceilingTileFrom(0);
                         //TODO Create better sky rendering
-                        texture.Attributes = ConsoleFGColors::FG_CYAN;
-                        texture.Char.AsciiChar = '-';
+                        double sampleX = (player.getAngle() + HOR_ANGLE) / 3.141592 / 2;
+                        double sampleY = -VERT_ANGLE / 0.5708 - 0.5;
+                        sampleY = fmax(sampleY, -1);
+                        sampleY = fmin(sampleY, -0.01);
+
+                        double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
+
+                        texture = skyTile.sampleTexture(sampleX, sampleY, 1, TileTypes::CEILING);
                     }
                     // Put it
                     characters[y * resolutionX + x] = texture;
@@ -107,7 +114,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     {
                         Tile voidTile = level.floorTileFrom(0);
                         const double VOID_RATIO = ((double)y - lastTexturedFloor) / VERT_ANGLE / resolutionY;
-                        double sampleY = VOID_RATIO / 4;
+                        double sampleY = fmin(VOID_RATIO * HALF_VER_FOV, 0.99);
                         double sampleX = (double)x / resolutionX * 64;
 
                         double distance = HALF_HEIGHT / tan(VERT_ANGLE) / resolutionY;
@@ -154,12 +161,11 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
         }
         else
         {
-            // If there is no intersections, render empty characters
             for (int y = 0; y < resolutionY; y++)
             {
                 characters[y * resolutionX + x].Char.AsciiChar = ' ';
                 characters[y * resolutionX + x].Attributes = 0;
-            } 
+            }
         }
     }
 

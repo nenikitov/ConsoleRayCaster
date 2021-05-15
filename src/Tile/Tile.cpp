@@ -89,7 +89,7 @@ CHAR_INFO Tile::sampleTexture(double x, double y, double lightness, TileTypes ty
 	unsigned short color = this->textureColors[intY][intX];
 
 	// Brighten the FLOOR or NORTH and SOUTH walls
-	bool brighten = type == TileTypes::FLOOR || (type == TileTypes::WALL && (normal == WallNormalDirection::NORTH || normal == WallNormalDirection::SOUTH));
+	bool brighten = type == TileTypes::CEILING || (type == TileTypes::WALL && (normal == WallNormalDirection::NORTH || normal == WallNormalDirection::SOUTH));
 
 	WCHAR character = lookupBrightnessChar(relativeBrightness, type);
 	WORD attribures = processColor(this->textureColors[intY][intX], brighten);
