@@ -7,6 +7,7 @@
 class AbstractConsoleRenderer : public IRenderer
 {
 	public:
+		BufferRequirements getRequirements() override;
 		void init() override;
 		virtual void render() override = 0;
 	protected:
@@ -14,6 +15,7 @@ class AbstractConsoleRenderer : public IRenderer
 		int getWidth() override;
 		int getHeight() override;
 	private:
-		static const DWORD REQUESTED_OUT_MODES = ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
+		const BufferRequirements BUFFER_REQUIREMENTS = BufferRequirements(true, false, true, false);
+		const DWORD REQUESTED_OUT_MODES = ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
 		const HANDLE CONSOLE_HANDLE = GetStdHandle(STD_OUTPUT_HANDLE);
 };

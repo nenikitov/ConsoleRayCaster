@@ -56,13 +56,13 @@
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Renderers\BufferRequirements\BufferRequirements.cpp">
+    <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Renderers\BaseRenderers\Console\AbstractConsoleRenderer.cpp">
+    <ClCompile Include="src\Engine\Render\Renderers\Base\Console\AbstractConsoleRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Renderers\BaseRenderers\Graphics\AbstractGraphicsRenderer.cpp">
+    <ClCompile Include="src\Engine\Render\Renderers\Base\Graphics\AbstractGraphicsRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -100,16 +100,16 @@
     <ClInclude Include="src\Renderer\ConsoleRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Renderers\IRenderer.h">
+    <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Renderers\BufferRequirements\BufferRequirements.h">
+    <ClInclude Include="src\Engine\Render\Renderers\Base\Console\AbstractConsoleRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Renderers\BaseRenderers\Console\AbstractConsoleRenderer.h">
+    <ClInclude Include="src\Engine\Render\Renderers\Base\Graphics\AbstractGraphicsRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Renderers\BaseRenderers\Graphics\AbstractGraphicsRenderer.h">
+    <ClInclude Include="src\Engine\Render\Renderers\IRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,10 @@
 #include "AbstractConsoleRenderer.h"
 
+BufferRequirements AbstractConsoleRenderer::getRequirements()
+{
+	return this->bufferRequirements;
+}
+
 void AbstractConsoleRenderer::init()
 {
 	if (this->CONSOLE_HANDLE == INVALID_HANDLE_VALUE)
@@ -9,7 +14,7 @@ void AbstractConsoleRenderer::init()
 	if (!GetConsoleMode(this->CONSOLE_HANDLE, &originalMode))
 		throw std::runtime_error("Could not get console mode");
 
-	if (!SetConsoleMode(this->CONSOLE_HANDLE, originalMode | AbstractConsoleRenderer::REQUESTED_OUT_MODES))
+	if (!SetConsoleMode(this->CONSOLE_HANDLE, originalMode | this->REQUESTED_OUT_MODES))
 		throw std::runtime_error("Could not request console mode");
 
 	if (!SetConsoleActiveScreenBuffer(this->CONSOLE_HANDLE))
