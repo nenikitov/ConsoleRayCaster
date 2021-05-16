@@ -56,6 +56,9 @@
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Renderers\BufferRequirements\BufferRequirements.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Level\Level.h">
@@ -91,8 +94,11 @@
     <ClInclude Include="src\Renderer\ConsoleRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data\tiles\sky.tl.json" />
+    <ClInclude Include="src\Engine\Renderers\IRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderers\BufferRequirements\BufferRequirements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
