@@ -3,7 +3,7 @@
 bool ConsoleHandler::initialize()
 {
 	// Get the handle
-	this->newStdOut = GetStdHandle(STD_ERROR_HANDLE);
+	this->newStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (this->newStdOut == INVALID_HANDLE_VALUE)
 		return false;
 	

@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Renderers\BaseRenderers\Graphics\AbstractGraphicsRenderer.cpp" />
+    <ClCompile Include="src\Engine\Renderers\BaseRenderers\Console\AbstractConsoleRenderer.cpp" />
     <ClCompile Include="src\Engine\Renderers\BufferRequirements\BufferRequirements.cpp" />
     <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
@@ -153,6 +155,8 @@
     <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Renderers\BaseRenderers\Graphics\AbstractGraphicsRenderer.h" />
+    <ClInclude Include="src\Engine\Renderers\BaseRenderers\Console\AbstractConsoleRenderer.h" />
     <ClInclude Include="src\Engine\Renderers\BufferRequirements\BufferRequirements.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleColors.h" />
     <ClInclude Include="src\Engine\Renderers\IRenderer.h" />

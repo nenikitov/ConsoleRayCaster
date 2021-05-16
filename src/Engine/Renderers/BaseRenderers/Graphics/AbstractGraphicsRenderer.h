@@ -1,9 +1,11 @@
 #pragma once
 
-class IRenderer
+#include "../../IRenderer.h"
+
+class AbstractGraphicsRenderer : public IRenderer
 {
 	public:
-		virtual void init()   = 0;
+		virtual void init() = 0;
 		virtual void render() = 0;
 	protected:
 		virtual void setTitle(char* title) = 0;
