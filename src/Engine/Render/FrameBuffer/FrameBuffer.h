@@ -3,10 +3,10 @@
 #include "CustomBufferTypes/SurfaceColors.h"
 #include "CustomBufferTypes/SurfaceTypes.h"
 
-struct BufferRenderer
+struct FrameBuffer
 {
 	public:
-		BufferRenderer(
+		FrameBuffer(
 			SurfaceTypes surfaceType, SurfaceColors surfaceColor, bool surfaceReceiveLighting, 
 			double fogBrightness, SurfaceColors fogColor, double fogSaturation,
 			double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation);
@@ -19,7 +19,7 @@ struct BufferRenderer
 		const double		FOG_BRIGTNESS;
 		const SurfaceColors	FOG_COLOR;
 		const double		FOG_SATURAION;
-		// Level lighting buffers
+		// Sector lighting buffers
 		const double		SECTOR_BRIGHTNESS;
 		const SurfaceColors	SECTOR_COLOR;
 		const double		SECTOR_SATURAION;

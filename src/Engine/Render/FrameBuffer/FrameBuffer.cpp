@@ -1,6 +1,6 @@
-#include "RenderedBuffer.h"
+#include "FrameBuffer.h"
 
-BufferRenderer::BufferRenderer(
+FrameBuffer::FrameBuffer(
 	SurfaceTypes surfaceType, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
 	double fogBrightness, SurfaceColors fogColor, double fogSaturation,
 	double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation)
