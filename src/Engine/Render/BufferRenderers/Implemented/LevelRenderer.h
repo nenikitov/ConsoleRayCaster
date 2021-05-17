@@ -4,4 +4,9 @@
 
 class LevelRenderer : public IBufferRenderer
 {
+	public:
+		LevelRenderer();
+		FrameBuffer** render(int width, int height) override;
+	private:
+
 };
