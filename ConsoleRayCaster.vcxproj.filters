@@ -59,16 +59,19 @@
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -109,13 +112,7 @@
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Render\BufferVisualizers\IBufferVisualizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h">
@@ -127,10 +124,16 @@
     <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\BufferRenderers\IBufferRenderer.h">
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.h">
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

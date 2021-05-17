@@ -139,9 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.cpp" />
-    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.cpp" />
-    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
     <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
@@ -158,9 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.h" />
-    <ClInclude Include="src\Engine\Render\BufferRenderers\IBufferRenderer.h" />
-    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.h" />
-    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h" />
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.h" />
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleColors.h" />
     <ClInclude Include="src\Engine\Render\BufferVisualizers\IBufferVisualizer.h" />
