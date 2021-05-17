@@ -1,11 +1,11 @@
-#include "AbstractConsoleRenderer.h"
+#include "AbstractConsoleVisualizer.h"
 
-BufferRequirements AbstractConsoleRenderer::getRequirements()
+BufferRequirements AbstractConsoleVisualizer::getRequirements()
 {
-	return this->bufferRequirements;
+	return this->BUFFER_REQUIREMENTS;
 }
 
-void AbstractConsoleRenderer::init()
+void AbstractConsoleVisualizer::init()
 {
 	if (this->CONSOLE_HANDLE == INVALID_HANDLE_VALUE)
 		throw std::runtime_error("Could not get console handle");
@@ -26,19 +26,19 @@ void AbstractConsoleRenderer::init()
 	SetConsoleCursorInfo(this->CONSOLE_HANDLE, &cursorInfo);
 }
 
-void AbstractConsoleRenderer::setTitle(char* title)
+void AbstractConsoleVisualizer::setTitle(char* title)
 {
 	SetConsoleTitleA(title);
 }
 
-int AbstractConsoleRenderer::getWidth()
+int AbstractConsoleVisualizer::getWidth()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	GetConsoleScreenBufferInfo(this->CONSOLE_HANDLE, &info);
 	return info.srWindow.Right - info.srWindow.Left + 1;
 }
 
-int AbstractConsoleRenderer::getHeight()
+int AbstractConsoleVisualizer::getHeight()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	GetConsoleScreenBufferInfo(this->CONSOLE_HANDLE, &info);

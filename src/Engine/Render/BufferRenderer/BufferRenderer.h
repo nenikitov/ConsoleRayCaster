@@ -4,7 +4,7 @@
 #include "CustomBufferTypes/SurfaceTypes.h"
 #include "CustomBufferTypes/SurfaceLightResponses.h"
 
-struct VisualizerBuffers
+struct BufferRenderer
 {
 	// Surface buffers
 	const SurfaceTypes          SURFACE_TYPE;

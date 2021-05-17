@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../../IRenderer.h"
+#include "../../IBufferVisualizer.h"
 #include <Windows.h>
 #include <stdexcept>
 
-class AbstractConsoleRenderer : public IRenderer
+class AbstractConsoleVisualizer : public IBufferVisualizer
 {
 	public:
 		BufferRequirements getRequirements() override;

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../IRenderer.h"
+#include "../../IBufferVisualizer.h"
 
-class AbstractGraphicsRenderer : public IRenderer
+class AbstractGraphicsVisualizer : public IBufferVisualizer
 {
 	public:
 		BufferRequirements getRequirements() override;
