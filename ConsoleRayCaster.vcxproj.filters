@@ -59,10 +59,13 @@
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\Renderers\Base\Console\AbstractConsoleRenderer.cpp">
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\Renderers\Base\Graphics\AbstractGraphicsRenderer.cpp">
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\RenderedBuffer\RenderedBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,13 +106,25 @@
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\Renderers\Base\Console\AbstractConsoleRenderer.h">
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\Renderers\Base\Graphics\AbstractGraphicsRenderer.h">
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\IBufferVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\Renderers\IRenderer.h">
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceLightResponses.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\RenderedBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

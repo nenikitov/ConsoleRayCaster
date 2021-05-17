@@ -139,8 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Render\Renderers\Base\Graphics\AbstractGraphicsRenderer.cpp" />
-    <ClCompile Include="src\Engine\Render\Renderers\Base\Console\AbstractConsoleRenderer.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
     <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
@@ -153,13 +153,17 @@
     <ClCompile Include="src\ConsoleRayCaster.cpp" />
     <ClCompile Include="src\Level\Level.cpp" />
     <ClCompile Include="src\Tile\Tile.cpp" />
+    <ClCompile Include="src\Engine\Render\RenderedBuffer\RenderedBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Render\Renderers\Base\Graphics\AbstractGraphicsRenderer.h" />
-    <ClInclude Include="src\Engine\Render\Renderers\Base\Console\AbstractConsoleRenderer.h" />
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.h" />
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleColors.h" />
-    <ClInclude Include="src\Engine\Render\Renderers\IRenderer.h" />
+    <ClInclude Include="src\Engine\Render\BufferVisualizers\IBufferVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceColors.h" />
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceLightResponses.h" />
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceTypes.h" />
     <ClInclude Include="src\JsonCpp\json\json-forwards.h" />
     <ClInclude Include="src\JsonCpp\json\json.h" />
     <ClInclude Include="src\Renderer\ConsoleRenderer.h" />
@@ -170,6 +174,7 @@
     <ClInclude Include="src\Level\Level.h" />
     <ClInclude Include="src\Tile\Tile.h" />
     <ClInclude Include="src\Tile\TileTypes.h" />
+    <ClInclude Include="src\Engine\Render\RenderedBuffer\RenderedBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\levels\test.lvl.json">
