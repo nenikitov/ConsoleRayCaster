@@ -65,7 +65,10 @@
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Base\Graphics\AbstractGraphicsVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\RenderedBuffer\RenderedBuffer.cpp">
+    <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -115,16 +118,19 @@
     <ClInclude Include="src\Engine\Render\BufferVisualizers\Base\Console\AbstractConsoleVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceColors.h">
+    <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceLightResponses.h">
+    <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\RenderedBuffer\CustomBufferTypes\SurfaceTypes.h">
+    <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\RenderedBuffer\RenderedBuffer.h">
+    <ClInclude Include="src\Engine\Render\BufferRenderers\IBufferRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
