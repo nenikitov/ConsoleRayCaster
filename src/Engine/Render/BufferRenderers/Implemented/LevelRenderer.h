@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../IBufferRenderer.h"
+#include "../Abstract/AbstractBufferRenderer.h"
 
-class LevelRenderer : public IBufferRenderer
+class LevelRenderer : public AbstractBufferRenderer
 {
 	public:
 		LevelRenderer();
-		FrameBuffer** render(int width, int height) override;
+		FrameBuffer** render() override;
 	private:
 
 };
