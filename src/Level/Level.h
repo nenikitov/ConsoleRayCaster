@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include "../Tile/Tile.h"
-#include "../JsonCpp/json/json.h"
+#include "../../lib/JsonCpp/json/json.h"
 
 class Level
 {

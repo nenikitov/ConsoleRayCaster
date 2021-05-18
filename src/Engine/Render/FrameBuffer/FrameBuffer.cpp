@@ -1,10 +1,11 @@
 #include "FrameBuffer.h"
 
 FrameBuffer::FrameBuffer(
-	SurfaceTypes surfaceType, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
+	SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
 	double fogBrightness, SurfaceColors fogColor, double fogSaturation,
 	double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation)
 		: SURFACE_TYPE(surfaceType),
+		SURFACE_BRIGHTNESS(surfaceBrightness),
 		SURFACE_COLOR(surfaceColor),
 		SURFACE_RECEIVE_LIGHTING(surfaceReceiveLighting),
 		FOG_BRIGTNESS(fogBrightness),

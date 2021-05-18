@@ -144,7 +144,7 @@
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
-    <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
+    <ClCompile Include="lib\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
     <ClCompile Include="src\Intersection\Intersection.h" />
     <ClCompile Include="src\Intersection\WallNormalDirection.h" />
@@ -167,8 +167,8 @@
     <ClInclude Include="src\Engine\Render\BufferVisualizers\IBufferVisualizer.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceTypes.h" />
-    <ClInclude Include="src\JsonCpp\json\json-forwards.h" />
-    <ClInclude Include="src\JsonCpp\json\json.h" />
+    <ClInclude Include="lib\JsonCpp\json\json-forwards.h" />
+    <ClInclude Include="lib\JsonCpp\json\json.h" />
     <ClInclude Include="src\Renderer\ConsoleRenderer.h" />
     <ClInclude Include="src\RayCaster\RayCaster.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />

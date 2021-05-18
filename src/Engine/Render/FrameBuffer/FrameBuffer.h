@@ -7,12 +7,13 @@ struct FrameBuffer
 {
 	public:
 		FrameBuffer(
-			SurfaceTypes surfaceType, SurfaceColors surfaceColor, bool surfaceReceiveLighting, 
+			SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
 			double fogBrightness, SurfaceColors fogColor, double fogSaturation,
 			double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation);
 
 		// Surface buffers
 		const SurfaceTypes	SURFACE_TYPE;
+		const double		SURFACE_BRIGHTNESS;
 		const SurfaceColors	SURFACE_COLOR;
 		const bool			SURFACE_RECEIVE_LIGHTING;
 		// Fog buffers

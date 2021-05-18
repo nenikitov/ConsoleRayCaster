@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include "TileTypes.h"
-#include "../JsonCpp/json/json.h"
+#include "../../lib/JsonCpp/json/json.h"
 #include "../Intersection/WallNormalDirection.h"
 
 class Tile

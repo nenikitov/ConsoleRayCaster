@@ -44,9 +44,6 @@
     <ClCompile Include="src\RayCaster\RayCaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\JsonCpp\jsoncpp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Intersection\WallNormalDirection.h">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -74,6 +71,9 @@
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\JsonCpp\jsoncpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Level\Level.h">
@@ -92,12 +92,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\RayCaster\RayCaster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonCpp\json\json.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonCpp\json\json-forwards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ConsoleHandler\ConsoleColors.h">
@@ -134,6 +128,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\JsonCpp\json\json.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\JsonCpp\json\json-forwards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
