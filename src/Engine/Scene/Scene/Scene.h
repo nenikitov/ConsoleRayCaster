@@ -1,8 +1,5 @@
 #pragma once
-#include <string>
-#include <vector>
 #include <fstream>
-#include <iostream>
 #include "../Tile/Tile.h"
 #include "../../../../lib/JsonCpp/json/json.h"
 
@@ -20,18 +17,20 @@ class Scene
 		int getPlayerStartY();
 		double getPlayerStartAngle();
 	private:
+		unsigned int height;
+		unsigned int width;
+
+		int playerStartX;
+		int playerStartY;
+		double playerStartAngle;
+
+		int** wallData;
+		int** floorData;
+		int** ceilingData;
 		Tile* wallLookup;
 		Tile* floorLookup;
 		Tile* ceilingLookup;
 		unsigned int wallTiles = 0;
 		unsigned int floorTiles = 0;
 		unsigned int ceilingTiles = 0;
-		int** wallData;
-		int** floorData;
-		int** ceilingData;
-		unsigned int height;
-		unsigned int* widths;
-		int playerStartX;
-		int playerStartY;
-		double playerStartAngle;
 };
