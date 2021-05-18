@@ -3,7 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
-#include "../Tile/Tile.h"
+#include "../Tile/OldTile.h"
 #include "../../lib/JsonCpp/json/json.h"
 
 class Level
@@ -42,21 +42,21 @@ class Level
 		/// <param name="x">Coordinate X</param>
 		/// <param name="y">Coordinate Y</param>
 		/// <returns>Wall tile object</returns>
-		Tile wallTileFrom(unsigned int i);
+		OldTile wallTileFrom(unsigned int i);
 		/// <summary>
 		/// Find the floor tile at specific coordinates
 		/// </summary>
 		/// <param name="x">Coordinate X</param>
 		/// <param name="y">Coordinate Y</param>
 		/// <returns>Floor tile object</returns>
-		Tile floorTileFrom(unsigned int i);
+		OldTile floorTileFrom(unsigned int i);
 		/// <summary>
 		/// Find the ceiling tile at specific coordinates
 		/// </summary>
 		/// <param name="x">Coordinate X</param>
 		/// <param name="y">Coordinate Y</param>
 		/// <returns>Ceiling tile object</returns>
-		Tile ceilingTileFrom(unsigned int i);
+		OldTile ceilingTileFrom(unsigned int i);
 		/// <summary>
 		/// Get the location where the player should start
 		/// </summary>
@@ -73,9 +73,9 @@ class Level
 		/// <returns>The angle of player start</returns>
 		double getPlayerStartAngle();
 	private:
-		Tile* wallLookup;
-		Tile* floorLookup;
-		Tile* ceilingLookup;
+		OldTile* wallLookup;
+		OldTile* floorLookup;
+		OldTile* ceilingLookup;
 		unsigned int wallTiles = 0;
 		unsigned int floorTiles = 0;
 		unsigned int ceilingTiles = 0;

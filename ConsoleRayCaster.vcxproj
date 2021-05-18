@@ -145,6 +145,7 @@
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
     <ClCompile Include="lib\JsonCpp\jsoncpp.cpp" />
+    <ClCompile Include="src\Engine\Scene\Tile\Tile.cpp" />
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
     <ClCompile Include="src\Intersection\Intersection.h" />
     <ClCompile Include="src\Intersection\WallNormalDirection.h" />
@@ -154,7 +155,7 @@
     <ClCompile Include="src\Player\Player.cpp" />
     <ClCompile Include="src\ConsoleRayCaster.cpp" />
     <ClCompile Include="src\Level\Level.cpp" />
-    <ClCompile Include="src\Tile\Tile.cpp" />
+    <ClCompile Include="src\Tile\OldTile.cpp" />
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,13 +170,14 @@
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceTypes.h" />
     <ClInclude Include="lib\JsonCpp\json\json-forwards.h" />
     <ClInclude Include="lib\JsonCpp\json\json.h" />
+    <ClInclude Include="src\Engine\Scene\Tile\Tile.h" />
     <ClInclude Include="src\Renderer\ConsoleRenderer.h" />
     <ClInclude Include="src\RayCaster\RayCaster.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />
     <ClInclude Include="src\Controller\Controller.h" />
     <ClInclude Include="src\Player\Player.h" />
     <ClInclude Include="src\Level\Level.h" />
-    <ClInclude Include="src\Tile\Tile.h" />
+    <ClInclude Include="src\Tile\OldTile.h" />
     <ClInclude Include="src\Tile\TileTypes.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBuffer.h" />
   </ItemGroup>

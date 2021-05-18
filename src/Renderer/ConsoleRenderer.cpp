@@ -56,7 +56,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     CHAR_INFO texture;
                     if (tileIndex != 0)
                     {
-                        Tile tile = level.ceilingTileFrom(tileIndex);
+                        OldTile tile = level.ceilingTileFrom(tileIndex);
                         // Sample the texture
                         double sampleX = ceilingY;
                         double sampleY = -ceilingX;
@@ -68,7 +68,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     }
                     else
                     {
-                        Tile skyTile = level.ceilingTileFrom(0);
+                        OldTile skyTile = level.ceilingTileFrom(0);
                         //TODO Create better sky rendering
                         double sampleX = (player.getAngle() + HOR_ANGLE) / 3.141592 / 2;
                         double sampleY = -VERT_ANGLE / 0.5708 - 0.5;
@@ -99,7 +99,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     CHAR_INFO texture;
                     if (tileIndex != 0)
                     {
-                        Tile tile = level.floorTileFrom(tileIndex);
+                        OldTile tile = level.floorTileFrom(tileIndex);
                         // Sample the texture
                         double sampleX = floorY;
                         double sampleY = -floorX;
@@ -112,7 +112,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     }
                     else
                     {
-                        Tile voidTile = level.floorTileFrom(0);
+                        OldTile voidTile = level.floorTileFrom(0);
                         const double VOID_RATIO = ((double)y - lastTexturedFloor) / VERT_ANGLE / resolutionY;
                         double sampleY = fmin(VOID_RATIO * HALF_VER_FOV, 0.99);
                         double sampleX = (double)x / resolutionX * 64;
@@ -149,7 +149,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
                     }
                     // Other info for texture sampling
                     double lightness = 1 - (intersection.distance / 7);
-                    Tile tile = level.wallTileFrom(intersection.tile);
+                    OldTile tile = level.wallTileFrom(intersection.tile);
                     // Sample the textures
                     CHAR_INFO texture = tile.sampleTexture(sampleX, sampleY, lightness, TileTypes::WALL, intersection.normalDirection);
                     // Put it

@@ -7,7 +7,7 @@
 #include "../../lib/JsonCpp/json/json.h"
 #include "../Intersection/WallNormalDirection.h"
 
-class Tile
+class OldTile
 {
 	public:
 		/// <summary>
@@ -15,7 +15,7 @@ class Tile
 		/// </summary>
 		/// <param name="tileName">The name of the tile texture (should not contain ".tl.json")</param>
 		/// <returns></returns>
-		Tile(std::string tileName);
+		OldTile(std::string tileName);
 		/// <summary>
 		/// Sample the texture of the current tile
 		/// </summary>

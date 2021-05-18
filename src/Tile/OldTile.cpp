@@ -1,10 +1,10 @@
-#include "Tile.h"
+#include "OldTile.h"
 
-const char Tile::wallCharLookUp[8]    = { '.',  ':', ';', '+', '=', 'x', 'X', '#' };
-const char Tile::floorCharLookUp[8]   = { '`', '\'', '"', '<', 'f', '?', '8', '@' };
-const char Tile::ceilingCharLookUp[8] = { '.',  '-', '_', '(', '7', '}', 'E', '%' };
+const char OldTile::wallCharLookUp[8]    = { '.',  ':', ';', '+', '=', 'x', 'X', '#' };
+const char OldTile::floorCharLookUp[8]   = { '`', '\'', '"', '<', 'f', '?', '8', '@' };
+const char OldTile::ceilingCharLookUp[8] = { '.',  '-', '_', '(', '7', '}', 'E', '%' };
 
-Tile::Tile(std::string tileName)
+OldTile::OldTile(std::string tileName)
 {
 	// Load JSON data from file
 	Json::Value json;
@@ -60,7 +60,7 @@ Tile::Tile(std::string tileName)
 	}
 }
 
-CHAR_INFO Tile::sampleTexture(double x, double y, double lightness, TileTypes type, WallNormalDirection normal)
+CHAR_INFO OldTile::sampleTexture(double x, double y, double lightness, TileTypes type, WallNormalDirection normal)
 {
 	// Limit the texture to be only from 0 to 1
 	if (x > 1 || x < -1)
@@ -97,7 +97,7 @@ CHAR_INFO Tile::sampleTexture(double x, double y, double lightness, TileTypes ty
 	return { character, attribures };
 }
 
-WORD Tile::processColor(unsigned short color, bool brighten)
+WORD OldTile::processColor(unsigned short color, bool brighten)
 {
 	if (brighten)
 	{
@@ -117,7 +117,7 @@ WORD Tile::processColor(unsigned short color, bool brighten)
 	}
 }
 
-WCHAR Tile::lookupBrightnessChar(double brightness, TileTypes type)
+WCHAR OldTile::lookupBrightnessChar(double brightness, TileTypes type)
 {
 	int brightnessLookUp = min(brightness, 7);
 	if (brightness >= 0)

@@ -29,10 +29,10 @@ Level::Level(std::string levelName)
 	if (WALL_LOOKUP_SIZE == 0)
 		throw std::invalid_argument(levelName + " - the lookup for walls is empty");
 
-	this->wallLookup = (Tile*) malloc(WALL_LOOKUP_SIZE * sizeof(Tile));
+	this->wallLookup = (OldTile*) malloc(WALL_LOOKUP_SIZE * sizeof(OldTile));
 	this->wallTiles = WALL_LOOKUP_SIZE - 1;
 	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
-		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString());
+		this->wallLookup[i] = OldTile(json["tileLookUp"]["wall"][i].asString());
 	#pragma endregion
 #	pragma region Floor lookup
 	// Get data from floor lookup
@@ -41,10 +41,10 @@ Level::Level(std::string levelName)
 	if (FLOOR_LOOKUP_SIZE == 0)
 		throw std::invalid_argument(levelName + " - the lookup for floors is empty");
 
-	this->floorLookup = (Tile*)malloc(FLOOR_LOOKUP_SIZE * sizeof(Tile));
+	this->floorLookup = (OldTile*)malloc(FLOOR_LOOKUP_SIZE * sizeof(OldTile));
 	this->floorTiles = FLOOR_LOOKUP_SIZE - 1;
 	for (unsigned int i = 0; i < FLOOR_LOOKUP_SIZE; i++)
-		this->floorLookup[i] = Tile(json["tileLookUp"]["floor"][i].asString());
+		this->floorLookup[i] = OldTile(json["tileLookUp"]["floor"][i].asString());
 	#pragma endregion
 	#pragma region Ceiling lookup
 	// Get data from ceiling lookup
@@ -53,10 +53,10 @@ Level::Level(std::string levelName)
 	if (CEILING_LOOKUP_SIZE == 0)
 		throw std::invalid_argument(levelName + " - the lookup for ceilings is empty");
 
-	this->ceilingLookup = (Tile*)malloc(CEILING_LOOKUP_SIZE * sizeof(Tile));
+	this->ceilingLookup = (OldTile*)malloc(CEILING_LOOKUP_SIZE * sizeof(OldTile));
 	this->ceilingTiles = CEILING_LOOKUP_SIZE - 1;
 	for (unsigned int i = 0; i < CEILING_LOOKUP_SIZE; i++)
-		this->ceilingLookup[i] = Tile(json["tileLookUp"]["ceiling"][i].asString());
+		this->ceilingLookup[i] = OldTile(json["tileLookUp"]["ceiling"][i].asString());
 	#pragma endregion
 	
 	#pragma endregion
@@ -156,7 +156,7 @@ int Level::ceilingIndexAt(unsigned int x, unsigned int y)
 	return 0;
 }
 
-Tile Level::wallTileFrom(unsigned int i)
+OldTile Level::wallTileFrom(unsigned int i)
 {
 	if (i < 0 || i > this->wallTiles)
 		return this->wallLookup[0];
@@ -164,7 +164,7 @@ Tile Level::wallTileFrom(unsigned int i)
 		return this->wallLookup[i];
 }
 
-Tile Level::floorTileFrom(unsigned int i)
+OldTile Level::floorTileFrom(unsigned int i)
 {
 	if (i < 0 || i > this->floorTiles)
 		return this->floorLookup[0];
@@ -172,7 +172,7 @@ Tile Level::floorTileFrom(unsigned int i)
 		return this->floorLookup[i];
 }
 
-Tile Level::ceilingTileFrom(unsigned int i)
+OldTile Level::ceilingTileFrom(unsigned int i)
 {
 	if (i < 0 || i > this->ceilingTiles)
 		return this->ceilingLookup[0];
