@@ -83,6 +83,9 @@
     <ClCompile Include="src\Intersection\OldIntersection.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\RayCaster\Intersection\Intersection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Level\Level.h">

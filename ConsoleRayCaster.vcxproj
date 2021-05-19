@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\RayCaster\Intersection\Intersection.cpp" />
     <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.cpp" />
