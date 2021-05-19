@@ -1,11 +1,14 @@
 #pragma once
+
 #include "../../Scene/Scene/Scene.h"
 #include "../Intersection/Intersection.h"
 
 class RayCaster
 {
 	public:
-		Intersection findIntersection(double startX, double startY, double angle);
+		static Intersection trace(Scene& scene, double startX, double startY, double angle, double maxRayLength = MAX_RAY_LENGTH);
 	private:
-		const double MAX_RAY_LENGTH = 24.f;
+		const static double MAX_RAY_LENGTH;
 };
+
+const double RayCaster::MAX_RAY_LENGTH = 24.f;

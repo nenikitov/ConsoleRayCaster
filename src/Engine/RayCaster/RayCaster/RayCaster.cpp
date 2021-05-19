@@ -1,62 +1,57 @@
-/*
-
 #include "RayCaster.h"
-#include <iostream>
-#include "../Intersection/Intersection.h"
 
-RayCaster::RayCaster(Level& level) : level(level) {}
-
-Intersection RayCaster::findIntersection(double startX, double startY, double angle)
+Intersection RayCaster::trace(Scene& scene, double startX, double startY, double angle, double maxRayLength)
 {
-	#pragma region Initialize and precalculate variables
+	#pragma region Precalculate values
 	// Direction
-	double dirX = cos(angle);
-	double dirY = sin(angle);
+	const double DIR_X = cos(angle);
+	const double DIR_Y = sin(angle);
 	// Tile for checking
-	int mapCheckX = startX;
-	int mapCheckY = startY;
-	// The distance that the ray should pass to go through one unit of the level
-	double unitStepX = sqrt(1 + (dirY / dirX) * (dirY / dirX));
-	double unitStepY = sqrt(1 + (dirX / dirY) * (dirX / dirY));
+	int mapCheckX = (int)startX;
+	int mapCheckY = (int)startY;
+	// Distance that the ray should pass to go through one unit of the scene grid
+	const double UNIT_STEP_X = sqrt(1 + (DIR_Y / DIR_X) * (DIR_Y / DIR_X));
+	const double UNIT_STEP_Y = sqrt(1 + (DIR_X / DIR_Y) * (DIR_X / DIR_Y));
 	// Length of the ray
 	double rayLengthX = 0;
 	double rayLengthY = 0;
-	// Axis in which direction the ray will be traced
-	int stepX;
-	int stepY;
-	// Wall directions
-	WallNormalDirection wallNormalX = WallNormalDirection::WEST;
-	WallNormalDirection wallNormalY = WallNormalDirection::NORTH;
-
-	if (dirX < 0)
-	{
-		stepX = -1;
-		rayLengthX = (startX - mapCheckX) * unitStepX;
-		wallNormalX = WallNormalDirection::EAST;
-	}
-	else
+	// Total distance
+	double distance = 0.f;
+	// Axis in which direction the ray is traced
+	int stepX = 0;
+	int stepY = 0;
+	// Wall normals
+	SurfaceTypes wallNormalX = SurfaceTypes::WALL_WEST;
+	SurfaceTypes wallNormalY = SurfaceTypes::WALL_NORTH;
+	// Init X values
+	if (DIR_X > 0)
 	{
 		stepX = 1;
-		rayLengthX = ((double)mapCheckX + 1 - startX) * unitStepX;
-	}
-
-	if (dirY < 0)
-	{
-		stepY = -1;
-		rayLengthY = (startY - mapCheckY) * unitStepY;
-		wallNormalY = WallNormalDirection::SOUTH;
+		rayLengthX = ((double)mapCheckX + 1 - startX) * UNIT_STEP_X;
 	}
 	else
 	{
+		stepX = -1;
+		rayLengthX = (startX - mapCheckX) * UNIT_STEP_X;
+		wallNormalX = SurfaceTypes::WALL_EAST;
+	}
+	// Init Y values
+	if (DIR_Y > 0)
+	{
 		stepY = 1;
-		rayLengthY = ((double)mapCheckY + 1 - startY) * unitStepY;
+		rayLengthY = ((double)mapCheckY + 1 - startY) * UNIT_STEP_Y;
+	}
+	else
+	{
+		stepY = -1;
+		rayLengthY = (startY - mapCheckY) * UNIT_STEP_Y;
+		wallNormalY = SurfaceTypes::WALL_SOUTH;
 	}
 	#pragma endregion
 
-	double distance = 0.f;
 	#pragma region Trace the ray
-	while (distance < this->MAX_RAY_LENGTH)
-	{		
+	while (distance < maxRayLength)
+	{
 		// The ray should go where the smallest length is
 		bool goX = rayLengthX < rayLengthY;
 		if (goX)
@@ -64,27 +59,29 @@ Intersection RayCaster::findIntersection(double startX, double startY, double an
 			// Step in the X direction
 			mapCheckX += stepX;
 			distance = rayLengthX;
-			rayLengthX += unitStepX;
+			rayLengthX += UNIT_STEP_X;
 		}
 		else
 		{
 			// Step in the Y direction
 			mapCheckY += stepY;
 			distance = rayLengthY;
-			rayLengthY += unitStepY;
+			rayLengthY += UNIT_STEP_Y;
 		}
 
 		// Check the tile
-		int levelTile = this->level.wallIndexAt(mapCheckX, mapCheckY);
+		int levelTile = scene.wallIndexAt(mapCheckX, mapCheckY);
 
 		// If found intersection - initialize it
 		if (levelTile)
-			return Intersection(startX + dirX * distance, startY + dirY * distance, distance, levelTile, (goX ? wallNormalX : wallNormalY));
-			
+			return Intersection(
+				startX + DIR_X * distance, startY + DIR_Y * distance,
+				distance, levelTile,
+				(goX ? wallNormalX : wallNormalY));
+
 	}
 	#pragma endregion
 
 	// Return empty intersection if the ray went too far
 	return Intersection();
 }
-*/
