@@ -2,7 +2,7 @@
 This is a rendering engine that uses raycasting to draw pseudo 3D graphics. It outputs the rendering result in console.
 
 ## Compatibility
-It is compatible. This program was tested:
+This program was tested on:
 * Windows Command Prompt
 * Windows PowerShell
 * Windows Terminal
