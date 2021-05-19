@@ -1,7 +1,7 @@
 #pragma once
 #include "../Player/Player.h"
 #include "../Level/Level.h"
-#include "../RayCaster/RayCaster.h"
+#include "../RayCaster/OldRayCaster.h"
 #include "../ConsoleHandler/ConsoleColors.h"
 
 class Renderer
@@ -24,7 +24,7 @@ class Renderer
 		/// <returns>The character representation of the render</returns>
 		CHAR_INFO* render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight);
 	private:
-		RayCaster rayCaster;
+		OldRayCaster rayCaster;
 		Player& player;
 		Level& level;
 };

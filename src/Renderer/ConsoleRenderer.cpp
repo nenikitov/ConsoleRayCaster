@@ -1,6 +1,6 @@
 #include "ConsoleRenderer.h"
 
-Renderer::Renderer(Player& player, Level& level) : player(player), level(level), rayCaster(RayCaster(level)) {}
+Renderer::Renderer(Player& player, Level& level) : player(player), level(level), rayCaster(OldRayCaster(level)) {}
 
 CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutionY, unsigned short fov, unsigned short wallHeight)
 {

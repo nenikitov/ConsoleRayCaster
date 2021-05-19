@@ -1,10 +1,10 @@
-#include "RayCaster.h"
+#include "OldRayCaster.h"
 #include <iostream>
 #include "../Intersection/Intersection.h"
 
-RayCaster::RayCaster(Level& level) : level(level) {}
+OldRayCaster::OldRayCaster(Level& level) : level(level) {}
 
-Intersection RayCaster::findIntersection(double startX, double startY, double angle)
+Intersection OldRayCaster::findIntersection(double startX, double startY, double angle)
 {
 	#pragma region Initialize and precalculate variables
 	// Direction

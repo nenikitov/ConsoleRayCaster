@@ -1,3 +1,5 @@
+/*
+
 #pragma once
 #include "../Level/Level.h"
 #include "../Intersection/Intersection.h"
@@ -23,3 +25,4 @@ class RayCaster
 		Level& level;
 		const double MAX_RAY_LENGTH = 24.f;
 };
+*/

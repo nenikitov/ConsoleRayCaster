@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp" />
@@ -150,7 +151,7 @@
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
     <ClCompile Include="src\Intersection\Intersection.h" />
     <ClCompile Include="src\Intersection\WallNormalDirection.h" />
-    <ClCompile Include="src\RayCaster\RayCaster.cpp" />
+    <ClCompile Include="src\RayCaster\OldRayCaster.cpp" />
     <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp" />
     <ClCompile Include="src\Controller\Controller.cpp" />
     <ClCompile Include="src\Player\Player.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\RayCaster\RayCaster.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h" />
@@ -174,7 +176,7 @@
     <ClInclude Include="src\Engine\Scene\Scene\Scene.h" />
     <ClInclude Include="src\Engine\Scene\Tile\Tile.h" />
     <ClInclude Include="src\Renderer\ConsoleRenderer.h" />
-    <ClInclude Include="src\RayCaster\RayCaster.h" />
+    <ClInclude Include="src\RayCaster\OldRayCaster.h" />
     <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />
     <ClInclude Include="src\Controller\Controller.h" />
     <ClInclude Include="src\Player\Player.h" />

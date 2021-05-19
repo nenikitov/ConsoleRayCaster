@@ -38,9 +38,6 @@
     <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RayCaster\RayCaster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Intersection\WallNormalDirection.h">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -80,6 +77,12 @@
     <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\RayCaster\RayCaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RayCaster\OldRayCaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Level\Level.h">
@@ -92,9 +95,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RayCaster\RayCaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ConsoleHandler\ConsoleColors.h">
@@ -146,6 +146,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Scene\Scene\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\RayCaster\RayCaster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RayCaster\OldRayCaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
