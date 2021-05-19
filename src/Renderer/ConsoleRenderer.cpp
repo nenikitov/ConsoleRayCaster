@@ -10,7 +10,7 @@ CHAR_INFO* Renderer::render(unsigned short resolutionX, unsigned short resolutio
     // Used for perspective correction
     const double PERPENDICULAR_LENGTH = resolutionX / 2.f / tan(fov / 2.f);
     const double HALF_VER_FOV = 0.5 * fov / (double)resolutionX * (double)resolutionY;
-    Intersection intersection;
+    OldIntersection intersection;
     #pragma endregion
 
     // Render column by column

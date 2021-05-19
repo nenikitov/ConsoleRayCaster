@@ -1,3 +1,4 @@
+/*
 #pragma once
 #include "WallNormalDirection.h"
 
@@ -46,3 +47,4 @@ struct Intersection
 	/// </summary>
 	WallNormalDirection normalDirection;
 };
+*/

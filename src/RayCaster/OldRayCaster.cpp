@@ -1,10 +1,10 @@
 #include "OldRayCaster.h"
 #include <iostream>
-#include "../Intersection/Intersection.h"
+#include "../Intersection/OldIntersection.h"
 
 OldRayCaster::OldRayCaster(Level& level) : level(level) {}
 
-Intersection OldRayCaster::findIntersection(double startX, double startY, double angle)
+OldIntersection OldRayCaster::findIntersection(double startX, double startY, double angle)
 {
 	#pragma region Initialize and precalculate variables
 	// Direction
@@ -77,11 +77,11 @@ Intersection OldRayCaster::findIntersection(double startX, double startY, double
 
 		// If found intersection - initialize it
 		if (levelTile)
-			return Intersection(startX + dirX * distance, startY + dirY * distance, distance, levelTile, (goX ? wallNormalX : wallNormalY));
+			return OldIntersection(startX + dirX * distance, startY + dirY * distance, distance, levelTile, (goX ? wallNormalX : wallNormalY));
 			
 	}
 	#pragma endregion
 
 	// Return empty intersection if the ray went too far
-	return Intersection();
+	return OldIntersection();
 }

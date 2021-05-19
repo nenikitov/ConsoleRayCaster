@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\RayCaster\RayCaster.cpp" />
+    <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp" />
@@ -149,7 +149,7 @@
     <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Scene\Tile\Tile.cpp" />
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
-    <ClCompile Include="src\Intersection\Intersection.h" />
+    <ClCompile Include="src\Intersection\OldIntersection.h" />
     <ClCompile Include="src\Intersection\WallNormalDirection.h" />
     <ClCompile Include="src\RayCaster\OldRayCaster.cpp" />
     <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp" />
@@ -161,7 +161,8 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\RayCaster\RayCaster.h" />
+    <ClInclude Include="src\Engine\RayCaster\Intersection\Intersection.h" />
+    <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h" />

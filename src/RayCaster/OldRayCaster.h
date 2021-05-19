@@ -1,6 +1,6 @@
 #pragma once
 #include "../Level/Level.h"
-#include "../Intersection/Intersection.h"
+#include "../Intersection/OldIntersection.h"
 
 class OldRayCaster
 {
@@ -18,7 +18,7 @@ class OldRayCaster
 		/// <param name="startY">Y location of the start point</param>
 		/// <param name="angle">Angle where the ray will be sent</param>
 		/// <returns>The intersection data</returns>
-		Intersection findIntersection(double startX, double startY, double angle);
+		OldIntersection findIntersection(double startX, double startY, double angle);
 	private:
 		Level& level;
 		const double MAX_RAY_LENGTH = 24.f;

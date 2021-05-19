@@ -41,9 +41,6 @@
     <ClCompile Include="src\Intersection\WallNormalDirection.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Intersection\Intersection.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\ConsoleRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -77,10 +74,13 @@
     <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\RayCaster\RayCaster.cpp">
+    <ClCompile Include="src\RayCaster\OldRayCaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RayCaster\OldRayCaster.cpp">
+    <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Intersection\OldIntersection.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -148,10 +148,13 @@
     <ClInclude Include="src\Engine\Scene\Scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\RayCaster\RayCaster.h">
+    <ClInclude Include="src\RayCaster\OldRayCaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\RayCaster\OldRayCaster.h">
+    <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\RayCaster\Intersection\Intersection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
