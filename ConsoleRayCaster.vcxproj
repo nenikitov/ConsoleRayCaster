@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Input\KeyboardInput.cpp" />
+    <ClCompile Include="src\Engine\Input\Managers\KeyboardInputManager.cpp" />
     <ClCompile Include="src\Engine\RayCaster\Intersection\Intersection.cpp" />
     <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
@@ -163,7 +163,8 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Input\KeyboardInput.h" />
+    <ClInclude Include="src\Engine\Input\AxisKeys\AxisKeys.h" />
+    <ClInclude Include="src\Engine\Input\Managers\KeyboardInputManager.h" />
     <ClInclude Include="src\Engine\RayCaster\Intersection\Intersection.h" />
     <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.h" />
