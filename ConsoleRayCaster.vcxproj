@@ -139,10 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Input\KeyboardInput.cpp" />
     <ClCompile Include="src\Engine\RayCaster\Intersection\Intersection.cpp" />
     <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
-    <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
@@ -162,9 +163,10 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Input\KeyboardInput.h" />
     <ClInclude Include="src\Engine\RayCaster\Intersection\Intersection.h" />
     <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h" />
-    <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\LevelRenderer.h" />
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h" />
     <ClInclude Include="src\Engine\Render\BufferVisualizers\Abstract\Console\AbstractConsoleVisualizer.h" />
