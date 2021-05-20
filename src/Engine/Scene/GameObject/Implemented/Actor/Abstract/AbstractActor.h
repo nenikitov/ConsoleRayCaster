@@ -1,6 +1,8 @@
 #pragma once
 
-class AbstractActor
+#include "../../../Abstract/AbstractGameObject.h"
+
+class AbstractActor : public AbstractGameObject
 {
 	public:
 		AbstractActor(double posX, double posY, double angle);

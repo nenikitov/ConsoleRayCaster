@@ -89,10 +89,13 @@
     <ClCompile Include="src\Engine\Input\Managers\KeyboardInputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Scene\Actor\Abstract\AbstractActor.cpp">
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Actor\Abstract\AbstractActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Scene\Actor\Implemented\Camera\Camera.cpp">
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Actor\Implemented\Camera\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,10 +178,13 @@
     <ClInclude Include="src\Engine\Input\AxisKeys\AxisKeys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Scene\Actor\Abstract\AbstractActor.h">
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Actor\Abstract\AbstractActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Scene\Actor\Implemented\Camera\Camera.h">
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Actor\Implemented\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

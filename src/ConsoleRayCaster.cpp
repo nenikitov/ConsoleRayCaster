@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 #include <sstream>
-#include <string> 
+#include <string>
 #include "Player/Player.h"
 #include "Level/Level.h"
 #include "ConsoleHandler/ConsoleHandler.h"
