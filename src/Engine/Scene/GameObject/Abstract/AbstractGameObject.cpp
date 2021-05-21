@@ -5,6 +5,8 @@ AbstractGameObject::AbstractGameObject(double posX, double posY, double angle)
 	this->setTransform(posX, posY, angle);
 }
 
+void AbstractGameObject::tick(double deltaSeconds) { }
+
 void AbstractGameObject::setTransform(double posX, double posY, double angle)
 {
 	this->posX = posX;

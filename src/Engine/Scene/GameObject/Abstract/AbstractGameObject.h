@@ -4,6 +4,7 @@ class AbstractGameObject
 {
 	public:
 		AbstractGameObject(double posX, double posY, double angle);
+		virtual void tick(double deltaSeconds);
 		void setTransform(double posX, double posY, double angle);
 		double getPosX();
 		double getPosY();
