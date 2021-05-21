@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.cpp" />
     <ClCompile Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.cpp" />
     <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.cpp" />
     <ClCompile Include="src\Engine\Input\Managers\KeyboardInputManager.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h" />
     <ClInclude Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.h" />
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.h" />
     <ClInclude Include="src\Engine\Input\AxisKeys\AxisKeys.h" />

@@ -95,6 +95,9 @@
     <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Level\Level.h">
@@ -179,6 +182,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
