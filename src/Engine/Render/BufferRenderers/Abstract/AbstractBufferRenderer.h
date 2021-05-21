@@ -5,6 +5,7 @@
 class AbstractBufferRenderer
 {
 	public:
+		AbstractBufferRenderer(int width, int height);
 		void changeDimensions(int width, int height);
 		virtual FrameBuffer** render() = 0;
 	protected:
