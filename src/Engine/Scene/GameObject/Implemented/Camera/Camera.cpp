@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(double fov, double posX, double posY, double angle)
+Camera::Camera(double posX, double posY, double angle, double fov)
 	: AbstractGameObject(posX, posY, angle)
 {
 	this->fov = fov;

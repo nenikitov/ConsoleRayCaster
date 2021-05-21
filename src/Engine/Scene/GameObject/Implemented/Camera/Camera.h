@@ -5,7 +5,7 @@
 class Camera : public AbstractGameObject
 {
 	public:
-		Camera(double fov, double posX, double posY, double angle);
+		Camera(double posX, double posY, double angle, double fov);
 		double getFov();
 		void setFov(double fov);
 	private:
