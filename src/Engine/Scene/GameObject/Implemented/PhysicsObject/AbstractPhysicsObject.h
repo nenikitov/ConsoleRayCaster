@@ -3,10 +3,10 @@
 #include "../../Abstract/AbstractGameObject.h"
 #include "../../../Scene/Scene.h"
 
-class AbstractPlayer : public AbstractGameObject
+class AbstractPhysicsObject : public AbstractGameObject
 {
 	public:
-		AbstractPlayer(double posX, double posY, double angle, Scene& scene);
+		AbstractPhysicsObject(double posX, double posY, double angle, Scene& scene);
 		virtual void tick(double deltaSeconds) = 0;
 	protected:
 		const Scene& SCENE;

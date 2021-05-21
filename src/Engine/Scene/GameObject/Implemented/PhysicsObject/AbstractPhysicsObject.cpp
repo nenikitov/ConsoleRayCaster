@@ -1,5 +1,5 @@
-#include "AbstractPlayer.h"
+#include "AbstractPhysicsObject.h"
 
-AbstractPlayer::AbstractPlayer(
+AbstractPhysicsObject::AbstractPhysicsObject(
 	double posX, double posY, double angle, Scene& scene)
 		: AbstractGameObject(posX, posY, angle), SCENE(scene) { }
