@@ -13,15 +13,15 @@ class Scene
 		Tile wallTileFrom(unsigned int i);
 		Tile floorTileFrom(unsigned int i);
 		Tile ceilingTileFrom(unsigned int i);
-		int getPlayerStartX();
-		int getPlayerStartY();
+		double getPlayerStartX();
+		double getPlayerStartY();
 		double getPlayerStartAngle();
 	private:
 		unsigned int height;
 		unsigned int width;
 
-		int playerStartX;
-		int playerStartY;
+		double playerStartX;
+		double playerStartY;
 		double playerStartAngle;
 
 		int** wallData;

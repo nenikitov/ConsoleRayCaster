@@ -16,8 +16,8 @@ Scene::Scene(std::string levelName)
 	#pragma endregion
 
 	#pragma region Load player data
-	this->playerStartX = json["player"]["x"].asInt();
-	this->playerStartY = json["player"]["y"].asInt();
+	this->playerStartX = json["player"]["x"].asDouble();
+	this->playerStartY = json["player"]["y"].asDouble();
 	this->playerStartAngle = (double)json["player"]["angle"].asInt() / 0.017453292; // Transform degrees to radians
 	#pragma endregion
 
@@ -188,12 +188,12 @@ Tile Scene::ceilingTileFrom(unsigned int i)
 		return this->ceilingLookup[i];
 }
 
-int Scene::getPlayerStartX()
+double Scene::getPlayerStartX()
 {
 	return this->playerStartX;
 }
 
-int Scene::getPlayerStartY()
+double Scene::getPlayerStartY()
 {
 	return this->playerStartY;
 }
