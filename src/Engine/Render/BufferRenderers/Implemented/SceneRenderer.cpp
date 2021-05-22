@@ -59,3 +59,33 @@ FrameBufferPixel** SceneRenderer::render()
 
 	return nullptr;
 }
+
+FrameBufferPixel SceneRenderer::renderSurfaceNone()
+{
+	return FrameBufferPixel(SurfaceTypes::NONE, 1, SurfaceColors::BLACK, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+}
+
+FrameBufferPixel SceneRenderer::renderSurfaceCeiling()
+{
+	return FrameBufferPixel(SurfaceTypes::CEILING, 1, SurfaceColors::BLUE, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+}
+
+FrameBufferPixel SceneRenderer::renderSurfaceFloor()
+{
+	return FrameBufferPixel(SurfaceTypes::FLOOR, 1, SurfaceColors::RED, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+}
+
+FrameBufferPixel SceneRenderer::renderSurfaceSky()
+{
+	return FrameBufferPixel(SurfaceTypes::SKY, 1, SurfaceColors::CYAN, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+}
+
+FrameBufferPixel SceneRenderer::renderSurfacePit()
+{
+	return FrameBufferPixel(SurfaceTypes::PIT, 1, SurfaceColors::YELLOW, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+}
+
+FrameBufferPixel SceneRenderer::renderSurfaceWall()
+{
+	return FrameBufferPixel(SurfaceTypes::WALL_NORTH, 1, SurfaceColors::GREEN, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+}

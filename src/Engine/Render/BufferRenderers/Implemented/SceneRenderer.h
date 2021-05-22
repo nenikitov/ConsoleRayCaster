@@ -14,4 +14,11 @@ class SceneRenderer : public AbstractBufferRenderer
 	private:
 		Scene& scene;
 		Camera& camera;
+
+		FrameBufferPixel renderSurfaceNone();
+		FrameBufferPixel renderSurfaceCeiling();
+		FrameBufferPixel renderSurfaceFloor();
+		FrameBufferPixel renderSurfaceSky();
+		FrameBufferPixel renderSurfacePit();
+		FrameBufferPixel renderSurfaceWall();
 };
