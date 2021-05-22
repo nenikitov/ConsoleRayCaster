@@ -55,6 +55,8 @@ FrameBufferPixel** SceneRenderer::render()
 				if (y < CEILING_END)
 				{
 					#pragma region Ceiling rendering
+					FrameBufferPixel pixel = this->renderSurfaceCeiling(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, PERCEIVED_WALL_HEIGHT, DELTA_X, DELTA_Y, RAY_H_ANGLE);
+					renderResult[y][x] = pixel;
 					#pragma endregion
 				}
 				else if (y > FLOOR_START)
@@ -76,13 +78,17 @@ FrameBufferPixel** SceneRenderer::render()
 		}
 		else
 		{
-
+			for (int y = 0; y < this->height; y++)
+			{
+				FrameBufferPixel pixel = this->renderSurfaceVoid();
+				renderResult[y][x] = pixel;
+			}
 		}
 		#pragma endregion
 	}
 	#pragma endregion
 
-	return nullptr;
+	return renderResult;
 }
 
 FrameBufferPixel SceneRenderer::renderSurfaceVoid()
@@ -90,9 +96,67 @@ FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 	return FrameBufferPixel(SurfaceTypes::NONE, 1, SurfaceColors::BLACK, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
 }
 
-FrameBufferPixel SceneRenderer::renderSurfaceCeiling()
+FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double perceivedWallHeight, double deltaX, double deltaY, double hAngle)
 {
-	return FrameBufferPixel(SurfaceTypes::CEILING, 1, SurfaceColors::BLUE, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+	#pragma region Preclacultate and initialize variables
+	// Vertical angle of the pixel
+	const double V_ANGLE = (y - halfHeight) / (double)this->width * halfVFov;
+	// Ratio of distances between floor texel and wall intersection
+	const double PROJECTION_RATIO = -(perceivedWallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
+	// Project the point into world space
+	const double CEILING_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
+	const double CEILING_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
+	const int TILE_INDEX = this->scene.ceilingIndexAt(CEILING_X, CEILING_Y);
+	#pragma endregion
+
+	if (TILE_INDEX != 0)
+	{
+		#pragma region Ceiling tile rendering
+		Tile renderedTile = scene.ceilingTileFrom(TILE_INDEX);
+
+		#pragma region Find sample point
+		const double SAMPLE_X = CEILING_Y;
+		const double SAMPLE_Y = -CEILING_X;
+		#pragma endregion
+
+		#pragma region Sample texture from the rendered tile
+		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
+		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
+#		pragma endregion
+
+		#pragma region Calculate other buffers
+		const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
+		const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
+		#pragma endregion
+
+		return FrameBufferPixel(SurfaceTypes::CEILING,
+			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
+			1, SurfaceColors::WHITE, 1);
+		#pragma endregion
+	}
+	else
+	{
+		#pragma region Sky rendering
+		Tile voidTile = this->scene.ceilingTileFrom(0);
+
+		#pragma region Find sample point
+		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 3.141592 / 2, -1);
+		const double SAMPLE_Y = fmin(-V_ANGLE / 0.5708 - 0.5, -0.01);
+		#pragma endregion
+
+		#pragma region Sample texture from the rendered tile
+		const double SURFACE_BRIGHTNESS = voidTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
+		SurfaceColors SURFACE_COLOR = voidTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
+		#pragma endregion
+
+		return FrameBufferPixel(SurfaceTypes::SKY,
+			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			1, SurfaceColors::BLACK, 1,
+			1, SurfaceColors::WHITE, 1);
+		#pragma endregion
+	}
+	#pragma endregion
 }
 
 FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double perceivedWallHeight, double deltaX, double deltaY, int& lastTexturedFloor)

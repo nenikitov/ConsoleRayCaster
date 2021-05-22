@@ -16,7 +16,7 @@ class SceneRenderer : public AbstractBufferRenderer
 		Camera& camera;
 
 		FrameBufferPixel renderSurfaceVoid();
-		FrameBufferPixel renderSurfaceCeiling();
+		FrameBufferPixel renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double perceivedWallHeight, double deltaX, double deltaY, double hAngle);
 		FrameBufferPixel renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double perceivedWallHeight, double deltaX, double deltaY, int& lastTexturedFloor);
 		FrameBufferPixel renderSurfaceWall(int y, double ceilingEnd, double perceivedWallHeight, Intersection& intersection);
 };
