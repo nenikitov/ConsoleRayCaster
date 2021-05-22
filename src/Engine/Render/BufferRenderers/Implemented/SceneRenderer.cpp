@@ -60,13 +60,15 @@ FrameBufferPixel** SceneRenderer::render()
 				else if (y > FLOOR_START)
 				{
 					#pragma region Floor rendering
+					FrameBufferPixel pixel = this->renderSurfaceFloor(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, PERCEIVED_WALL_HEIGHT, DELTA_X, DELTA_Y, lastTexturedFloor);
+					renderResult[y][x] = pixel;
 					#pragma endregion
 				}
 				else
 				{
 					#pragma region Wall Rendering
-					FrameBufferPixel pixelRenderer = this->renderSurfaceWall(y, CEILING_END, PERCEIVED_WALL_HEIGHT, intersection);
-					renderResult[y][x] = pixelRenderer;
+					FrameBufferPixel pixel = this->renderSurfaceWall(y, CEILING_END, PERCEIVED_WALL_HEIGHT, intersection);
+					renderResult[y][x] = pixel;
 					lastTexturedFloor = y;
 					#pragma endregion
 				}
@@ -83,7 +85,7 @@ FrameBufferPixel** SceneRenderer::render()
 	return nullptr;
 }
 
-FrameBufferPixel SceneRenderer::renderSurfaceNone()
+FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 {
 	return FrameBufferPixel(SurfaceTypes::NONE, 1, SurfaceColors::BLACK, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
 }
@@ -93,24 +95,79 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling()
 	return FrameBufferPixel(SurfaceTypes::CEILING, 1, SurfaceColors::BLUE, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
 }
 
-FrameBufferPixel SceneRenderer::renderSurfaceFloor()
+FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double perceivedWallHeight, double deltaX, double deltaY, int& lastTexturedFloor)
 {
-	return FrameBufferPixel(SurfaceTypes::FLOOR, 1, SurfaceColors::RED, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
-}
+	#pragma region Preclacultate and initialize variables
+	// Vertical angle of the pixel
+	const double V_ANGLE = (y - halfHeight) / (double)this->width * halfVFov;
+	// Ratio of distances between floor texel and wall intersection
+	const double PROJECTION_RATIO = (perceivedWallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
+	// Project the point into world space
+	const double FLOOR_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
+	const double FLOOR_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
+	const int TILE_INDEX = this->scene.floorIndexAt(FLOOR_X, FLOOR_Y);
+	#pragma endregion
 
-FrameBufferPixel SceneRenderer::renderSurfaceSky()
-{
-	return FrameBufferPixel(SurfaceTypes::SKY, 1, SurfaceColors::CYAN, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
-}
+	if (TILE_INDEX != 0)
+	{
+		#pragma region Floor tile rendering
+		Tile renderedTile = scene.floorTileFrom(TILE_INDEX);
 
-FrameBufferPixel SceneRenderer::renderSurfacePit()
-{
-	return FrameBufferPixel(SurfaceTypes::PIT, 1, SurfaceColors::YELLOW, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+		#pragma region Find sample point
+		const double SAMPLE_X = FLOOR_Y;
+		const double SAMPLE_Y = -FLOOR_X;
+		#pragma endregion
+
+		#pragma region Sample texture from the rendered tile
+		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
+		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
+		#pragma endregion
+
+		#pragma region Calculate other buffers
+		const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
+		const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
+		lastTexturedFloor = y;
+		#pragma endregion
+
+		return FrameBufferPixel(SurfaceTypes::FLOOR,
+			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
+			1, SurfaceColors::WHITE, 1);
+		#pragma endregion
+	}
+	else
+	{
+		#pragma region Pit rendering
+		Tile voidTile = this->scene.floorTileFrom(0);
+
+		#pragma region Find sample point
+		const double VOID_RATIO = ((double)y - lastTexturedFloor) / V_ANGLE / this->height;
+		const double SAMPLE_X = (double)x / this->width * 64;
+		const double SAMPLE_Y = fmin(VOID_RATIO * halfVFov, 0.99);
+		#pragma endregion
+
+		#pragma region Sample texture from the rendered tile
+		const double SURFACE_BRIGHTNESS = voidTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
+		SurfaceColors SURFACE_COLOR = voidTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
+		#pragma endregion
+
+		#pragma region Calculate other buffers
+		const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
+		const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
+		#pragma endregion
+
+		return FrameBufferPixel(SurfaceTypes::PIT,
+			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
+			1, SurfaceColors::WHITE, 1);
+		#pragma endregion
+	}
+	#pragma endregion
 }
 
 FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, double perceivedWallHeight, Intersection& intersection)
 {
-	#pragma Find sample point
+	#pragma region Find sample point
 	double sampleY = ((double)y - ceilingEnd) / ((double)perceivedWallHeight + 1);
 	double sampleX = 0;
 	if (intersection.WALL_NORMAL == SurfaceTypes::WALL_NORTH)
@@ -123,15 +180,18 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 		sampleX = -intersection.Y;
 	#pragma endregion
 
-	#pragma region Sample texture from the intersected tile
+	#pragma region Sample texture from the rendered tile
 	Tile renderedTile = this->scene.wallTileFrom(intersection.TILE);
 	double texelBrightness = renderedTile.sampleBrightness(sampleX, sampleY);
 	SurfaceColors texelColor = renderedTile.sampleColor(sampleY, sampleY);
+	#pragma endregion
 
-	const double fogBrightness = 1 - (intersection.DISTANCE / 7);
+	#pragma region Calculate other buffers
+	const double FOG_TRANSPARENCY = 1 - (intersection.DISTANCE / 7);
+	#pragma endregion
 
 	return FrameBufferPixel(intersection.WALL_NORMAL,
 		texelBrightness, texelColor, true,
-		fogBrightness, SurfaceColors::BLACK, 1,
+		FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 		1, SurfaceColors::WHITE, 1);
 }
