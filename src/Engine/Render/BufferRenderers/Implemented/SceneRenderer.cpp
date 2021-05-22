@@ -9,8 +9,11 @@ FrameBuffer** SceneRenderer::render()
 	const double HALF_HEIGHT = this->height / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
 	const double HALF_V_FOV = HALF_H_FOV / (double)this->width * (double)this->height / 2.f;
+	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2;
 	const double PERPENDICULAR_LENGTH = width / 2.f / tan(HALF_H_FOV);
 	FrameBuffer** frameBuffer = new FrameBuffer*[this->height];
+	for (int i = 0; i < this->height; i++)
+		frameBuffer[i] = (FrameBuffer*) malloc(this->width * sizeof(FrameBuffer));
 	#pragma endregion
 
 	#pragma region Render column by column
@@ -22,12 +25,28 @@ FrameBuffer** SceneRenderer::render()
 		#pragma endregion
 
 		#pragma region Find intersection
-		Intersection intersection = RayCaster::trace(this->scene, camera.getPosX(), camera.getPosY(), camera.getAngle() + RAY_H_ANGLE);
+		Intersection intersection = RayCaster::trace(
+			this->scene,
+			this->camera.getPosX(),
+			this->camera.getPosY(),
+			this->camera.getAngle() + RAY_H_ANGLE);
 		#pragma endregion
 
-		#pragma Render from intersection
+		#pragma region Render from intersection
 		if (intersection.VALID)
 		{
+			// Intersection happened, render walls, floor and ceiling
+			#pragma region Precalculate and initialize needed values for the current intersection
+			const double DELTA_X = intersection.X - this->camera.getPosX();
+			const double DELTA_Y = intersection.Y - this->camera.getPosY();
+			// Calculate the distance in relation to the camera to fix fisheye effect
+			const double CORRECTED_DISTANCE = cos(this->camera.getAngle() * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y);
+			// The height of a texel where floor, ceiling and wall should start
+			const int WALL_START = abs(WALL_HEIGHT / CORRECTED_DISTANCE);
+			const double CEILING_START = (this->height - WALL_START) / 2.f;
+			const int FLOOR_START = CEILING_START + this->height;
+			#pragma endregion
+
 
 		}
 		else
