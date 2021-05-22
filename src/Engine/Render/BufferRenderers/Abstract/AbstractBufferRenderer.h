@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../../FrameBuffer/FrameBuffer.h"
+#include "../../FrameBuffer/FrameBufferPixel.h"
 
 class AbstractBufferRenderer
 {
 	public:
 		AbstractBufferRenderer(int width, int height);
 		void changeDimensions(int width, int height);
-		virtual FrameBuffer** render() = 0;
+		virtual FrameBufferPixel** render() = 0;
 	protected:
 		int width = 0;
 		int height = 0;

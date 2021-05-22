@@ -10,5 +10,3 @@ class RayCaster
 	private:
 		const static double MAX_RAY_LENGTH;
 };
-
-const double RayCaster::MAX_RAY_LENGTH = 24.f;

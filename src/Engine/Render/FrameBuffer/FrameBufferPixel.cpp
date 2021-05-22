@@ -1,6 +1,6 @@
-#include "FrameBuffer.h"
+#include "FrameBufferPixel.h"
 
-FrameBuffer::FrameBuffer(
+FrameBufferPixel::FrameBufferPixel(
 	SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
 	double fogBrightness, SurfaceColors fogColor, double fogSaturation,
 	double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation)

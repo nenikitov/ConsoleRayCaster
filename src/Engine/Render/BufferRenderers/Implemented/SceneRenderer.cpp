@@ -3,7 +3,7 @@
 SceneRenderer::SceneRenderer(int width, int height, Scene& scene, Camera& camera)
 	: AbstractBufferRenderer(width, height), scene(scene), camera(camera) { }
 
-FrameBuffer** SceneRenderer::render()
+FrameBufferPixel** SceneRenderer::render()
 {
 	#pragma region Precalculate and initialize needed values for the whole render
 	const double HALF_HEIGHT = this->height / 2.f;
@@ -11,9 +11,9 @@ FrameBuffer** SceneRenderer::render()
 	const double HALF_V_FOV = HALF_H_FOV / (double)this->width * (double)this->height / 2.f;
 	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2;
 	const double PERPENDICULAR_LENGTH = width / 2.f / tan(HALF_H_FOV);
-	FrameBuffer** frameBuffer = new FrameBuffer*[this->height];
+	FrameBufferPixel** frameBuffer = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
-		frameBuffer[i] = (FrameBuffer*) malloc(this->width * sizeof(FrameBuffer));
+		frameBuffer[i] = (FrameBufferPixel*) malloc(this->width * sizeof(FrameBufferPixel));
 	#pragma endregion
 
 	#pragma region Render column by column

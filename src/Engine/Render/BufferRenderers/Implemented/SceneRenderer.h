@@ -10,7 +10,7 @@ class SceneRenderer : public AbstractBufferRenderer
 {
 	public:
 		SceneRenderer(int width, int height, Scene& scene, Camera& camera);
-		FrameBuffer** render() override;
+		FrameBufferPixel** render() override;
 	private:
 		Scene& scene;
 		Camera& camera;

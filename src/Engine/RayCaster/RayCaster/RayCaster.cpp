@@ -1,5 +1,7 @@
 #include "RayCaster.h"
 
+const double RayCaster::MAX_RAY_LENGTH = 24.f;
+
 Intersection RayCaster::trace(Scene& scene, double startX, double startY, double angle, double maxRayLength)
 {
 	#pragma region Precalculate values

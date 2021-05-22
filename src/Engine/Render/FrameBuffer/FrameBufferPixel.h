@@ -3,10 +3,10 @@
 #include "CustomBufferTypes/SurfaceColors.h"
 #include "CustomBufferTypes/SurfaceTypes.h"
 
-struct FrameBuffer
+struct FrameBufferPixel
 {
 	public:
-		FrameBuffer(
+		FrameBufferPixel(
 			SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
 			double fogBrightness, SurfaceColors fogColor, double fogSaturation,
 			double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation);

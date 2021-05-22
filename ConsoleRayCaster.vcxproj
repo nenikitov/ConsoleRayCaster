@@ -164,7 +164,7 @@
     <ClCompile Include="src\ConsoleRayCaster.cpp" />
     <ClCompile Include="src\Level\Level.cpp" />
     <ClCompile Include="src\Tile\OldTile.cpp" />
-    <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h" />
@@ -196,7 +196,7 @@
     <ClInclude Include="src\Level\Level.h" />
     <ClInclude Include="src\Tile\OldTile.h" />
     <ClInclude Include="src\Tile\TileTypes.h" />
-    <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBuffer.h" />
+    <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\levels\test.lvl.json">
