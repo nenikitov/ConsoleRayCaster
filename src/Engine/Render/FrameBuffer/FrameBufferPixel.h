@@ -8,20 +8,20 @@ struct FrameBufferPixel
 	public:
 		FrameBufferPixel(
 			SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
-			double fogBrightness, SurfaceColors fogColor, double fogSaturation,
+			double fogBrightness, SurfaceColors fogColor, double fogTransparency,
 			double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation);
 
 		// Surface buffers
-		const SurfaceTypes	SURFACE_TYPE;
-		const double		SURFACE_BRIGHTNESS;
-		const SurfaceColors	SURFACE_COLOR;
-		const bool			SURFACE_RECEIVE_LIGHTING;
+		SurfaceTypes	surfaceType;
+		double			surfaceBrightness;
+		SurfaceColors	surfaceColor;
+		bool			surfaceReceiveLighting;
 		// Fog buffers
-		const double		FOG_BRIGTNESS;
-		const SurfaceColors	FOG_COLOR;
-		const double		FOG_SATURAION;
+		double			fogTransparency;
+		SurfaceColors	fogColor;
+		double			fogSaturation;
 		// Sector lighting buffers
-		const double		SECTOR_BRIGHTNESS;
-		const SurfaceColors	SECTOR_COLOR;
-		const double		SECTOR_SATURAION;
+		double			sectorBrightness;
+		SurfaceColors	sectorColor;
+		double			sectorSaturation;
 };

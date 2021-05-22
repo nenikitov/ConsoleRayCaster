@@ -2,15 +2,17 @@
 
 FrameBufferPixel::FrameBufferPixel(
 	SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
-	double fogBrightness, SurfaceColors fogColor, double fogSaturation,
+	double fogTransparency, SurfaceColors fogColor, double fogSaturation,
 	double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation)
-		: SURFACE_TYPE(surfaceType),
-		SURFACE_BRIGHTNESS(surfaceBrightness),
-		SURFACE_COLOR(surfaceColor),
-		SURFACE_RECEIVE_LIGHTING(surfaceReceiveLighting),
-		FOG_BRIGTNESS(fogBrightness),
-		FOG_COLOR(fogColor),
-		FOG_SATURAION(fogSaturation),
-		SECTOR_BRIGHTNESS(sectorBrightness),
-		SECTOR_COLOR(sectorColor),
-		SECTOR_SATURAION(sectorSaturation) { }
+{
+	this->surfaceType = surfaceType;
+	this->surfaceBrightness = surfaceBrightness;
+	this->surfaceColor = surfaceColor;
+	this->surfaceReceiveLighting = surfaceReceiveLighting;
+	this->fogTransparency = fogTransparency;
+	this->fogColor = fogColor;
+	this->fogSaturation = fogSaturation;
+	this->sectorBrightness = sectorBrightness;
+	this->sectorColor = sectorColor;
+	this->sectorSaturation = sectorSaturation;
+}
