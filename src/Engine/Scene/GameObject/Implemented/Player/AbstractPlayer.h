@@ -2,6 +2,7 @@
 
 #include "../PhysicsObject/AbstractPhysicsObject.h"
 #include "../Camera/Camera.h"
+#include "../../../../Input/Managers/KeyboardInputManager.h"
 
 class AbstractPlayer : public AbstractPhysicsObject
 {

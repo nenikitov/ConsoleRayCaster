@@ -35,14 +35,12 @@ int main()
     
     while (true)
     {
-        player.tick(0.1);
+        player.tick(0.01);
         
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
-        
         composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);
-
         visualizer.render(composer);
-        
+
         for (int i = 0; i < RENDER_HEIGHT; i++)
             delete sceneRenderResult[i];
         delete sceneRenderResult;
