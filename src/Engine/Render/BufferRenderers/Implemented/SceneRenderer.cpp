@@ -13,7 +13,7 @@ FrameBufferPixel** SceneRenderer::render()
 	const double PERPENDICULAR_LENGTH = width / 2.f / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
-		renderResult[i] = (FrameBufferPixel*) malloc(this->width * sizeof(FrameBufferPixel));
+		renderResult[i] = new FrameBufferPixel[this->width];
 	#pragma endregion
 
 	#pragma region Render column by column

@@ -6,6 +6,7 @@
 struct FrameBufferPixel
 {
 	public:
+		FrameBufferPixel();
 		FrameBufferPixel(
 			SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
 			double fogBrightness, SurfaceColors fogColor, double fogTransparency,
