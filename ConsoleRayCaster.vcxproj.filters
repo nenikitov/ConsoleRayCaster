@@ -107,6 +107,9 @@
     <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\FPSPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Level\Level.h">
@@ -203,6 +206,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\FPSPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

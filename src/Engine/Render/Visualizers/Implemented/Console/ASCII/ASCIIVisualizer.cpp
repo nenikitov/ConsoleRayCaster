@@ -44,4 +44,6 @@ void ASCIIVisualizer::render(RenderLayerComposer& composer)
 			}
 		}
 	}
+
+	delete renderResult;
 }

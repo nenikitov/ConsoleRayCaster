@@ -75,6 +75,7 @@ FrameBufferPixel** SceneRenderer::render()
 					#pragma endregion
 				}
 			}
+			#pragma endregion
 		}
 		else
 		{
@@ -87,7 +88,7 @@ FrameBufferPixel** SceneRenderer::render()
 		#pragma endregion
 	}
 	#pragma endregion
-
+	
 	return renderResult;
 }
 

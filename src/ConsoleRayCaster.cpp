@@ -3,11 +3,11 @@
 #include <thread>
 #include <sstream>
 #include <string>
-#include "Player/Player.h"
-#include "Level/Level.h"
-#include "ConsoleHandler/ConsoleHandler.h"
-#include "RayCaster/OldRayCaster.h"
-#include "Renderer/ConsoleRenderer.h"
+#include "Engine/Scene/Scene/Scene.h"
+#include "Engine/Scene/GameObject/Implemented/Player/FPSPlayer.h"
+#include "Engine/Render/BufferRenderers/Implemented/SceneRenderer.h"
+#include "Engine/Render/RenderLayerComposer/RenderLayerComposer.h"
+#include "Engine/Render/Visualizers/Implemented/Console/ASCII/ASCIIVisualizer.h"
 
 void errorExit(std::string process, std::string exception)
 {
@@ -19,7 +19,33 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
+    const int RENDER_WIDTH = 90;
+    const int RENDER_HEIGHT = 30;
+    const double FOV = 2.0944;
+
+    Scene scene = Scene("test");
+    FPSPlayer player = FPSPlayer(scene, FOV);
     
+    SceneRenderer sceneRenderer = SceneRenderer(RENDER_WIDTH, RENDER_HEIGHT, scene, player.getCamera());
+    RenderLayerComposer composer = RenderLayerComposer(RENDER_WIDTH, RENDER_HEIGHT);
+    ASCIIVisualizer visualizer;
+
+    visualizer.init();
+    
+    
+    while (true)
+    {
+        player.tick(0.1);
+        
+        FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
+        composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);
+
+        visualizer.render(composer);
+        
+        for (int i = 0; i < RENDER_HEIGHT; i++)
+            delete sceneRenderResult[i];
+        delete sceneRenderResult;
+    }
 }
 
 /*
