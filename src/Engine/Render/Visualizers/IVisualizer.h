@@ -2,7 +2,7 @@
 
 #include "../BufferRequirements/BufferRequirements.h"
 
-class IBufferVisualizer
+class IVisualizer
 {
 	public:
 		virtual BufferRequirements getRequirements() = 0;
