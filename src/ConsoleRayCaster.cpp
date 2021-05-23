@@ -17,6 +17,9 @@ void errorExit(std::string process, std::string exception)
     std::cin.get();
 }
 
+// TODO
+// The scene is rendering something, i dont know what. It needs further investigation
+
 int main()
 {
     const int RENDER_WIDTH = 90;
@@ -48,11 +51,7 @@ int main()
 }
 
 /*
-  //TODO
-  //Major refactoring
-  //- Maybe create a struct for rendering result so you can introduce multiple renderers that will transform the result into characters (or pixels in graphics rendering)
-  //- Separate game from game engine, so you can create tile and level editors
-  //- Resources and not data
+
 
 ConsoleHandler consoleHandler;
 if (!consoleHandler.initialize())
