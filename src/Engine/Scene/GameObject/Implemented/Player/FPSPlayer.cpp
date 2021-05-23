@@ -5,7 +5,7 @@ FPSPlayer::FPSPlayer(Scene& scene, double fov) : AbstractPlayer(scene, fov) { }
 void FPSPlayer::tick(double deltaTime)
 {
 	const int FORWARD_INPUT = KeyboardInputManager::getAxisKeyState({ 'W', 'S' });
-	const int RIGHTWARD_INPUT = KeyboardInputManager::getAxisKeyState({ 'A', 'D' });
+	const int RIGHTWARD_INPUT = KeyboardInputManager::getAxisKeyState({ 'D', 'A' });
 	const int TURN_INPUT = KeyboardInputManager::getAxisKeyState({ VK_RIGHT, VK_LEFT });
 
 	// Update position (Implement collision detection later)

@@ -9,7 +9,7 @@ FrameBufferPixel** SceneRenderer::render()
 	const double HALF_HEIGHT = this->height / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
 	const double HALF_V_FOV = HALF_H_FOV / (double)this->width * (double)this->height / 2.f;
-	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2;
+	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2.f;
 	const double PERPENDICULAR_LENGTH = width / 2.f / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
@@ -40,11 +40,11 @@ FrameBufferPixel** SceneRenderer::render()
 			const double DELTA_X = intersection.X - this->camera.getPosX();
 			const double DELTA_Y = intersection.Y - this->camera.getPosY();
 			// Calculate the distance in relation to the camera to fix fisheye effect
-			const double CORRECTED_DISTANCE = cos(this->camera.getAngle() * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y);
+			const double CORRECTED_DISTANCE = cos(this->camera.getAngle()) * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y;
 			// The height of a texel where floor, ceiling and wall should start
 			const int PERCEIVED_WALL_HEIGHT = abs(WALL_HEIGHT / CORRECTED_DISTANCE);
 			const double CEILING_END = (this->height - PERCEIVED_WALL_HEIGHT) / 2.f;
-			const int FLOOR_START = CEILING_END + this->height;
+			const int FLOOR_START = CEILING_END + PERCEIVED_WALL_HEIGHT;
 			// Counter for void renderer
 			int lastTexturedFloor = -1;
 			#pragma endregion
