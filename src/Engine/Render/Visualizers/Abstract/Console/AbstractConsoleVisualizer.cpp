@@ -44,3 +44,9 @@ int AbstractConsoleVisualizer::getHeight()
 	GetConsoleScreenBufferInfo(this->CONSOLE_HANDLE, &info);
 	return info.srWindow.Bottom - info.srWindow.Top + 1;
 }
+
+void AbstractConsoleVisualizer::printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
+{
+	SMALL_RECT rect = { 0, 0, lengthX, lengthY };
+	WriteConsoleOutputA(this->CONSOLE_HANDLE, characters, { lengthX, lengthY }, { x, y }, &rect);
+}

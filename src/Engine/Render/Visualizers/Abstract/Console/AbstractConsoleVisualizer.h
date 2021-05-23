@@ -14,6 +14,7 @@ class AbstractConsoleVisualizer : public IVisualizer
 		void setTitle(char* title) override;
 		int getWidth() override;
 		int getHeight() override;
+		void printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY);
 	private:
 		const BufferRequirements BUFFER_REQUIREMENTS = BufferRequirements(true, false, true, false);
 		const DWORD REQUESTED_OUT_MODES = ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;

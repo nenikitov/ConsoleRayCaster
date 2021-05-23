@@ -139,7 +139,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	else
 	{
 		#pragma region Sky rendering
-		Tile voidTile = this->scene.ceilingTileFrom(0);
+		Tile skyTile = this->scene.ceilingTileFrom(0);
 
 		#pragma region Find sample point
 		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 3.141592 / 2, -1);
@@ -147,8 +147,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
-		const double SURFACE_BRIGHTNESS = voidTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
-		SurfaceColors SURFACE_COLOR = voidTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
+		const double SURFACE_BRIGHTNESS = skyTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
+		SurfaceColors SURFACE_COLOR = skyTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
 		#pragma endregion
 
 		return FrameBufferPixel(SurfaceTypes::SKY,
@@ -203,7 +203,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 	else
 	{
 		#pragma region Pit rendering
-		Tile voidTile = this->scene.floorTileFrom(0);
+		Tile pitTile = this->scene.floorTileFrom(0);
 
 		#pragma region Find sample point
 		const double VOID_RATIO = ((double)y - lastTexturedFloor) / V_ANGLE / this->height;
@@ -212,8 +212,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
-		const double SURFACE_BRIGHTNESS = voidTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
-		SurfaceColors SURFACE_COLOR = voidTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
+		const double SURFACE_BRIGHTNESS = pitTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
+		SurfaceColors SURFACE_COLOR = pitTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
 		#pragma endregion
 
 		#pragma region Calculate other buffers

@@ -9,7 +9,7 @@ struct FrameBufferPixel
 		FrameBufferPixel();
 		FrameBufferPixel(
 			SurfaceTypes surfaceType, double surfaceBrightness, SurfaceColors surfaceColor, bool surfaceReceiveLighting,
-			double fogBrightness, SurfaceColors fogColor, double fogTransparency,
+			double fogTransparency, SurfaceColors fogColor, double fogSaturation,
 			double sectorBrightness, SurfaceColors sectorColor, double sectorSaturation);
 
 		// Surface buffers

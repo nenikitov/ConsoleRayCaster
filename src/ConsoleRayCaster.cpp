@@ -38,6 +38,7 @@ int main()
         player.tick(0.1);
         
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
+        
         composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);
 
         visualizer.render(composer);
