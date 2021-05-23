@@ -1,13 +1,14 @@
 #pragma once
 
 #include "../BufferRequirements/BufferRequirements.h"
+#include "../RenderLayerComposer/RenderLayerComposer.h"
 
 class IVisualizer
 {
 	public:
-		virtual BufferRequirements getRequirements() = 0;
-		virtual void init()                          = 0;
-		virtual void render()                        = 0;
+		virtual BufferRequirements getRequirements()       = 0;
+		virtual void init()                                = 0;
+		virtual void render(RenderLayerComposer& composer) = 0;
 	protected:
 		virtual void setTitle(char* title) = 0;
 		virtual int getWidth() = 0;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../FrameBuffer/FrameBufferPixel.h"
 #include <corecrt_math.h>
+#include "../FrameBuffer/FrameBufferPixel.h"
 
 class RenderLayerComposer
 {
