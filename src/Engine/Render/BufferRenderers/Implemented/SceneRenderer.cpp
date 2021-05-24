@@ -237,9 +237,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	double sampleX = 0;
 	if (intersection.WALL_NORMAL == SurfaceTypes::WALL_NORTH)
 		sampleX = -intersection.X;
-	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_NORTH)
+	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_SOUTH)
 		sampleX = intersection.X;
-	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_NORTH)
+	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_WEST)
 		sampleX = intersection.Y;
 	else
 		sampleX = -intersection.Y;
@@ -248,7 +248,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma region Sample texture from the rendered tile
 	Tile renderedTile = this->scene.wallTileFrom(intersection.TILE);
 	double texelBrightness = renderedTile.sampleBrightness(sampleX, sampleY);
-	SurfaceColors texelColor = renderedTile.sampleColor(sampleY, sampleY);
+	SurfaceColors texelColor = renderedTile.sampleColor(sampleX, sampleY);
 	#pragma endregion
 
 	#pragma region Calculate other buffers

@@ -22,7 +22,7 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const int RENDER_WIDTH = 90;
+    const int RENDER_WIDTH = 140;
     const int RENDER_HEIGHT = 40;
     const double FOV = 2.0944;
 

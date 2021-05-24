@@ -20,24 +20,24 @@ void ASCIIVisualizer::render(RenderLayerComposer& composer)
 			switch (pixel.surfaceType)
 			{
 				case SurfaceTypes::NONE:
-					renderResult[y * WIDTH + x].Attributes = 1;
+					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
 					renderResult[y * WIDTH + x].Char.AsciiChar = '.';
 					break;
 				case SurfaceTypes::CEILING:
 				case SurfaceTypes::SKY:
-					renderResult[y * WIDTH + x].Attributes = 2;
+					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
 					renderResult[y * WIDTH + x].Char.AsciiChar = '+';
 					break;
 				case SurfaceTypes::FLOOR:
 				case SurfaceTypes::PIT:
-					renderResult[y * WIDTH + x].Attributes = 3;
+					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
 					renderResult[y * WIDTH + x].Char.AsciiChar = '-';
 					break;
 				case SurfaceTypes::WALL_NORTH:
 				case SurfaceTypes::WALL_SOUTH:
 				case SurfaceTypes::WALL_WEST:
 				case SurfaceTypes::WALL_EAST:
-					renderResult[y * WIDTH + x].Attributes = 4;
+					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
 					renderResult[y * WIDTH + x].Char.AsciiChar = '#';
 					break;
 			}
