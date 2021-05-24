@@ -18,7 +18,7 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 
 			FrameBufferPixel pixel = composerResult[COMPOSER_Y_PIXEL][COMPOSER_X_PIXEL];
 
-			int brightness = pixel.fogTransparency * 8;
+			int brightness = (pixel.fogTransparency * pixel.surfaceBrightness) * 8;
 			brightness = min(max(brightness, 0), 7);
 
 			switch (pixel.surfaceType)
