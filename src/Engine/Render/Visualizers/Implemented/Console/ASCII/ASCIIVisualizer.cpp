@@ -17,28 +17,32 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 			int COMPOSER_Y_PIXEL = (double)y / HEIGHT * COMPOSER_HEIGHT;
 
 			FrameBufferPixel pixel = composerResult[COMPOSER_Y_PIXEL][COMPOSER_X_PIXEL];
+
+			int brightness = pixel.fogTransparency * 8;
+			brightness = min(max(brightness, 0), 7);
+
 			switch (pixel.surfaceType)
 			{
 				case SurfaceTypes::NONE:
-					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
-					renderResult[y * WIDTH + x].Char.AsciiChar = '.';
+					renderResult[y * WIDTH + x].Attributes = 0;
+					renderResult[y * WIDTH + x].Char.AsciiChar = ' ';
 					break;
 				case SurfaceTypes::CEILING:
 				case SurfaceTypes::SKY:
 					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor + 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = '+';
+					renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::FLOOR:
 				case SurfaceTypes::PIT:
 					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
-					renderResult[y * WIDTH + x].Char.AsciiChar = 'Z';
+					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::WALL_NORTH:
 				case SurfaceTypes::WALL_SOUTH:
 				case SurfaceTypes::WALL_WEST:
 				case SurfaceTypes::WALL_EAST:
 					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor + 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = '#';
+					renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
 					break;
 			}
 		}
