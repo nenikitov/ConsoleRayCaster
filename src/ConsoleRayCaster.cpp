@@ -22,8 +22,8 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const int RENDER_WIDTH = 237;
-    const int RENDER_HEIGHT = 63;
+    const int RENDER_WIDTH = 237 / 2;
+    const int RENDER_HEIGHT = 63 / 2;
     const double FOV = 2.0944;
 
     Scene scene = Scene("test");
@@ -35,10 +35,21 @@ int main()
 
     visualizer.init();
     
-    
+    auto previousTime = std::chrono::system_clock::now();
+    auto currentTime = std::chrono::system_clock::now();
+
     while (true)
     {
-        player.tick(0.01);
+        currentTime = std::chrono::system_clock::now();
+        const std::chrono::duration<double> DELTA_TIME_CHRONO = currentTime - previousTime;
+        const double DELTA_TIME = DELTA_TIME_CHRONO.count();
+        previousTime = currentTime;
+
+        const int FPS = 1 / DELTA_TIME;
+        std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
+        visualizer.setTitle(title.c_str());
+
+        player.tick(DELTA_TIME);
         
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
         composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);

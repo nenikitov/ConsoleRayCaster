@@ -22,10 +22,10 @@ void RenderLayerComposer::addRenderLayer(FrameBufferPixel** renderLayer, int ren
     endX = fmax(0, fmin(1, endX));
     endY = fmax(0, fmin(1, endY));
 
-    const int START_X_PIXEL = startX * ((double)this->width - 1);
-    const int START_Y_PIXEL = startY * ((double)this->height - 1);
-    const int END_X_PIXEL = endX * ((double)this->width - 1);
-    const int END_Y_PIXEL = endY * ((double)this->height - 1);
+    const int START_X_PIXEL = startX * ((double)this->width);
+    const int START_Y_PIXEL = startY * ((double)this->height);
+    const int END_X_PIXEL = endX * ((double)this->width);
+    const int END_Y_PIXEL = endY * ((double)this->height);
 
     const int DELTA_X_PIXELS = END_X_PIXEL - START_X_PIXEL;
     const int DELTA_Y_PIXELS = END_Y_PIXEL - START_Y_PIXEL;

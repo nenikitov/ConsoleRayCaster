@@ -6,11 +6,10 @@
 class IVisualizer
 {
 	public:
-		virtual BufferRequirements getRequirements()       = 0;
-		virtual void init()                                = 0;
+		virtual BufferRequirements getRequirements() = 0;
+		virtual void init() = 0;
 		virtual void render(RenderLayerComposer& composer) = 0;
-	protected:
-		virtual void setTitle(char* title) = 0;
+		virtual void setTitle(const char* title) = 0;
 		virtual int getWidth() = 0;
 		virtual int getHeight() = 0;
 };

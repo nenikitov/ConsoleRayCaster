@@ -10,10 +10,10 @@ class AbstractConsoleVisualizer : public IVisualizer
 		BufferRequirements getRequirements() override;
 		void init() override;
 		virtual void render(RenderLayerComposer& composer) override = 0;
-	protected:
-		void setTitle(char* title) override;
+		void setTitle(const char* title) override;
 		int getWidth() override;
 		int getHeight() override;
+	protected:
 		void printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY);
 	private:
 		const BufferRequirements BUFFER_REQUIREMENTS = BufferRequirements(true, false, true, false);

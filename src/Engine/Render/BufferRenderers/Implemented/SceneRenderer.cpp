@@ -101,7 +101,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 {
 	#pragma region Preclacultate and initialize variables
 	// Vertical angle of the pixel
-	const double V_ANGLE = (y - halfHeight) / (double)(this->height + 3) * halfVFov;
+	const double V_ANGLE = (y - halfHeight) / (double)this->height * halfVFov;
 	// Ratio of distances between floor texel and wall intersection
 	const double PROJECTION_RATIO = -(wallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
 	// Project the point into world space
@@ -164,7 +164,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 {
 	#pragma region Preclacultate and initialize variables
 	// Vertical angle of the pixel
-	const double V_ANGLE = (y - halfHeight) / (double)(this->height + 3) * halfVFov;
+	const double V_ANGLE = (y - halfHeight) / (double)this->height * halfVFov;
 	// Ratio of distances between floor texel and wall intersection
 	const double PROJECTION_RATIO = (wallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
 	// Project the point into world space
