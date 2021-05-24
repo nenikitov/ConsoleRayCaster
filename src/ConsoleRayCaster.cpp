@@ -22,8 +22,8 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const int RENDER_WIDTH = 237 / 2;
-    const int RENDER_HEIGHT = 63 / 2;
+    const int RENDER_WIDTH = 65; // 237
+    const int RENDER_HEIGHT = 65; // 63
     const double FOV = 2.0944;
 
     Scene scene = Scene("test");
@@ -53,7 +53,7 @@ int main()
         
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
         composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);
-        visualizer.render(composer);
+        visualizer.visualize(composer);
 
         for (int i = 0; i < RENDER_HEIGHT; i++)
             delete sceneRenderResult[i];

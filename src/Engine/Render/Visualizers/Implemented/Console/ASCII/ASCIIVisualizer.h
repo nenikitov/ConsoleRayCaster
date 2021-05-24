@@ -5,7 +5,7 @@
 class ASCIIVisualizer : public AbstractConsoleVisualizer
 {
 	public:
-		virtual void render(RenderLayerComposer& composer) override;
+		virtual void visualize(RenderLayerComposer& composer) override;
 	private:
 		const char WALL_CHAR_LOOKUP[8] = { '.',  ':', ';', '+', '=', 'x', 'X', '#' };
 		const char FLOOR_CHAR_LOOKUP[8] = { '`', '\'', '"', '<', 'f', '?', '8', '@' };

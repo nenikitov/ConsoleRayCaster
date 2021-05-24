@@ -10,7 +10,7 @@ FrameBufferPixel** SceneRenderer::render()
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
 	const double HALF_V_FOV = HALF_H_FOV / this->width * this->height;
 	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2.f;
-	const double PERPENDICULAR_LENGTH = width / 2.f / tan(HALF_H_FOV);
+	const double PERPENDICULAR_LENGTH = this->width / 2.f / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
 		renderResult[i] = new FrameBufferPixel[this->width];

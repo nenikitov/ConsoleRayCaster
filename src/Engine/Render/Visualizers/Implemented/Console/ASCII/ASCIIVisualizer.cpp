@@ -1,12 +1,12 @@
 #include "ASCIIVisualizer.h"
 
-void ASCIIVisualizer::render(RenderLayerComposer& composer)
+void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 {
 	const int WIDTH = this->getWidth();
 	const int HEIGHT = this->getHeight();
 	FrameBufferPixel** composerResult = composer.compose();
-	const int COMPOSER_WIDTH = composer.getWidth() - 1;
-	const int COMPOSER_HEIGHT = composer.getHeight() - 1;
+	const int COMPOSER_WIDTH = composer.getWidth();
+	const int COMPOSER_HEIGHT = composer.getHeight();
 	CHAR_INFO* renderResult = new CHAR_INFO[WIDTH * HEIGHT];
 
 	for (int y = 0; y < HEIGHT; y++)

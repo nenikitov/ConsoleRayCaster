@@ -7,7 +7,7 @@ class AbstractGraphicsVisualizer : public IVisualizer
 	public:
 		BufferRequirements getRequirements() override;
 		virtual void init() override = 0;
-		virtual void render(RenderLayerComposer& composer) override = 0;
+		virtual void visualize(RenderLayerComposer& composer) override = 0;
 	protected:
 		virtual void setTitle(char* title) = 0;
 		virtual int getWidth() = 0;
