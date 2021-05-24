@@ -81,8 +81,8 @@ SurfaceColors Tile::sampleColor(double x, double y)
 
 void Tile::treatCoords(double x, double y, int& outX, int& outY)
 {
-	outX = (int)(x * this->textureDimensions) % this->textureDimensions;
-	outY = (int)(y * this->textureDimensions) % this->textureDimensions;
+	outX = (int)floor(x * this->textureDimensions) % this->textureDimensions;
+	outY = (int)floor(y * this->textureDimensions) % this->textureDimensions;
 
 	if (outX < 0)
 		outX = this->textureDimensions + outX;

@@ -8,7 +8,7 @@ FrameBufferPixel** SceneRenderer::render()
 	#pragma region Precalculate and initialize needed values for the whole render
 	const double HALF_HEIGHT = this->height / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
-	const double HALF_V_FOV = HALF_H_FOV / (double)this->width * (double)this->height / 2.f;
+	const double HALF_V_FOV = HALF_H_FOV / this->width * this->height;
 	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2.f;
 	const double PERPENDICULAR_LENGTH = width / 2.f / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
@@ -62,7 +62,7 @@ FrameBufferPixel** SceneRenderer::render()
 				else if (y > FLOOR_START)
 				{
 					#pragma region Floor rendering
-					FrameBufferPixel pixel = this->renderSurfaceFloor(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, PERCEIVED_WALL_HEIGHT, DELTA_X, DELTA_Y, lastTexturedFloor);
+					FrameBufferPixel pixel = this->renderSurfaceFloor(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, lastTexturedFloor);
 					renderResult[y][x] = pixel;
 					#pragma endregion
 				}
@@ -160,13 +160,13 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	#pragma endregion
 }
 
-FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double perceivedWallHeight, double deltaX, double deltaY, int& lastTexturedFloor)
+FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, int& lastTexturedFloor)
 {
 	#pragma region Preclacultate and initialize variables
 	// Vertical angle of the pixel
-	const double V_ANGLE = (y - halfHeight) / (double)this->width * halfVFov;
+	const double V_ANGLE = (y - halfHeight) / (double)this->height * halfVFov;
 	// Ratio of distances between floor texel and wall intersection
-	const double PROJECTION_RATIO = (perceivedWallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
+	const double PROJECTION_RATIO = (wallHeight / 2 / tan(V_ANGLE)) / correctedDistance / (this->width - 1);
 	// Project the point into world space
 	const double FLOOR_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
 	const double FLOOR_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
@@ -179,13 +179,13 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		Tile renderedTile = scene.floorTileFrom(TILE_INDEX);
 
 		#pragma region Find sample point
-		const double SAMPLE_X = FLOOR_Y;
-		const double SAMPLE_Y = -FLOOR_X;
+		const double SAMPLE_X = FLOOR_X;
+		const double SAMPLE_Y = -FLOOR_Y;
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
-		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_Y, SAMPLE_Y);
+		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
 		#pragma endregion
 
 		#pragma region Calculate other buffers
