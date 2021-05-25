@@ -38,8 +38,11 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::WALL_NORTH:
-				case SurfaceTypes::WALL_SOUTH:
 				case SurfaceTypes::WALL_WEST:
+					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
+					renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
+					break;
+				case SurfaceTypes::WALL_SOUTH:
 				case SurfaceTypes::WALL_EAST:
 					renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor + 8;
 					renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];

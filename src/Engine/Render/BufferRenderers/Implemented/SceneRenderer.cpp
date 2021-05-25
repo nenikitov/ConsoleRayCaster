@@ -7,10 +7,11 @@ FrameBufferPixel** SceneRenderer::render()
 {
 	#pragma region Precalculate and initialize needed values for the whole render
 	const double HALF_HEIGHT = this->height / 2.f;
+	const double HALF_WIDTH = this->width / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
 	const double HALF_V_FOV = HALF_H_FOV / this->width * this->height;
 	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2.f;
-	const double PERPENDICULAR_LENGTH = this->width / 2.f / tan(HALF_H_FOV);
+	const double PERPENDICULAR_LENGTH = HALF_WIDTH / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
 		renderResult[i] = new FrameBufferPixel[this->width];
@@ -20,7 +21,7 @@ FrameBufferPixel** SceneRenderer::render()
 	for (int x = 0; x < this->width; x++)
 	{
 		#pragma region Precalculate and initialize needed values for the current column
-		const double RAY_PX_OFFSET = (double)x - this->width / 2.f;
+		const double RAY_PX_OFFSET = x - HALF_WIDTH;
 		const double RAY_H_ANGLE = atan(RAY_PX_OFFSET / PERPENDICULAR_LENGTH);
 		#pragma endregion
 
@@ -39,7 +40,7 @@ FrameBufferPixel** SceneRenderer::render()
 			#pragma region Precalculate and initialize needed values for the current intersection
 			const double DELTA_X = intersection.X - this->camera.getPosX();
 			const double DELTA_Y = intersection.Y - this->camera.getPosY();
-			// Calculate the distance in relation to the camera to fix fisheye effect
+			// Calculate the distance in relation to the camera projection to fix fisheye effect
 			const double CORRECTED_DISTANCE = cos(this->camera.getAngle()) * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y;
 			// The height of a texel where floor, ceiling and wall should start
 			const int PERCEIVED_WALL_HEIGHT = abs(WALL_HEIGHT / CORRECTED_DISTANCE);
@@ -101,9 +102,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 {
 	#pragma region Preclacultate and initialize variables
 	// Vertical angle of the pixel
-	const double V_ANGLE = (y - halfHeight) / (double)this->height * halfVFov;
+	const double V_ANGLE = (halfHeight - y) / (double)this->height * halfVFov;
 	// Ratio of distances between floor texel and wall intersection
-	const double PROJECTION_RATIO = -(wallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
+	const double PROJECTION_RATIO = (wallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
 	// Project the point into world space
 	const double CEILING_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
 	const double CEILING_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
