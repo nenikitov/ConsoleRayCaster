@@ -143,7 +143,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		Tile skyTile = this->scene.ceilingTileFrom(0);
 
 		#pragma region Find sample point
-		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 3.141592 / 2, -1);
+		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 6.283184, -1);
 		const double SAMPLE_Y = fmin(-V_ANGLE / 0.5708 - 0.5, -0.01);
 		#pragma endregion
 

@@ -44,7 +44,7 @@ Tile::Tile(std::string tileName)
 			// Get brightness
 			const short BRIGHTNESS = json["rendering"]["brightness"][y][x].asInt();
 
-			if (abs(BRIGHTNESS ) > 8)
+			if (abs(BRIGHTNESS) > 8)
 				throw std::invalid_argument(tileName + " - brightness is illegal at " + std::to_string(x) + ", " + std::to_string(y));
 
 			this->textureBrightness[y][x] = BRIGHTNESS / 8.f;
@@ -66,7 +66,7 @@ double Tile::sampleBrightness(double x, double y)
 	int sampleY = 0;
 	this->treatCoords(x, y, sampleX, sampleY);
 
-	return this->textureBrightness[sampleY][sampleX];
+	return abs(this->textureBrightness[sampleY][sampleX]);
 }
 
 SurfaceColors Tile::sampleColor(double x, double y)
