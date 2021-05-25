@@ -124,7 +124,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
-#		pragma endregion
+        #pragma endregion
 
 		#pragma region Calculate other buffers
 		const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;

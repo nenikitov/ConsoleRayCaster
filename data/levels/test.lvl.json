@@ -1,7 +1,7 @@
 {
 	"player": {
-		"x": 10.5,
-		"y": 10.5,
+		"x": 8,
+		"y": 8,
 		"angle": 0
 	},
 	"tileLookUp": {
