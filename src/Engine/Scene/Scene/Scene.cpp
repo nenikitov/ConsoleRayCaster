@@ -1,6 +1,27 @@
 #include "Scene.h"
 
-Scene::Scene(std::string levelName)
+Scene::Scene()
+{
+	this->width = 0;
+	this->height = 0;
+
+	this->playerStartX = 0;
+	this->playerStartY = 0;
+	this->playerStartAngle = 0;
+	
+	this->wallData = nullptr;
+	this->floorData = nullptr;
+	this->ceilingData = nullptr;
+	this->wallLookup = nullptr;
+	this->floorLookup = nullptr;
+	this->ceilingLookup = nullptr;
+
+	this->wallTiles = 0;
+	this->floorTiles = 0;
+	this->ceilingTiles = 0;
+}
+
+void Scene::openLevelFile(std::string levelName)
 {
 	#pragma region Load JSON
 	// Load JSON data from file
@@ -34,7 +55,7 @@ Scene::Scene(std::string levelName)
 	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
 		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString());
 	#pragma endregion
-#	pragma region Floor lookup
+	#pragma region Floor lookup
 	// Get data from floor lookup
 	const int FLOOR_LOOKUP_SIZE = json["tileLookUp"]["floor"].size();
 	// ERROR CATCHING - No floor lookup present

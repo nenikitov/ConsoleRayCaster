@@ -19,7 +19,7 @@ void errorExit(std::string process, std::string exception)
 
 // TODO
 // - File structure cleanup
-//       * Move FPS player from engine to game directory
+//       + Move FPS player from engine to game directory
 //       * Delete old classes
 // - Code modifications
 //       * Handle exception
@@ -41,7 +41,16 @@ int main()
     const int RENDER_HEIGHT = 63; // 63
     const double FOV = 2.0944;
 
-    Scene scene("test");
+    Scene scene;
+    try
+    {
+        scene.openLevelFile("test");
+    }
+    catch (std::invalid_argument e)
+    {
+        errorExit("Level loading", e.what());
+        return 1;
+    }
 
     FPSPlayer player(scene, FOV);
     

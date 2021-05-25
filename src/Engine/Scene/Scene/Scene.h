@@ -6,7 +6,8 @@
 class Scene
 {
 	public:
-		Scene(std::string levelName);
+		Scene();
+		void openLevelFile(std::string levelName);
 		int wallIndexAt(unsigned int x, unsigned int y);
 		int floorIndexAt(unsigned int x, unsigned int y);
 		int ceilingIndexAt(unsigned int x, unsigned int y);
@@ -30,7 +31,7 @@ class Scene
 		Tile* wallLookup;
 		Tile* floorLookup;
 		Tile* ceilingLookup;
-		unsigned int wallTiles = 0;
-		unsigned int floorTiles = 0;
-		unsigned int ceilingTiles = 0;
+		unsigned int wallTiles;
+		unsigned int floorTiles;
+		unsigned int ceilingTiles;
 };
