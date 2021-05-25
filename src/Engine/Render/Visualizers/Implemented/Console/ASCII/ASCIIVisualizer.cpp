@@ -37,8 +37,10 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 					renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::FLOOR:
-				case SurfaceTypes::PIT:
 					renderResult[y * WIDTH + x].Attributes += 8;
+					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
+					break;
+				case SurfaceTypes::PIT:
 					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::WALL_NORTH:
