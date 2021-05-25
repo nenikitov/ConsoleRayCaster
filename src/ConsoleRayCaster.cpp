@@ -56,9 +56,17 @@ int main()
     
     SceneRenderer sceneRenderer(RENDER_WIDTH, RENDER_HEIGHT, scene, player.getCamera());
     RenderLayerComposer composer(RENDER_WIDTH, RENDER_HEIGHT);
+    
     ASCIIVisualizer visualizer;
-
-    visualizer.init();
+    try
+    {
+        visualizer.init();
+    }
+    catch (std::runtime_error e)
+    {
+        errorExit("Render initialization", e.what());
+        return 1;
+    }
     
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
