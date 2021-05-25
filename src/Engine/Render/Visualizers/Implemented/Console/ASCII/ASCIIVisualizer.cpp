@@ -58,5 +58,5 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 
 	this->printChars(renderResult, 0, 0, WIDTH, HEIGHT);
 
-	delete renderResult;
+	delete[] renderResult;
 }

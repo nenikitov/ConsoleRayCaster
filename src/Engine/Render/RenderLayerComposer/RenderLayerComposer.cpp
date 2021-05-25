@@ -72,5 +72,5 @@ void RenderLayerComposer::clearBuffer()
     for (int i = 0; i < this->height; i++)
         delete this->compositionResult[i];
 
-    delete this->compositionResult;
+    delete[] this->compositionResult;
 }
