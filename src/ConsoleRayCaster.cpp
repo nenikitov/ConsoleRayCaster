@@ -4,14 +4,10 @@
 #include <sstream>
 #include <string>
 #include "Engine/Scene/Scene/Scene.h"
-#include "Engine/Scene/GameObject/Implemented/Player/FPSPlayer.h"
+#include "Game/SceneObjects/FPSPlayer/FPSPlayer.h"
 #include "Engine/Render/BufferRenderers/Implemented/SceneRenderer.h"
 #include "Engine/Render/RenderLayerComposer/RenderLayerComposer.h"
 #include "Engine/Render/Visualizers/Implemented/Console/ASCII/ASCIIVisualizer.h"
-#include "ConsoleHandler/ConsoleHandler.h"
-#include "RayCaster/OldRayCaster.h"
-#include "Player/Player.h"
-#include "Renderer/ConsoleRenderer.h"
 
 void errorExit(std::string process, std::string exception)
 {

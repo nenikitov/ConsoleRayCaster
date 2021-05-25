@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AbstractPlayer.h"
+#include "../../../Engine/Scene/GameObject/Implemented/Player/AbstractPlayer.h"
 
 class FPSPlayer : public AbstractPlayer
 {

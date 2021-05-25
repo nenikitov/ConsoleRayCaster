@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\FPSPlayer.cpp" />
+    <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp" />
     <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.cpp" />
     <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.cpp" />
@@ -170,7 +170,7 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\FPSPlayer.h" />
+    <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h" />
     <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h" />
     <ClInclude Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.h" />
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h" />
