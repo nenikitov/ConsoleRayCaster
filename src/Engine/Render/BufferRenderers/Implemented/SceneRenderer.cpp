@@ -110,8 +110,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	const double CEILING_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
 	const int TILE_INDEX = this->scene.ceilingIndexAt(CEILING_X, CEILING_Y);
 
-	const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
-	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
+	const double DISTANCE = PROJECTION_RATIO * correctedDistance;
+	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 7);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -171,8 +171,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 	const double FLOOR_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
 	const int TILE_INDEX = this->scene.floorIndexAt(FLOOR_X, FLOOR_Y);
 
-	const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
-	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
+	const double DISTANCE = PROJECTION_RATIO * correctedDistance;
+	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 7);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
