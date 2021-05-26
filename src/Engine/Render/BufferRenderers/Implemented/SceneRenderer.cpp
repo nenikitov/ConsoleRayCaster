@@ -111,7 +111,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	const int TILE_INDEX = this->scene.ceilingIndexAt(CEILING_X, CEILING_Y);
 
 	const double DISTANCE = PROJECTION_RATIO * correctedDistance;
-	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 7);
+	const double FOG_TRANSPARENCY = calculateFogTransparency(DISTANCE);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -172,7 +172,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 	const int TILE_INDEX = this->scene.floorIndexAt(FLOOR_X, FLOOR_Y);
 
 	const double DISTANCE = PROJECTION_RATIO * correctedDistance;
-	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 7);
+	const double FOG_TRANSPARENCY = calculateFogTransparency(DISTANCE);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -245,11 +245,16 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma endregion
 
 	#pragma region Calculate other buffers
-	const double FOG_TRANSPARENCY = 1 - (intersection.DISTANCE / 7);
+	const double FOG_TRANSPARENCY = calculateFogTransparency(intersection.DISTANCE);
 	#pragma endregion
 
 	return FrameBufferPixel(
 		intersection.WALL_NORMAL, texelBrightness, texelColor, true,
 		FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 		1, SurfaceColors::WHITE, 1);
+}
+
+double SceneRenderer::calculateFogTransparency(double distance)
+{
+	return 1 - (distance / 3.5);
 }

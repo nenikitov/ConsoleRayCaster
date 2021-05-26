@@ -20,6 +20,5 @@ class SceneRenderer : public AbstractBufferRenderer
 		FrameBufferPixel renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, int& lastTexturedFloor);
 		FrameBufferPixel renderSurfaceWall(int y, double ceilingEnd, double perceivedWallHeight, Intersection& intersection);
 
-		double calculateWallFog(double distance);
-
+		double calculateFogTransparency(double distance);
 };
