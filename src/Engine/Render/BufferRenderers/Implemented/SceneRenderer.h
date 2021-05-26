@@ -21,4 +21,5 @@ class SceneRenderer : public AbstractBufferRenderer
 		FrameBufferPixel renderSurfaceWall(int y, double ceilingEnd, double perceivedWallHeight, Intersection& intersection);
 
 		double calculateFogTransparency(double distance);
+		void horizontalSurfaceMath(bool invert, int y, double halfHeight, double halfVFov, double wallHeight, double correctedDistance, double deltaX, double deltaY, double& tileX, double& tileY, double& distnace, double& vAngle);
 };

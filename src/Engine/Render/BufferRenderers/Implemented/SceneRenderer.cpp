@@ -101,17 +101,15 @@ FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, double hAngle)
 {
 	#pragma region Preclacultate and initialize variables
-	// Vertical angle of the pixel
-	const double V_ANGLE = (halfHeight - y) / (double)this->height * halfVFov;
-	// Ratio of distances between floor texel and wall intersection
-	const double PROJECTION_RATIO = (wallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
-	// Project the point into world space
-	const double CEILING_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
-	const double CEILING_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
-	const int TILE_INDEX = this->scene.ceilingIndexAt(CEILING_X, CEILING_Y);
+#pragma region Preclacultate and initialize variables
+	double ceilingX;
+	double ceilingY;
+	double distance;
+	double vAngle;
+	this->horizontalSurfaceMath(true, y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY, ceilingX, ceilingY, distance, vAngle);
 
-	const double DISTANCE = PROJECTION_RATIO * correctedDistance;
-	const double FOG_TRANSPARENCY = calculateFogTransparency(DISTANCE);
+	const int TILE_INDEX = this->scene.ceilingIndexAt(ceilingX, ceilingY);
+	const double FOG_TRANSPARENCY = this->calculateFogTransparency(distance);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -120,8 +118,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		Tile renderedTile = this->scene.ceilingTileFrom(TILE_INDEX);
 
 		#pragma region Find sample point
-		const double SAMPLE_X = CEILING_Y;
-		const double SAMPLE_Y = -CEILING_X;
+		const double SAMPLE_X = ceilingY;
+		const double SAMPLE_Y = -ceilingX;
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
@@ -142,7 +140,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 
 		#pragma region Find sample point
 		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 6.283184, -1);
-		const double SAMPLE_Y = fmin(-V_ANGLE / 0.5708 - 0.5, -0.01);
+		const double SAMPLE_Y = fmin(-vAngle / 0.5708 - 0.5, -0.01);
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
@@ -162,17 +160,14 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, int& lastTexturedFloor)
 {
 	#pragma region Preclacultate and initialize variables
-	// Vertical angle of the pixel
-	const double V_ANGLE = (y - halfHeight) / (double)this->height * halfVFov;
-	// Ratio of distances between floor texel and wall intersection
-	const double PROJECTION_RATIO = (wallHeight / 2 / tan(V_ANGLE)) / correctedDistance / this->width;
-	// Project the point into world space
-	const double FLOOR_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
-	const double FLOOR_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
-	const int TILE_INDEX = this->scene.floorIndexAt(FLOOR_X, FLOOR_Y);
+	double floorX;
+	double floorY;
+	double distance;
+	double vAngle;
+	this->horizontalSurfaceMath(false, y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY, floorX, floorY, distance, vAngle);
 
-	const double DISTANCE = PROJECTION_RATIO * correctedDistance;
-	const double FOG_TRANSPARENCY = this->calculateFogTransparency(DISTANCE);
+	const int TILE_INDEX = this->scene.floorIndexAt(floorX, floorY);
+	const double FOG_TRANSPARENCY = this->calculateFogTransparency(distance);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -181,8 +176,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		Tile renderedTile = scene.floorTileFrom(TILE_INDEX);
 
 		#pragma region Find sample point
-		const double SAMPLE_X = FLOOR_Y;
-		const double SAMPLE_Y = -FLOOR_X;
+		const double SAMPLE_X = floorY;
+		const double SAMPLE_Y = -floorX;
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
@@ -204,7 +199,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		Tile pitTile = this->scene.floorTileFrom(0);
 
 		#pragma region Find sample point
-		const double VOID_RATIO = ((double)y - lastTexturedFloor) / V_ANGLE / this->height;
+		const double VOID_RATIO = ((double)y - lastTexturedFloor) / vAngle / this->height;
 		const double SAMPLE_X = (double)x / this->width * 128;
 		const double SAMPLE_Y = fmin(VOID_RATIO * halfVFov, 0.99);
 		#pragma endregion
@@ -257,4 +252,17 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 double SceneRenderer::calculateFogTransparency(double distance)
 {
 	return 1 - (distance / 3.5);
+}
+
+void SceneRenderer::horizontalSurfaceMath(bool invert, int y, double halfHeight, double halfVFov, double wallHeight, double correctedDistance, double deltaX, double deltaY, double& tileX, double& tileY, double& distnace, double& vAngle)
+{
+	// Vertical angle of the pixel
+	vAngle = (y - halfHeight) / (double)this->height * halfVFov * (invert ? -1 : 1);
+	// Ratio of distances between floor texel and wall intersection
+	const double PROJECTION_RATIO = (wallHeight / 2 / tan(vAngle)) / correctedDistance / this->width;
+	// Project the point into world space
+	tileX = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
+	tileY = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
+
+	distnace = PROJECTION_RATIO * correctedDistance;
 }
