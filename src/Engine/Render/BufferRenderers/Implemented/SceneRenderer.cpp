@@ -106,7 +106,10 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	double ceilingY;
 	double distance;
 	double vAngle;
-	this->horizontalSurfaceMath(true, y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY, ceilingX, ceilingY, distance, vAngle);
+	this->horizontalSurfaceMath(
+		true,
+		y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY,
+		ceilingX, ceilingY, distance, vAngle);
 
 	const int TILE_INDEX = this->scene.ceilingIndexAt(ceilingX, ceilingY);
 	const double FOG_TRANSPARENCY = this->calculateFogTransparency(distance);
@@ -164,7 +167,10 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 	double floorY;
 	double distance;
 	double vAngle;
-	this->horizontalSurfaceMath(false, y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY, floorX, floorY, distance, vAngle);
+	this->horizontalSurfaceMath(
+		false,
+		y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY,
+		floorX, floorY, distance, vAngle);
 
 	const int TILE_INDEX = this->scene.floorIndexAt(floorX, floorY);
 	const double FOG_TRANSPARENCY = this->calculateFogTransparency(distance);
