@@ -109,6 +109,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	const double CEILING_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
 	const double CEILING_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
 	const int TILE_INDEX = this->scene.ceilingIndexAt(CEILING_X, CEILING_Y);
+
+	const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
+	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -126,13 +129,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
         #pragma endregion
 
-		#pragma region Calculate other buffers
-		const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
-		const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
-		#pragma endregion
-
-		return FrameBufferPixel(SurfaceTypes::CEILING,
-			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+		return FrameBufferPixel(
+			SurfaceTypes::CEILING, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 			1, SurfaceColors::WHITE, 1);
 		#pragma endregion
@@ -152,9 +150,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		SurfaceColors SURFACE_COLOR = skyTile.sampleColor(SAMPLE_X, SAMPLE_Y);
 		#pragma endregion
 
-		return FrameBufferPixel(SurfaceTypes::SKY,
-			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
-			1, SurfaceColors::BLACK, 1,
+		return FrameBufferPixel(
+			SurfaceTypes::SKY, SURFACE_BRIGHTNESS, SURFACE_COLOR, false,
+			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 			1, SurfaceColors::WHITE, 1);
 		#pragma endregion
 	}
@@ -172,6 +170,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 	const double FLOOR_X = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
 	const double FLOOR_Y = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
 	const int TILE_INDEX = this->scene.floorIndexAt(FLOOR_X, FLOOR_Y);
+
+	const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
+	const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -189,14 +190,10 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
 		#pragma endregion
 
-		#pragma region Calculate other buffers
-		const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
-		const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
 		lastTexturedFloor = y;
-		#pragma endregion
 
-		return FrameBufferPixel(SurfaceTypes::FLOOR,
-			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+		return FrameBufferPixel(
+			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 			1, SurfaceColors::WHITE, 1);
 		#pragma endregion
@@ -208,7 +205,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 
 		#pragma region Find sample point
 		const double VOID_RATIO = ((double)y - lastTexturedFloor) / V_ANGLE / this->height;
-		const double SAMPLE_X = (double)x / this->width * 64;
+		const double SAMPLE_X = (double)x / this->width * 128;
 		const double SAMPLE_Y = fmin(VOID_RATIO * halfVFov, 0.99);
 		#pragma endregion
 
@@ -217,13 +214,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		SurfaceColors SURFACE_COLOR = pitTile.sampleColor(SAMPLE_X, SAMPLE_Y);
 		#pragma endregion
 
-		#pragma region Calculate other buffers
-		const double DISTANCE = halfHeight / tan(V_ANGLE) / this->height;
-		const double FOG_TRANSPARENCY = 1 - (DISTANCE / 49);
-		#pragma endregion
-
-		return FrameBufferPixel(SurfaceTypes::PIT,
-			SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+		return FrameBufferPixel(
+			SurfaceTypes::PIT, SURFACE_BRIGHTNESS, SURFACE_COLOR, false,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 			1, SurfaceColors::WHITE, 1);
 		#pragma endregion
@@ -256,8 +248,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	const double FOG_TRANSPARENCY = 1 - (intersection.DISTANCE / 7);
 	#pragma endregion
 
-	return FrameBufferPixel(intersection.WALL_NORMAL,
-		texelBrightness, texelColor, true,
+	return FrameBufferPixel(
+		intersection.WALL_NORMAL, texelBrightness, texelColor, true,
 		FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 		1, SurfaceColors::WHITE, 1);
 }
