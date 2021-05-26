@@ -117,7 +117,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	if (TILE_INDEX != 0)
 	{
 		#pragma region Ceiling tile rendering
-		Tile renderedTile = scene.ceilingTileFrom(TILE_INDEX);
+		Tile renderedTile = this->scene.ceilingTileFrom(TILE_INDEX);
 
 		#pragma region Find sample point
 		const double SAMPLE_X = CEILING_Y;
@@ -172,7 +172,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 	const int TILE_INDEX = this->scene.floorIndexAt(FLOOR_X, FLOOR_Y);
 
 	const double DISTANCE = PROJECTION_RATIO * correctedDistance;
-	const double FOG_TRANSPARENCY = calculateFogTransparency(DISTANCE);
+	const double FOG_TRANSPARENCY = this->calculateFogTransparency(DISTANCE);
 	#pragma endregion
 
 	if (TILE_INDEX != 0)
@@ -245,7 +245,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma endregion
 
 	#pragma region Calculate other buffers
-	const double FOG_TRANSPARENCY = calculateFogTransparency(intersection.DISTANCE);
+	const double FOG_TRANSPARENCY = this->calculateFogTransparency(intersection.DISTANCE);
 	#pragma endregion
 
 	return FrameBufferPixel(
