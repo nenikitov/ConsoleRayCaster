@@ -20,7 +20,7 @@ This section describes the layout of the level. The indexes inside the array are
 
 
 ## How to edit tiles
-The tiles are stored inside `data/tiles` folder. Tile files are essentially `.json` files.
+The tiles are stored inside `data/tiles/` folder. Tile files are essentially `.json` files.
 ### `physics`
 This section is unused. Will describe the possible interactions between the player and the tile.
 ### `rendering`
