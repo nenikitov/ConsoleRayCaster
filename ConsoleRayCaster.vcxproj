@@ -158,7 +158,6 @@
     <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Scene\Tile\Tile.cpp" />
     <ClCompile Include="src\ConsoleRayCaster.cpp" />
-    <ClCompile Include="src\Tile\OldTile.cpp" />
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,8 +184,6 @@
     <ClInclude Include="lib\JsonCpp\json\json.h" />
     <ClInclude Include="src\Engine\Scene\Scene\Scene.h" />
     <ClInclude Include="src\Engine\Scene\Tile\Tile.h" />
-    <ClInclude Include="src\Tile\OldTile.h" />
-    <ClInclude Include="src\Tile\TileTypes.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.h" />
   </ItemGroup>
   <ItemGroup>
