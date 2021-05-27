@@ -1,13 +1,12 @@
 #include <chrono>
 #include <iostream>
-#include <thread>
 #include <sstream>
-#include <string> 
-#include "Player/Player.h"
-#include "Level/Level.h"
-#include "ConsoleHandler/ConsoleHandler.h"
-#include "RayCaster/RayCaster.h"
-#include "Renderer/ConsoleRenderer.h"
+#include <string>
+#include "Engine/Scene/Scene/Scene.h"
+#include "Engine/Render/BufferRenderers/Implemented/SceneRenderer.h"
+#include "Engine/Render/RenderLayerComposer/RenderLayerComposer.h"
+#include "Engine/Render/Visualizers/Implemented/Console/ASCII/ASCIIVisualizer.h"
+#include "Game/SceneObjects/FPSPlayer/FPSPlayer.h"
 
 void errorExit(std::string process, std::string exception)
 {
@@ -17,66 +16,106 @@ void errorExit(std::string process, std::string exception)
     std::cin.get();
 }
 
+// TODO
+// - File structure cleanup
+//       + Move FPS player from engine to game directory
+//       + Delete old classes
+// - Code modifications
+//       + Handle exceptions
+//       * Make a window that adapts to screen size
+//       * Implement more advanced lighting (fullbright texels, sector lighting)
+// - Code cleanup
+//       * Create general equations in SCENE RENDERER to increase readability
+//       * Cleanup in SCENE RENDERER
+//       * Find a better way of generating a pointer array than a bunch of switches in ASCII RENDERER
+//       * Comments and docs for new classes
+// - Further tasks
+//       * Implement simple graphics settings (setting renderer to half resolution)
+//       * Implement new cutting-edge 'SHADE' renderer that uses shading characters
+//       * Finally merge
+
 int main()
 {
-    /*
-    TODO
-    Major refactoring
-    - Maybe create a struct for rendering result so you can introduce multiple renderers that will transform the result into characters (or pixels in graphics rendering)
-    - Separate game from game engine, so you can create tile and level editors
-    */
+    const int RENDER_WIDTH = 317; // 237
+    const int RENDER_HEIGHT = 84; // 63
+    const double FOV = 2.0944;
 
-    ConsoleHandler consoleHandler;
-    if (!consoleHandler.initialize())
-    {
-        errorExit("Console initialization", "Console does not support fast output");
-        return 1;
-    }
-        
-
-    Level* level;
+    Scene scene;
     try
     {
-        level = new Level("test");
+        scene.openLevelFile("test");
     }
-    catch (std::invalid_argument exception)
+    catch (std::invalid_argument e)
     {
-        errorExit("Level loading", exception.what());
+        errorExit("Level loading", e.what());
+        return 1;
+    }
+
+    FPSPlayer player(scene, FOV);
+    
+    SceneRenderer sceneRenderer(RENDER_WIDTH, RENDER_HEIGHT, scene, player.getCamera());
+    RenderLayerComposer composer(RENDER_WIDTH, RENDER_HEIGHT);
+    
+    ASCIIVisualizer visualizer;
+    try
+    {
+        visualizer.init();
+    }
+    catch (std::runtime_error e)
+    {
+        errorExit("Render initialization", e.what());
         return 1;
     }
     
-    Player player = Player(level->getPlayerStartX(), level->getPlayerStartY(), level->getPlayerStartAngle());
-
-
-    Renderer renderer(player, *level);
-
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
 
-    unsigned const int FOV = 2.0944; // 120 degrees
+    int previousVisualizerWidth = 0;
+    int previousVisualizerHeight = 0;
 
     while (true)
     {
+        #pragma region Update delta time
         currentTime = std::chrono::system_clock::now();
         const std::chrono::duration<double> DELTA_TIME_CHRONO = currentTime - previousTime;
         const double DELTA_TIME = DELTA_TIME_CHRONO.count();
-
         previousTime = currentTime;
-        player.update(DELTA_TIME);
+        #pragma endregion
 
-        unsigned const int CONSOLE_WIDTH = consoleHandler.getConsoleWidth();
-        unsigned const int CONSOLE_HEIGHT = consoleHandler.getConsoleHeight();
-        unsigned const int CONSOLE_SIZE = CONSOLE_WIDTH * CONSOLE_HEIGHT;
-        unsigned const int WALL_HEIGHT = CONSOLE_WIDTH / pow(2, FOV) / 2;
-
-        CHAR_INFO* render = renderer.render(CONSOLE_WIDTH, CONSOLE_HEIGHT, FOV, WALL_HEIGHT);
-
+        #pragma region Set window title
         const int FPS = 1 / DELTA_TIME;
         std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
-        consoleHandler.setTitle(title.c_str());
+        visualizer.setTitle(title.c_str());
+        #pragma endregion
 
-        consoleHandler.printChars(render, 0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
+        #pragma region Update the objects
+        player.tick(DELTA_TIME);
+        #pragma endregion
 
-        delete [] render;
+        #pragma region Update buffer sizes
+        /*
+        const int VISUALIZER_WIDTH = visualizer.getWidth();
+        const int VISUALIZER_HEIGHT = visualizer.getHeight();
+        if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
+        {
+            sceneRenderer.changeDimensions(VISUALIZER_WIDTH, VISUALIZER_HEIGHT);
+            composer.changeDimensions(VISUALIZER_WIDTH, VISUALIZER_HEIGHT);
+            previousVisualizerWidth = VISUALIZER_WIDTH;
+            previousVisualizerHeight = VISUALIZER_HEIGHT;
+        }
+        */
+        #pragma endregion
+
+        #pragma region Generate screen buffers and render
+        FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
+        composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);
+        visualizer.visualize(composer);
+        #pragma endregion
+
+        #pragma region Delete screen buffers
+        for (int i = 0; i < RENDER_HEIGHT; i++)
+            delete sceneRenderResult[i];
+        delete sceneRenderResult;
+        #pragma endregion
     }
 }

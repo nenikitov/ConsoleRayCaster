@@ -139,30 +139,55 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\JsonCpp\jsoncpp.cpp" />
-    <ClCompile Include="src\Renderer\ConsoleRenderer.cpp" />
-    <ClCompile Include="src\Intersection\Intersection.h" />
-    <ClCompile Include="src\Intersection\WallNormalDirection.h" />
-    <ClCompile Include="src\RayCaster\RayCaster.cpp" />
-    <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp" />
-    <ClCompile Include="src\Controller\Controller.cpp" />
-    <ClCompile Include="src\Player\Player.cpp" />
+    <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.cpp" />
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.cpp" />
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.cpp" />
+    <ClCompile Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.cpp" />
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.cpp" />
+    <ClCompile Include="src\Engine\Input\Managers\KeyboardInputManager.cpp" />
+    <ClCompile Include="src\Engine\RayCaster\Intersection\Intersection.cpp" />
+    <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
+    <ClCompile Include="lib\JsonCpp\jsoncpp.cpp" />
+    <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp" />
+    <ClCompile Include="src\Engine\Scene\Tile\Tile.cpp" />
     <ClCompile Include="src\ConsoleRayCaster.cpp" />
-    <ClCompile Include="src\Level\Level.cpp" />
-    <ClCompile Include="src\Tile\Tile.cpp" />
+    <ClCompile Include="src\Tile\OldTile.cpp" />
+    <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ConsoleHandler\ConsoleColors.h" />
-    <ClInclude Include="src\JsonCpp\json\json-forwards.h" />
-    <ClInclude Include="src\JsonCpp\json\json.h" />
-    <ClInclude Include="src\Renderer\ConsoleRenderer.h" />
-    <ClInclude Include="src\RayCaster\RayCaster.h" />
-    <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h" />
-    <ClInclude Include="src\Controller\Controller.h" />
-    <ClInclude Include="src\Player\Player.h" />
-    <ClInclude Include="src\Level\Level.h" />
-    <ClInclude Include="src\Tile\Tile.h" />
+    <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.h" />
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h" />
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.h" />
+    <ClInclude Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.h" />
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.h" />
+    <ClInclude Include="src\Engine\Input\AxisKeys\AxisKeys.h" />
+    <ClInclude Include="src\Engine\Input\Managers\KeyboardInputManager.h" />
+    <ClInclude Include="src\Engine\RayCaster\Intersection\Intersection.h" />
+    <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h" />
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.h" />
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\IVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h" />
+    <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceTypes.h" />
+    <ClInclude Include="lib\JsonCpp\json\json-forwards.h" />
+    <ClInclude Include="lib\JsonCpp\json\json.h" />
+    <ClInclude Include="src\Engine\Scene\Scene\Scene.h" />
+    <ClInclude Include="src\Engine\Scene\Tile\Tile.h" />
+    <ClInclude Include="src\Tile\OldTile.h" />
     <ClInclude Include="src\Tile\TileTypes.h" />
+    <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\levels\test.lvl.json">

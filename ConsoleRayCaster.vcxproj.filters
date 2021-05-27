@@ -26,73 +26,145 @@
     <ClCompile Include="src\ConsoleRayCaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Level\Level.cpp">
+    <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Controller\Controller.cpp">
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player\Player.cpp">
+    <ClCompile Include="lib\JsonCpp\jsoncpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tile\Tile.cpp">
+    <ClCompile Include="src\Engine\Scene\Tile\Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ConsoleHandler\ConsoleHandler.cpp">
+    <ClCompile Include="src\Tile\OldTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RayCaster\RayCaster.cpp">
+    <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\JsonCpp\jsoncpp.cpp">
+    <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Intersection\WallNormalDirection.h">
+    <ClCompile Include="src\Engine\RayCaster\Intersection\Intersection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Intersection\Intersection.h">
+    <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\ConsoleRenderer.cpp">
+    <ClCompile Include="src\Engine\Input\Managers\KeyboardInputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Level\Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Controller\Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Player\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Tile\Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ConsoleHandler\ConsoleHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RayCaster\RayCaster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonCpp\json\json.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\JsonCpp\json\json-forwards.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ConsoleHandler\ConsoleColors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Tile\TileTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\ConsoleRenderer.h">
+    <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data\tiles\sky.tl.json" />
+    <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\JsonCpp\json\json.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\JsonCpp\json\json-forwards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\Tile\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile\OldTile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\Scene\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\RayCaster\Intersection\Intersection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Input\Managers\KeyboardInputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Input\AxisKeys\AxisKeys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\GameObject\Abstract\AbstractGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\IVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
