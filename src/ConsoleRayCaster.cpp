@@ -36,7 +36,7 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const double RENDER_SCALE = 0.75;
+    const double RENDER_SCALE = 1;
 
     ASCIIVisualizer visualizer;
     try
@@ -49,8 +49,8 @@ int main()
         return 1;
     }
 
-    const int RENDER_WIDTH = visualizer.getWidth() * RENDER_SCALE;
-    const int RENDER_HEIGHT = visualizer.getHeight() * RENDER_SCALE;
+    int renderWidth = visualizer.getWidth() * RENDER_SCALE;
+    int renderHeight = visualizer.getHeight() * RENDER_SCALE;
     const double FOV = 2.0944;
 
     Scene scene;
@@ -66,9 +66,8 @@ int main()
 
     FPSPlayer player(scene, FOV);
     
-    SceneRenderer sceneRenderer(RENDER_WIDTH, RENDER_HEIGHT, scene, player.getCamera());
-    RenderLayerComposer composer(RENDER_WIDTH, RENDER_HEIGHT);
-    
+    SceneRenderer sceneRenderer(renderWidth, renderHeight, scene, player.getCamera());
+    RenderLayerComposer composer(renderWidth, renderHeight);
     
     
     auto previousTime = std::chrono::system_clock::now();
@@ -97,27 +96,28 @@ int main()
         #pragma endregion
 
         #pragma region Update buffer sizes
-        /*
         const int VISUALIZER_WIDTH = visualizer.getWidth();
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
-            sceneRenderer.changeDimensions(VISUALIZER_WIDTH, VISUALIZER_HEIGHT);
-            composer.changeDimensions(VISUALIZER_WIDTH, VISUALIZER_HEIGHT);
+            renderWidth = visualizer.getWidth() * RENDER_SCALE;
+            renderHeight = visualizer.getHeight() * RENDER_SCALE;
+
+            sceneRenderer.changeDimensions(renderWidth, renderHeight);
+            composer.changeDimensions(renderWidth, renderHeight);
             previousVisualizerWidth = VISUALIZER_WIDTH;
             previousVisualizerHeight = VISUALIZER_HEIGHT;
         }
-        */
         #pragma endregion
 
         #pragma region Generate screen buffers and render
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
-        composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);
+        composer.addRenderLayer(sceneRenderResult, renderWidth, renderHeight, 0, 0, 1, 1);
         visualizer.visualize(composer);
         #pragma endregion
 
         #pragma region Delete screen buffers
-        for (int i = 0; i < RENDER_HEIGHT; i++)
+        for (int i = 0; i < renderHeight; i++)
             delete sceneRenderResult[i];
         delete sceneRenderResult;
         #pragma endregion
