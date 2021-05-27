@@ -36,7 +36,7 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const double RENDER_SCALE = 1;
+    const double RENDER_SCALE = .5;
 
     ASCIIVisualizer visualizer;
     try

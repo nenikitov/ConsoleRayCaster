@@ -143,7 +143,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 
 		#pragma region Find sample point
 		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 6.283184, -1);
-		const double SAMPLE_Y = fmin(-vAngle / 0.5708 - 0.5, -0.01);
+		const double SAMPLE_Y = fmax(-vAngle / 0.5708 - 0.5, -1);
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
