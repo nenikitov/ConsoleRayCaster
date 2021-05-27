@@ -36,8 +36,21 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const int RENDER_WIDTH = 317; // 237
-    const int RENDER_HEIGHT = 84; // 63
+    const double RENDER_SCALE = 0.75;
+
+    ASCIIVisualizer visualizer;
+    try
+    {
+        visualizer.init();
+    }
+    catch (std::runtime_error e)
+    {
+        errorExit("Render initialization", e.what());
+        return 1;
+    }
+
+    const int RENDER_WIDTH = visualizer.getWidth() * RENDER_SCALE;
+    const int RENDER_HEIGHT = visualizer.getHeight() * RENDER_SCALE;
     const double FOV = 2.0944;
 
     Scene scene;
@@ -56,16 +69,7 @@ int main()
     SceneRenderer sceneRenderer(RENDER_WIDTH, RENDER_HEIGHT, scene, player.getCamera());
     RenderLayerComposer composer(RENDER_WIDTH, RENDER_HEIGHT);
     
-    ASCIIVisualizer visualizer;
-    try
-    {
-        visualizer.init();
-    }
-    catch (std::runtime_error e)
-    {
-        errorExit("Render initialization", e.what());
-        return 1;
-    }
+    
     
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
