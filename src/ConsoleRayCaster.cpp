@@ -100,7 +100,6 @@ int main()
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
-            visualizer.clear();
 
             renderWidth = visualizer.getWidth() * RENDER_SCALE;
             renderHeight = visualizer.getHeight() * RENDER_SCALE;
@@ -109,6 +108,9 @@ int main()
             composer.changeDimensions(renderWidth, renderHeight);
             previousVisualizerWidth = VISUALIZER_WIDTH;
             previousVisualizerHeight = VISUALIZER_HEIGHT;
+
+            visualizer.refreshSize();
+
         }
         #pragma endregion
 

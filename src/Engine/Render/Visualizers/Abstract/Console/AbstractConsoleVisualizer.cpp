@@ -26,7 +26,7 @@ void AbstractConsoleVisualizer::init()
 	SetConsoleCursorInfo(this->CONSOLE_HANDLE, &cursorInfo);
 }
 
-void AbstractConsoleVisualizer::clear()
+void AbstractConsoleVisualizer::refreshSize()
 {
 	system("cls");
 }
