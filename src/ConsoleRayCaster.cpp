@@ -36,7 +36,7 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const double RENDER_SCALE = .5;
+    const double RENDER_SCALE = 1;
 
     ASCIIVisualizer visualizer;
     try
@@ -100,6 +100,8 @@ int main()
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
+            visualizer.clear();
+
             renderWidth = visualizer.getWidth() * RENDER_SCALE;
             renderHeight = visualizer.getHeight() * RENDER_SCALE;
 

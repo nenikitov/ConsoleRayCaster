@@ -26,6 +26,11 @@ void AbstractConsoleVisualizer::init()
 	SetConsoleCursorInfo(this->CONSOLE_HANDLE, &cursorInfo);
 }
 
+void AbstractConsoleVisualizer::clear()
+{
+	system("cls");
+}
+
 void AbstractConsoleVisualizer::setTitle(const char* title)
 {
 	SetConsoleTitleA(title);
