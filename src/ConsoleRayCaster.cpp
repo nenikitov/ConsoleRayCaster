@@ -22,11 +22,11 @@ void errorExit(std::string process, std::string exception)
 //       + Delete old classes
 // - Code modifications
 //       + Handle exceptions
-//       * Make a window that adapts to screen size
+//       + Make a window that adapts to screen size
 //       * Implement more advanced lighting (fullbright texels, sector lighting)
 // - Code cleanup
-//       * Create general equations in SCENE RENDERER to increase readability
-//       * Cleanup in SCENE RENDERER
+//       + Create general equations in SCENE RENDERER to increase readability
+//       + Cleanup in SCENE RENDERER
 //       * Find a better way of generating a pointer array than a bunch of switches in ASCII RENDERER
 //       * Comments and docs for new classes
 // - Further tasks
