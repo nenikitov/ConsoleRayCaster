@@ -10,6 +10,7 @@ class AbstractConsoleVisualizer : public IVisualizer
 		BufferRequirements getRequirements() override;
 		void init() override;
 		virtual void visualize(RenderLayerComposer& composer) override = 0;
+		void refreshSize() override;
 		void setTitle(const char* title) override;
 		int getWidth() override;
 		int getHeight() override;

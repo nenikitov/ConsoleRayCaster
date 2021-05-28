@@ -22,11 +22,11 @@ void errorExit(std::string process, std::string exception)
 //       + Delete old classes
 // - Code modifications
 //       + Handle exceptions
-//       * Make a window that adapts to screen size
+//       + Make a window that adapts to screen size
 //       * Implement more advanced lighting (fullbright texels, sector lighting)
 // - Code cleanup
-//       * Create general equations in SCENE RENDERER to increase readability
-//       * Cleanup in SCENE RENDERER
+//       + Create general equations in SCENE RENDERER to increase readability
+//       + Cleanup in SCENE RENDERER
 //       * Find a better way of generating a pointer array than a bunch of switches in ASCII RENDERER
 //       * Comments and docs for new classes
 // - Further tasks
@@ -36,8 +36,21 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const int RENDER_WIDTH = 317; // 237
-    const int RENDER_HEIGHT = 84; // 63
+    const double RENDER_SCALE = 1;
+
+    ASCIIVisualizer visualizer;
+    try
+    {
+        visualizer.init();
+    }
+    catch (std::runtime_error e)
+    {
+        errorExit("Render initialization", e.what());
+        return 1;
+    }
+
+    int renderWidth = visualizer.getWidth() * RENDER_SCALE;
+    int renderHeight = visualizer.getHeight() * RENDER_SCALE;
     const double FOV = 2.0944;
 
     Scene scene;
@@ -53,19 +66,9 @@ int main()
 
     FPSPlayer player(scene, FOV);
     
-    SceneRenderer sceneRenderer(RENDER_WIDTH, RENDER_HEIGHT, scene, player.getCamera());
-    RenderLayerComposer composer(RENDER_WIDTH, RENDER_HEIGHT);
+    SceneRenderer sceneRenderer(renderWidth, renderHeight, scene, player.getCamera());
+    RenderLayerComposer composer(renderWidth, renderHeight);
     
-    ASCIIVisualizer visualizer;
-    try
-    {
-        visualizer.init();
-    }
-    catch (std::runtime_error e)
-    {
-        errorExit("Render initialization", e.what());
-        return 1;
-    }
     
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
@@ -93,27 +96,32 @@ int main()
         #pragma endregion
 
         #pragma region Update buffer sizes
-        /*
         const int VISUALIZER_WIDTH = visualizer.getWidth();
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
-            sceneRenderer.changeDimensions(VISUALIZER_WIDTH, VISUALIZER_HEIGHT);
-            composer.changeDimensions(VISUALIZER_WIDTH, VISUALIZER_HEIGHT);
+
+            renderWidth = visualizer.getWidth() * RENDER_SCALE;
+            renderHeight = visualizer.getHeight() * RENDER_SCALE;
+
+            sceneRenderer.changeDimensions(renderWidth, renderHeight);
+            composer.changeDimensions(renderWidth, renderHeight);
             previousVisualizerWidth = VISUALIZER_WIDTH;
             previousVisualizerHeight = VISUALIZER_HEIGHT;
+
+            visualizer.refreshSize();
+
         }
-        */
         #pragma endregion
 
         #pragma region Generate screen buffers and render
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
-        composer.addRenderLayer(sceneRenderResult, RENDER_WIDTH, RENDER_HEIGHT, 0, 0, 1, 1);
+        composer.addRenderLayer(sceneRenderResult, renderWidth, renderHeight, 0, 0, 1, 1);
         visualizer.visualize(composer);
         #pragma endregion
 
         #pragma region Delete screen buffers
-        for (int i = 0; i < RENDER_HEIGHT; i++)
+        for (int i = 0; i < renderHeight; i++)
             delete sceneRenderResult[i];
         delete sceneRenderResult;
         #pragma endregion
