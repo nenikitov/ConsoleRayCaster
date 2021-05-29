@@ -45,7 +45,7 @@ void Scene::openLevelFile(std::string levelName)
 	#pragma region Load lookup data
 	#pragma region Wall lookup
 	// Get data from wall lookup
-	const int WALL_LOOKUP_SIZE = json["tileLookUp"]["wall"].size();
+	const int WALL_LOOKUP_SIZE = json["tile"]["tileLookUp"]["wall"].size();
 	// ERROR CATCHING - No wall lookup present
 	if (WALL_LOOKUP_SIZE == 0)
 		throw std::invalid_argument(levelName + " - the lookup for walls is empty");
@@ -53,11 +53,11 @@ void Scene::openLevelFile(std::string levelName)
 	this->wallTiles = WALL_LOOKUP_SIZE - 1;
 	this->wallLookup = (Tile*) malloc(WALL_LOOKUP_SIZE * sizeof(Tile));
 	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
-		this->wallLookup[i] = Tile(json["tileLookUp"]["wall"][i].asString());
+		this->wallLookup[i] = Tile(json["tile"]["tileLookUp"]["wall"][i].asString());
 	#pragma endregion
 	#pragma region Floor lookup
 	// Get data from floor lookup
-	const int FLOOR_LOOKUP_SIZE = json["tileLookUp"]["floor"].size();
+	const int FLOOR_LOOKUP_SIZE = json["tile"]["tileLookUp"]["floor"].size();
 	// ERROR CATCHING - No floor lookup present
 	if (FLOOR_LOOKUP_SIZE == 0)
 		throw std::invalid_argument(levelName + " - the lookup for floors is empty");
@@ -65,11 +65,11 @@ void Scene::openLevelFile(std::string levelName)
 	this->floorTiles = FLOOR_LOOKUP_SIZE - 1;
 	this->floorLookup = (Tile*)malloc(FLOOR_LOOKUP_SIZE * sizeof(Tile));
 	for (unsigned int i = 0; i < FLOOR_LOOKUP_SIZE; i++)
-		this->floorLookup[i] = Tile(json["tileLookUp"]["floor"][i].asString());
+		this->floorLookup[i] = Tile(json["tile"]["tileLookUp"]["floor"][i].asString());
 	#pragma endregion
 	#pragma region Ceiling lookup
 	// Get data from ceiling lookup
-	const int CEILING_LOOKUP_SIZE = json["tileLookUp"]["ceiling"].size();
+	const int CEILING_LOOKUP_SIZE = json["tile"]["tileLookUp"]["ceiling"].size();
 	// ERROR CATCHING - No ceiling lookup present
 	if (CEILING_LOOKUP_SIZE == 0)
 		throw std::invalid_argument(levelName + " - the lookup for ceilings is empty");
@@ -77,24 +77,24 @@ void Scene::openLevelFile(std::string levelName)
 	this->ceilingTiles = CEILING_LOOKUP_SIZE - 1;
 	this->ceilingLookup = (Tile*)malloc(CEILING_LOOKUP_SIZE * sizeof(Tile));
 	for (unsigned int i = 0; i < CEILING_LOOKUP_SIZE; i++)
-		this->ceilingLookup[i] = Tile(json["tileLookUp"]["ceiling"][i].asString());
+		this->ceilingLookup[i] = Tile(json["tile"]["tileLookUp"]["ceiling"][i].asString());
 	#pragma endregion
 	#pragma endregion
 
 	#pragma region Initialize level height
 	// Get height of the level
-	this->height = json["tileData"]["wall"].size();
+	this->height = json["tile"]["tileData"]["wall"].size();
 	// ERROR CATCHING - Height is 0
 	if (this->height == 0)
 		throw std::invalid_argument(levelName + " - the height of a level is 0");
 
 	// ERROR CATCHING - Inconsistent heights for wall, ceiling and floor data
-	if (this->height != json["tileData"]["floor"].size() ||  this->height != json["tileData"]["ceiling"].size())
+	if (this->height != json["tile"]["tileData"]["floor"].size() ||  this->height != json["tile"]["tileData"]["ceiling"].size())
 		throw std::invalid_argument(levelName + " - the height of a level is different for walls, ceiling and floor");
 	#pragma endregion
 
 	#pragma region Initialize level width
-	this->width = json["tileData"]["wall"][0].size();
+	this->width = json["tile"]["tileData"]["wall"][0].size();
 	#pragma endregion
 
 	#pragma region Initialize pointers
@@ -107,7 +107,7 @@ void Scene::openLevelFile(std::string levelName)
 	for (unsigned int y = 0; y < this->height; y++)
 	{
 		// Get width of the level
-		const unsigned int WIDTH = json["tileData"]["wall"][y].size();
+		const unsigned int WIDTH = json["tile"]["tileData"]["wall"][y].size();
 
 		// ERROR CATCHING - Width is 0
 		if (WIDTH == 0)
@@ -118,7 +118,7 @@ void Scene::openLevelFile(std::string levelName)
 			throw std::invalid_argument(levelName + " - the width of a level on the line " + std::to_string(y) + " is inconsistent");
 
 		// ERROR CATCHING - Inconsistent widths for wall, ceiling and floor data
-		if (WIDTH != json["tileData"]["floor"][y].size() || WIDTH != json["tileData"]["ceiling"][y].size())
+		if (WIDTH != json["tile"]["tileData"]["floor"][y].size() || WIDTH != json["tile"]["tileData"]["ceiling"][y].size())
 			throw std::invalid_argument(levelName + " - the width of a level is different for walls, ceiling and floor on the line " + std::to_string(y));
 
 		// Generate internal arrays for storing tile data
@@ -130,7 +130,7 @@ void Scene::openLevelFile(std::string levelName)
 		for (unsigned int x = 0; x < WIDTH; x++)
 		{
 			// Get wall tile data
-			const int WALL_DATA = json["tileData"]["wall"][y][x].asInt();
+			const int WALL_DATA = json["tile"]["tileData"]["wall"][y][x].asInt();
 			// ERROR CATCHING - Invalid tile data
 			if (WALL_DATA < 0)
 				throw std::invalid_argument(levelName + " - negative wall data at " + std::to_string(x) + ", " + std::to_string(y));
@@ -140,7 +140,7 @@ void Scene::openLevelFile(std::string levelName)
 			this->wallData[y][x] = WALL_DATA;
 
 			// Get floor tile data
-			const int FLOOR_DATA = json["tileData"]["floor"][y][x].asInt();
+			const int FLOOR_DATA = json["tile"]["tileData"]["floor"][y][x].asInt();
 			// ERROR CATCHING - Invalid tile data
 			if (FLOOR_DATA < 0)
 				throw std::invalid_argument(levelName + " - invalid floor data index at " + std::to_string(x) + ", " + std::to_string(y));
@@ -148,7 +148,7 @@ void Scene::openLevelFile(std::string levelName)
 			this->floorData[y][x] = FLOOR_DATA;
 
 			// Get ceiling tile data
-			const int CEILING_DATA = json["tileData"]["ceiling"][y][x].asInt();
+			const int CEILING_DATA = json["tile"]["tileData"]["ceiling"][y][x].asInt();
 			// ERROR CATCHING - Invalid tile data
 			if (CEILING_DATA < 0)
 				throw std::invalid_argument(levelName + " - invalid ceiling data index at " + std::to_string(x) + ", " + std::to_string(y));
