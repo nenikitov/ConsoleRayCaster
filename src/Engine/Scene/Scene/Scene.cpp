@@ -37,9 +37,9 @@ void Scene::openLevelFile(std::string levelName)
 	#pragma endregion
 
 	#pragma region Load player data
-	this->playerStartX = json["player"]["x"].asDouble();
-	this->playerStartY = json["player"]["y"].asDouble();
-	this->playerStartAngle = (double)json["player"]["angle"].asInt() / 0.017453292; // Transform degrees to radians
+	this->playerStartX = json["playerStart"]["x"].asDouble();
+	this->playerStartY = json["playerStart"]["y"].asDouble();
+	this->playerStartAngle = (double)json["playerStart"]["angle"].asInt() / 0.017453292; // Transform degrees to radians
 	#pragma endregion
 
 	#pragma region Load lookup data
@@ -207,6 +207,53 @@ Tile Scene::ceilingTileFrom(unsigned int i)
 		return this->ceilingLookup[0];
 	else
 		return this->ceilingLookup[i];
+}
+
+SurfaceColors Scene::getFogColor()
+{
+	return this->fogColor;
+}
+
+double Scene::getFogSaturation()
+{
+	return this->fogSaturation;
+}
+
+double Scene::getFogBrightness()
+{
+	return this->fogBrightness;
+}
+
+double Scene::getFogDistance()
+{
+	return this->fogDistance;
+}
+
+SurfaceColors Scene::getSectorColor(unsigned int x, unsigned int y)
+{
+	if (y < this->height)
+		if (x < this->width)
+			return this->sectorColors[y][x];
+
+	return SurfaceColors::BLACK;
+}
+
+double Scene::getSectorSaturation(unsigned int x, unsigned int y)
+{
+	if (y < this->height)
+		if (x < this->width)
+			return this->sectorSaturation[y][x];
+
+	return 0;
+}
+
+double Scene::getSectorBrightness(unsigned int x, unsigned int y)
+{
+	if (y < this->height)
+		if (x < this->width)
+			return this->sectorBrightness[y][x];
+
+	return 0;
 }
 
 double Scene::getPlayerStartX()

@@ -6,24 +6,43 @@
 class Scene
 {
 	public:
+		#pragma region Initialization
 		Scene();
 		void openLevelFile(std::string levelName);
-		int wallIndexAt(unsigned int x, unsigned int y);
-		int floorIndexAt(unsigned int x, unsigned int y);
-		int ceilingIndexAt(unsigned int x, unsigned int y);
-		Tile wallTileFrom(unsigned int i);
-		Tile floorTileFrom(unsigned int i);
-		Tile ceilingTileFrom(unsigned int i);
+		#pragma endregion
+		#pragma region Player start getters
 		double getPlayerStartX();
 		double getPlayerStartY();
 		double getPlayerStartAngle();
+		#pragma endregion
+		#pragma region Tile getters
+		// Tile index
+		int wallIndexAt(unsigned int x, unsigned int y);
+		int floorIndexAt(unsigned int x, unsigned int y);
+		int ceilingIndexAt(unsigned int x, unsigned int y);
+		// Tile object
+		Tile wallTileFrom(unsigned int i);
+		Tile floorTileFrom(unsigned int i);
+		Tile ceilingTileFrom(unsigned int i);
+		#pragma endregion
+		#pragma region Lighting getters
+		// Fog
+		SurfaceColors getFogColor();
+		double getFogSaturation();
+		double getFogBrightness();
+		double getFogDistance();
+		// Sector lighting
+		SurfaceColors getSectorColor(unsigned int x, unsigned int y);
+		double getSectorSaturation(unsigned int x, unsigned int y);
+		double getSectorBrightness(unsigned int x, unsigned int y);
+		#pragma endregion
 	private:
 		#pragma region Dimensions
 		unsigned int height;
 		unsigned int width;
 		#pragma endregion
 
-		#pragma region Player
+		#pragma region Player start
 		double playerStartX;
 		double playerStartY;
 		double playerStartAngle;
@@ -45,11 +64,13 @@ class Scene
 
 		#pragma region Lighting
 		// Fog
-		SurfaceColors color;
-		double saturation;
-		double value;
-		double distance;
+		SurfaceColors fogColor;
+		double fogSaturation;
+		double fogBrightness;
+		double fogDistance;
 		// Sector
+		SurfaceColors** sectorColors;
+		double** sectorSaturation;
 		double** sectorBrightness;
 		#pragma endregion
 };
