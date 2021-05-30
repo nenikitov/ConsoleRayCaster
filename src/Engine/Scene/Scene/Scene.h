@@ -41,13 +41,11 @@ class Scene
 		unsigned int height;
 		unsigned int width;
 		#pragma endregion
-
 		#pragma region Player start
 		double playerStartX;
 		double playerStartY;
 		double playerStartAngle;
 		#pragma endregion
-
 		#pragma region Tile
 		// Look up
 		unsigned int wallTiles;
@@ -61,7 +59,6 @@ class Scene
 		int** floorData;
 		int** ceilingData;
 		#pragma endregion
-
 		#pragma region Lighting
 		// Fog
 		SurfaceColors fogColor;
@@ -72,5 +69,8 @@ class Scene
 		SurfaceColors** sectorColors;
 		double** sectorSaturation;
 		double** sectorBrightness;
+		#pragma endregion
+		#pragma region Loading helper methods
+		void loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outSize, Tile*& outArray);
 		#pragma endregion
 };

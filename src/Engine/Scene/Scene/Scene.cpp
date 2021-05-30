@@ -37,50 +37,54 @@ void Scene::openLevelFile(std::string levelName)
 	#pragma endregion
 
 	#pragma region Load player data
-	this->playerStartX = json["playerStart"]["x"].asDouble();
-	this->playerStartY = json["playerStart"]["y"].asDouble();
-	this->playerStartAngle = (double)json["playerStart"]["angle"].asInt() / 0.017453292; // Transform degrees to radians
+	{
+		const double X = json["playerStart"]["x"].asDouble();
+		const double Y = json["playerStart"]["y"].asDouble();
+		double angle = json["playerStart"]["angle"].asInt() % 360; 
+		if (angle < 0)
+			angle = 360 + angle;
+		angle *= 0.017453292; // Transform degrees to radians
+
+		this->playerStartX = X;
+		this->playerStartY = Y;
+		this->playerStartAngle = angle;
+	}
+	#pragma endregion
+
+	#pragma region Load fog data
+	{
+		const int FOG_COLOR = json["lighting"]["fog"]["color"].asInt();
+		const int FOG_SATURATION = json["lighting"]["fog"]["saturation"].asInt();
+		const int FOG_BRIGHTNESS = json["lighting"]["fog"]["brightness"].asInt();
+		const double FOG_DISTANCE = json["lighting"]["fog"]["distance"].asDouble();
+		// Color
+		if (FOG_COLOR < 0 || FOG_COLOR > 7)
+			throw std::invalid_argument(levelName + " - fog color is invalid");
+		else
+			this->fogColor = (SurfaceColors)FOG_COLOR;
+		// Saturation
+		if (FOG_SATURATION < 0 || FOG_SATURATION > 7)
+			throw std::invalid_argument(levelName + " - fog saturation is invalid");
+		else
+			this->fogSaturation = FOG_SATURATION / 7.f;
+		// Brightness
+		if (FOG_BRIGHTNESS < 0 || FOG_BRIGHTNESS > 7)
+			throw std::invalid_argument(levelName + " - fog brightness is invalid");
+		else
+			this->fogBrightness = FOG_BRIGHTNESS / 7.f;
+		// Distance
+		if (FOG_DISTANCE < 0)
+			throw std::invalid_argument(levelName + " - fog distance is invalid");
+		else
+			this->fogDistance = FOG_DISTANCE;
+	}
 	#pragma endregion
 
 	#pragma region Load lookup data
-	#pragma region Wall lookup
-	// Get data from wall lookup
-	const int WALL_LOOKUP_SIZE = json["tile"]["tileLookUp"]["wall"].size();
-	// ERROR CATCHING - No wall lookup present
-	if (WALL_LOOKUP_SIZE == 0)
-		throw std::invalid_argument(levelName + " - the lookup for walls is empty");
-
-	this->wallTiles = WALL_LOOKUP_SIZE - 1;
-	this->wallLookup = (Tile*) malloc(WALL_LOOKUP_SIZE * sizeof(Tile));
-	for (unsigned int i = 0; i < WALL_LOOKUP_SIZE; i++)
-		this->wallLookup[i] = Tile(json["tile"]["tileLookUp"]["wall"][i].asString());
+	this->loadLookUp("wall", json, this->wallTiles, this->wallLookup);
+	this->loadLookUp("floor", json, this->floorTiles, this->floorLookup);
+	this->loadLookUp("ceiling", json, this->ceilingTiles, this->ceilingLookup);
 	#pragma endregion
-	#pragma region Floor lookup
-	// Get data from floor lookup
-	const int FLOOR_LOOKUP_SIZE = json["tile"]["tileLookUp"]["floor"].size();
-	// ERROR CATCHING - No floor lookup present
-	if (FLOOR_LOOKUP_SIZE == 0)
-		throw std::invalid_argument(levelName + " - the lookup for floors is empty");
-	
-	this->floorTiles = FLOOR_LOOKUP_SIZE - 1;
-	this->floorLookup = (Tile*)malloc(FLOOR_LOOKUP_SIZE * sizeof(Tile));
-	for (unsigned int i = 0; i < FLOOR_LOOKUP_SIZE; i++)
-		this->floorLookup[i] = Tile(json["tile"]["tileLookUp"]["floor"][i].asString());
-	#pragma endregion
-	#pragma region Ceiling lookup
-	// Get data from ceiling lookup
-	const int CEILING_LOOKUP_SIZE = json["tile"]["tileLookUp"]["ceiling"].size();
-	// ERROR CATCHING - No ceiling lookup present
-	if (CEILING_LOOKUP_SIZE == 0)
-		throw std::invalid_argument(levelName + " - the lookup for ceilings is empty");
-
-	this->ceilingTiles = CEILING_LOOKUP_SIZE - 1;
-	this->ceilingLookup = (Tile*)malloc(CEILING_LOOKUP_SIZE * sizeof(Tile));
-	for (unsigned int i = 0; i < CEILING_LOOKUP_SIZE; i++)
-		this->ceilingLookup[i] = Tile(json["tile"]["tileLookUp"]["ceiling"][i].asString());
-	#pragma endregion
-	#pragma endregion
-
 	#pragma region Initialize level height
 	// Get height of the level
 	this->height = json["tile"]["tileData"]["wall"].size();
@@ -254,6 +258,19 @@ double Scene::getSectorBrightness(unsigned int x, unsigned int y)
 			return this->sectorBrightness[y][x];
 
 	return 0;
+}
+
+void Scene::loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outSize, Tile*& outArray)
+{
+	const int LOOKUP_SIZE = json["tile"]["tileLookUp"][TARGET].size();
+	// ERROR CATCHING - No lookup present
+	if (LOOKUP_SIZE == 0)
+		throw std::invalid_argument("The lookup for " + std::string(TARGET) + " is empty");
+
+	outSize = LOOKUP_SIZE - 1;
+	outArray = (Tile*)malloc(LOOKUP_SIZE * sizeof(Tile));
+	for (unsigned int i = 0; i < LOOKUP_SIZE; i++)
+		outArray[i] = Tile(json["tile"]["tileLookUp"][TARGET][i].asString());
 }
 
 double Scene::getPlayerStartX()
