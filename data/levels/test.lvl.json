@@ -86,7 +86,8 @@
 		"fog": {
 			"color": 0,
 			"saturation": 0,
-			"value": 0
+			"value": 0,
+			"distance": 7
 		},
 		"sector": {
 			"color": [

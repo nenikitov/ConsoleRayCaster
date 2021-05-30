@@ -18,20 +18,38 @@ class Scene
 		double getPlayerStartY();
 		double getPlayerStartAngle();
 	private:
+		#pragma region Dimensions
 		unsigned int height;
 		unsigned int width;
+		#pragma endregion
 
+		#pragma region Player
 		double playerStartX;
 		double playerStartY;
 		double playerStartAngle;
+		#pragma endregion
 
-		int** wallData;
-		int** floorData;
-		int** ceilingData;
-		Tile* wallLookup;
-		Tile* floorLookup;
-		Tile* ceilingLookup;
+		#pragma region Tile
+		// Look up
 		unsigned int wallTiles;
 		unsigned int floorTiles;
 		unsigned int ceilingTiles;
+		Tile* wallLookup;
+		Tile* floorLookup;
+		Tile* ceilingLookup;
+		// Data
+		int** wallData;
+		int** floorData;
+		int** ceilingData;
+		#pragma endregion
+
+		#pragma region Lighting
+		// Fog
+		SurfaceColors color;
+		double saturation;
+		double value;
+		double distance;
+		// Sector
+		double** sectorBrightness;
+		#pragma endregion
 };
