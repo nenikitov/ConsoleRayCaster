@@ -101,7 +101,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, double hAngle)
 {
 	#pragma region Preclacultate and initialize variables
-#pragma region Preclacultate and initialize variables
+	#pragma region Preclacultate and initialize variables
 	double ceilingX;
 	double ceilingY;
 	double distance;
@@ -128,12 +128,13 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
+		const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(ceilingX, ceilingY);
         #pragma endregion
 
 		return FrameBufferPixel(
 			SurfaceTypes::CEILING, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			1, SurfaceColors::WHITE, 1);
+			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 		#pragma endregion
 	}
 	else
@@ -189,6 +190,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
+		const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(floorX, floorY);
 		#pragma endregion
 
 		lastTexturedFloor = y;
@@ -196,7 +198,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		return FrameBufferPixel(
 			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			1, SurfaceColors::WHITE, 1);
+			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 		#pragma endregion
 	}
 	else

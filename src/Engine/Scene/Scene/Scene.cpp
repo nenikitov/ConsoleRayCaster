@@ -114,11 +114,11 @@ void Scene::openLevelFile(std::string levelName)
 			this->sectorColors[y][x] = (SurfaceColors)currentSectorColor;
 
 			// Load sector saturation
-			if (!LoadingUtils::loadCappedNormalized(json["lighting"]["saturation"]["y"]["x"].asInt(), this->sectorSaturations[y][x]))
+			if (!LoadingUtils::loadCappedNormalized(json["lighting"]["sector"]["saturation"][y][x].asInt(), this->sectorSaturations[y][x]))
 				throw std::invalid_argument("Sector lighting saturation at " + std::to_string(x) + ", " + std::to_string(y) + " is invalid");
 
 			// Load sector brightness
-			if (!LoadingUtils::loadCappedNormalized(json["lighting"]["brightness"]["y"]["x"].asInt(), this->sectorBrightness[y][x]))
+			if (!LoadingUtils::loadCappedNormalized(json["lighting"]["sector"]["brightness"][y][x].asInt(), this->sectorBrightness[y][x]))
 				throw std::invalid_argument("Sector lighting brightness at " + std::to_string(x) + ", " + std::to_string(y) + " is invalid");
 		}
 	}
@@ -277,7 +277,7 @@ void Scene::loadFog(Json::Value& json)
 
 	// Brightness
 	if (!LoadingUtils::loadCappedNormalized(json["lighting"]["fog"]["brightness"].asInt(), this->fogBrightness))
-		throw std::invalid_argument("Fog saturation is invalid");
+		throw std::invalid_argument("Fog brightness is invalid");
 
 	if (!LoadingUtils::loadCapped(json["lighting"]["fog"]["distance"].asInt(), this->fogDistance, 0, 64))
 		throw std::invalid_argument("Fog distance is invalid");
