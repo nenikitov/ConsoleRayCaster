@@ -39,8 +39,8 @@ class Scene
 		#pragma endregion
 	private:
 		#pragma region Dimensions
-		unsigned int height;
-		unsigned int width;
+		int height;
+		int width;
 		#pragma endregion
 		#pragma region Player start
 		double playerStartX;
@@ -49,9 +49,9 @@ class Scene
 		#pragma endregion
 		#pragma region Tile
 		// Look up
-		unsigned int wallTiles;
-		unsigned int floorTiles;
-		unsigned int ceilingTiles;
+		int wallLookupSize;
+		int floorLookupSize;
+		int ceilingLookupSize;
 		Tile* wallLookup;
 		Tile* floorLookup;
 		Tile* ceilingLookup;
@@ -72,7 +72,7 @@ class Scene
 		double** sectorBrightness;
 		#pragma endregion
 		#pragma region Loading helper methods
-		void loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outSize, Tile*& outArray);
+		void loadLookup(const char* TARGET, Json::Value& json, int& outSize, Tile*& outArray);
 		void loadPlayerStart(Json::Value& json);
 		void loadFog(Json::Value& json);
 		#pragma endregion

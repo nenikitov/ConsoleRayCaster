@@ -16,9 +16,9 @@ Scene::Scene()
 	this->floorLookup = nullptr;
 	this->ceilingLookup = nullptr;
 
-	this->wallTiles = 0;
-	this->floorTiles = 0;
-	this->ceilingTiles = 0;
+	this->wallLookupSize = 0;
+	this->floorLookupSize = 0;
+	this->ceilingLookupSize = 0;
 }
 
 void Scene::openLevelFile(std::string levelName)
@@ -38,29 +38,21 @@ void Scene::openLevelFile(std::string levelName)
 
 	// Load player start data
 	this->loadPlayerStart(json);
-
 	// Load fog data
 	this->loadFog(json);
-
-	// Load lookup data
-	this->loadLookUp("wall", json, this->wallTiles, this->wallLookup);
-	this->loadLookUp("floor", json, this->floorTiles, this->floorLookup);
-	this->loadLookUp("ceiling", json, this->ceilingTiles, this->ceilingLookup);
+	// Load tile lookup data
+	this->loadLookup("wall", json, this->wallLookupSize, this->wallLookup);
+	this->loadLookup("floor", json, this->floorLookupSize, this->floorLookup);
+	this->loadLookup("ceiling", json, this->ceilingLookupSize, this->ceilingLookup);
 	
-	
-	#pragma region Initialize level height
-	// Get height of the level
-	this->height = json["tile"]["tileData"]["wall"].size();
-	// ERROR CATCHING - Height is 0
-	if (this->height == 0)
-		throw std::invalid_argument(levelName + " - the height of a level is 0");
+	#pragma region Initialize level dimension
+	if (!LoadingUtils::loadNotZero(json["tile"]["tileData"]["wall"].size(), this->height))
+		throw std::invalid_argument("The height of a level is 0");
 
 	// ERROR CATCHING - Inconsistent heights for wall, ceiling and floor data
 	if (this->height != json["tile"]["tileData"]["floor"].size() ||  this->height != json["tile"]["tileData"]["ceiling"].size())
 		throw std::invalid_argument(levelName + " - the height of a level is different for walls, ceiling and floor");
-	#pragma endregion
 
-	#pragma region Initialize level width
 	this->width = json["tile"]["tileData"]["wall"][0].size();
 	#pragma endregion
 
@@ -73,54 +65,38 @@ void Scene::openLevelFile(std::string levelName)
 	// Read level data row by row
 	for (unsigned int y = 0; y < this->height; y++)
 	{
-		// Get width of the level
-		const unsigned int WIDTH = json["tile"]["tileData"]["wall"][y].size();
+		int rowWidth;
 
-		// ERROR CATCHING - Width is 0
-		if (WIDTH == 0)
-			throw std::invalid_argument(levelName + " - the width of a level on the line " + std::to_string(y) + " is 0");
+		if (!LoadingUtils::loadNotZero(json["tile"]["tileData"]["wall"][y].size(), rowWidth))
+			throw std::invalid_argument("The width of a level on the line " + std::to_string(y) + " is 0");
 
-		// ERROR CATCHING - Widths are inconsistent
-		if (WIDTH != this->width)
-			throw std::invalid_argument(levelName + " - the width of a level on the line " + std::to_string(y) + " is inconsistent");
+		// ERROR CATCHING - Level is not rectangular
+		if (rowWidth != this->width)
+			throw std::invalid_argument("The level is not a rectangle. The width on the line " + std::to_string(y) + " is inconsistent");
 
 		// ERROR CATCHING - Inconsistent widths for wall, ceiling and floor data
-		if (WIDTH != json["tile"]["tileData"]["floor"][y].size() || WIDTH != json["tile"]["tileData"]["ceiling"][y].size())
-			throw std::invalid_argument(levelName + " - the width of a level is different for walls, ceiling and floor on the line " + std::to_string(y));
+		if (rowWidth != json["tile"]["tileData"]["floor"][y].size() || rowWidth != json["tile"]["tileData"]["ceiling"][y].size())
+			throw std::invalid_argument("The width of a level is different for walls, ceiling and floor on the line " + std::to_string(y));
 
 		// Generate internal arrays for storing tile data
-		this->wallData[y] = new int[WIDTH];
-		this->floorData[y] = new int[WIDTH];
-		this->ceilingData[y] = new int[WIDTH];
+		this->wallData[y] = new int[rowWidth];
+		this->floorData[y] = new int[rowWidth];
+		this->ceilingData[y] = new int[rowWidth];
 
-		// Read the tile data column by column
-		for (unsigned int x = 0; x < WIDTH; x++)
+		// Read the tile data column by column (or tile by tile in this case)
+		for (unsigned int x = 0; x < rowWidth; x++)
 		{
 			// Get wall tile data
-			const int WALL_DATA = json["tile"]["tileData"]["wall"][y][x].asInt();
-			// ERROR CATCHING - Invalid tile data
-			if (WALL_DATA < 0)
-				throw std::invalid_argument(levelName + " - negative wall data at " + std::to_string(x) + ", " + std::to_string(y));
-			if (WALL_DATA > this->wallTiles)
-				throw std::invalid_argument(levelName + " - unknown lookup for wall data at " + std::to_string(x) + ", " + std::to_string(y));
-			
-			this->wallData[y][x] = WALL_DATA;
+			if (!LoadingUtils::loadCapped(json["tile"]["tileData"]["wall"][y][x].asInt(), this->wallData[y][x], 0, this->wallLookupSize - 1))
+				throw std::invalid_argument("Wall index at " + std::to_string(x) + ", " + std::to_string(y) + " is out of range for wall lookup");
 
 			// Get floor tile data
-			const int FLOOR_DATA = json["tile"]["tileData"]["floor"][y][x].asInt();
-			// ERROR CATCHING - Invalid tile data
-			if (FLOOR_DATA < 0)
-				throw std::invalid_argument(levelName + " - invalid floor data index at " + std::to_string(x) + ", " + std::to_string(y));
-
-			this->floorData[y][x] = FLOOR_DATA;
+			if (!LoadingUtils::loadCapped(json["tile"]["tileData"]["floor"][y][x].asInt(), this->floorData[y][x], 0, this->floorLookupSize - 1))
+				throw std::invalid_argument("Wall index at " + std::to_string(x) + ", " + std::to_string(y) + " is out of range for wall lookup");
 
 			// Get ceiling tile data
-			const int CEILING_DATA = json["tile"]["tileData"]["ceiling"][y][x].asInt();
-			// ERROR CATCHING - Invalid tile data
-			if (CEILING_DATA < 0)
-				throw std::invalid_argument(levelName + " - invalid ceiling data index at " + std::to_string(x) + ", " + std::to_string(y));
-
-			this->ceilingData[y][x] = CEILING_DATA;
+			if (!LoadingUtils::loadCapped(json["tile"]["tileData"]["ceiling"][y][x].asInt(), this->ceilingData[y][x], 0, this->ceilingLookupSize - 1))
+				throw std::invalid_argument("Wall index at " + std::to_string(x) + ", " + std::to_string(y) + " is out of range for wall lookup");
 		}
 	}
 }
@@ -154,7 +130,7 @@ int Scene::ceilingIndexAt(unsigned int x, unsigned int y)
 
 Tile Scene::wallTileFrom(unsigned int i)
 {
-	if (i < 0 || i > this->wallTiles)
+	if (i < 0 || i > this->wallLookupSize)
 		return this->wallLookup[0];
 	else
 		return this->wallLookup[i];
@@ -162,7 +138,7 @@ Tile Scene::wallTileFrom(unsigned int i)
 
 Tile Scene::floorTileFrom(unsigned int i)
 {
-	if (i < 0 || i > this->floorTiles)
+	if (i < 0 || i > this->floorLookupSize)
 		return this->floorLookup[0];
 	else
 		return this->floorLookup[i];
@@ -170,7 +146,7 @@ Tile Scene::floorTileFrom(unsigned int i)
 
 Tile Scene::ceilingTileFrom(unsigned int i)
 {
-	if (i < 0 || i > this->ceilingTiles)
+	if (i < 0 || i > this->ceilingLookupSize)
 		return this->ceilingLookup[0];
 	else
 		return this->ceilingLookup[i];
@@ -223,16 +199,13 @@ double Scene::getSectorBrightness(unsigned int x, unsigned int y)
 	return 0;
 }
 
-void Scene::loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outSize, Tile*& outArray)
+void Scene::loadLookup(const char* TARGET, Json::Value& json, int& outSize, Tile*& outArray)
 {
-	const int LOOKUP_SIZE = json["tile"]["tileLookUp"][TARGET].size();
-	// ERROR CATCHING - No lookup present
-	if (LOOKUP_SIZE == 0)
+	if (!LoadingUtils::loadNotZero(json["tile"]["tileLookUp"][TARGET].size(), outSize))
 		throw std::invalid_argument("Lookup for " + std::string(TARGET) + " is empty");
 
-	outSize = LOOKUP_SIZE - 1;
-	outArray = (Tile*)malloc(LOOKUP_SIZE * sizeof(Tile));
-	for (unsigned int i = 0; i < LOOKUP_SIZE; i++)
+	outArray = (Tile*)malloc(outSize * sizeof(Tile));
+	for (unsigned int i = 0; i < outSize; i++)
 		outArray[i] = Tile(json["tile"]["tileLookUp"][TARGET][i].asString());
 }
 
