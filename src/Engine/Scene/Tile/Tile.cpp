@@ -44,10 +44,10 @@ Tile::Tile(std::string tileName)
 			// Get brightness
 			const short BRIGHTNESS = json["rendering"]["brightness"][y][x].asInt();
 
-			if (abs(BRIGHTNESS) > 8)
+			if (abs(BRIGHTNESS) > 7)
 				throw std::invalid_argument(tileName + " - brightness is illegal at " + std::to_string(x) + ", " + std::to_string(y));
 
-			this->textureBrightness[y][x] = BRIGHTNESS / 8.f;
+			this->textureBrightness[y][x] = BRIGHTNESS / 7.f;
 
 			// Get color
 			unsigned char COLOR = json["rendering"]["colors"][y][x].asInt();
