@@ -68,12 +68,13 @@ class Scene
 		int fogDistance;
 		// Sector
 		SurfaceColors** sectorColors;
-		double** sectorSaturation;
+		double** sectorSaturations;
 		double** sectorBrightness;
 		#pragma endregion
 		#pragma region Loading helper methods
 		void loadLookup(const char* TARGET, Json::Value& json, int& outSize, Tile*& outArray);
 		void loadPlayerStart(Json::Value& json);
 		void loadFog(Json::Value& json);
+		void initLevelDimensions(Json::Value& json);
 		#pragma endregion
 };

@@ -19,6 +19,15 @@ Scene::Scene()
 	this->wallLookupSize = 0;
 	this->floorLookupSize = 0;
 	this->ceilingLookupSize = 0;
+
+	this->fogColor = SurfaceColors::BLACK;
+	this->fogSaturation = 0;
+	this->fogBrightness = 0;
+	this->fogDistance = 0;
+
+	this->sectorColors = nullptr;
+	this->sectorSaturations = nullptr;
+	this->sectorBrightness = nullptr;
 }
 
 void Scene::openLevelFile(std::string levelName)
@@ -45,22 +54,16 @@ void Scene::openLevelFile(std::string levelName)
 	this->loadLookup("floor", json, this->floorLookupSize, this->floorLookup);
 	this->loadLookup("ceiling", json, this->ceilingLookupSize, this->ceilingLookup);
 	
-	#pragma region Initialize level dimension
-	if (!LoadingUtils::loadNotZero(json["tile"]["tileData"]["wall"].size(), this->height))
-		throw std::invalid_argument("The height of a level is 0");
+	// Initialize level dimension
+	initLevelDimensions(json);
 
-	// ERROR CATCHING - Inconsistent heights for wall, ceiling and floor data
-	if (this->height != json["tile"]["tileData"]["floor"].size() ||  this->height != json["tile"]["tileData"]["ceiling"].size())
-		throw std::invalid_argument(levelName + " - the height of a level is different for walls, ceiling and floor");
-
-	this->width = json["tile"]["tileData"]["wall"][0].size();
-	#pragma endregion
-
-	#pragma region Initialize pointers
+	// Initialize tile data pointers
 	this->wallData = new int* [this->height];
 	this->floorData = new int* [this->height];
 	this->ceilingData = new int* [this->height];
-	#pragma endregion
+	this->sectorColors = new SurfaceColors* [this->height];
+	this->sectorSaturations = new double* [this->height];
+	this->sectorBrightness = new double* [this->height];
 
 	// Read level data row by row
 	for (unsigned int y = 0; y < this->height; y++)
@@ -76,29 +79,64 @@ void Scene::openLevelFile(std::string levelName)
 
 		// ERROR CATCHING - Inconsistent widths for wall, ceiling and floor data
 		if (rowWidth != json["tile"]["tileData"]["floor"][y].size() || rowWidth != json["tile"]["tileData"]["ceiling"][y].size())
-			throw std::invalid_argument("The width of a level is different for walls, ceiling and floor on the line " + std::to_string(y));
+			throw std::invalid_argument("The width of a level is different for walls, ceiling and floor on the line on the line " + std::to_string(y));
+
+		if (rowWidth != json["lighting"]["sector"]["color"][y].size() || rowWidth != json["lighting"]["sector"]["saturation"][y].size() || rowWidth != json["lighting"]["sector"]["brightness"][y].size())
+			throw std::invalid_argument("The width of a level is different for tile and lighting data on the line " + std::to_string(y));
 
 		// Generate internal arrays for storing tile data
-		this->wallData[y] = new int[rowWidth];
-		this->floorData[y] = new int[rowWidth];
-		this->ceilingData[y] = new int[rowWidth];
+		this->wallData[y] = new int[this->width];
+		this->floorData[y] = new int[this->width];
+		this->ceilingData[y] = new int[this->width];
+		this->sectorColors[y] = new SurfaceColors[this->width];
+		this->sectorSaturations[y] = new double[this->width];
+		this->sectorBrightness[y] = new double[this->width];
 
 		// Read the tile data column by column (or tile by tile in this case)
 		for (unsigned int x = 0; x < rowWidth; x++)
 		{
-			// Get wall tile data
+			// Load wall tile data
 			if (!LoadingUtils::loadCapped(json["tile"]["tileData"]["wall"][y][x].asInt(), this->wallData[y][x], 0, this->wallLookupSize - 1))
 				throw std::invalid_argument("Wall index at " + std::to_string(x) + ", " + std::to_string(y) + " is out of range for wall lookup");
 
-			// Get floor tile data
+			// Load floor tile data
 			if (!LoadingUtils::loadCapped(json["tile"]["tileData"]["floor"][y][x].asInt(), this->floorData[y][x], 0, this->floorLookupSize - 1))
 				throw std::invalid_argument("Wall index at " + std::to_string(x) + ", " + std::to_string(y) + " is out of range for wall lookup");
 
-			// Get ceiling tile data
+			// Load ceiling tile data
 			if (!LoadingUtils::loadCapped(json["tile"]["tileData"]["ceiling"][y][x].asInt(), this->ceilingData[y][x], 0, this->ceilingLookupSize - 1))
 				throw std::invalid_argument("Wall index at " + std::to_string(x) + ", " + std::to_string(y) + " is out of range for wall lookup");
+
+			// Load sector colors
+			int currentSectorColor;
+			if (!LoadingUtils::loadCapped(json["lighting"]["sector"]["color"][y][x].asInt(), currentSectorColor))
+				throw std::invalid_argument("Sector lighting color at " + std::to_string(x) + ", " + std::to_string(y) + " is invalid");
+			this->sectorColors[y][x] = (SurfaceColors)currentSectorColor;
+
+			// Load sector saturation
+			if (!LoadingUtils::loadCappedNormalized(json["lighting"]["saturation"]["y"]["x"].asInt(), this->sectorSaturations[y][x]))
+				throw std::invalid_argument("Sector lighting saturation at " + std::to_string(x) + ", " + std::to_string(y) + " is invalid");
+
+			// Load sector brightness
+			if (!LoadingUtils::loadCappedNormalized(json["lighting"]["brightness"]["y"]["x"].asInt(), this->sectorBrightness[y][x]))
+				throw std::invalid_argument("Sector lighting brightness at " + std::to_string(x) + ", " + std::to_string(y) + " is invalid");
 		}
 	}
+}
+
+void Scene::initLevelDimensions(Json::Value& json)
+{
+	if (!LoadingUtils::loadNotZero(json["tile"]["tileData"]["wall"].size(), this->height))
+		throw std::invalid_argument("The height of a level is 0");
+
+	// ERROR CATCHING - Inconsistent heights for wall, ceiling and floor data
+	if (this->height != json["tile"]["tileData"]["floor"].size() || this->height != json["tile"]["tileData"]["ceiling"].size())
+		throw std::invalid_argument("The height of a level is different for walls, ceiling and floor");
+
+	if (this->height != json["lighting"]["sector"]["color"].size() || this->height != json["lighting"]["sector"]["saturation"].size() || this->height != json["lighting"]["sector"]["brightness"].size())
+		throw std::invalid_argument("The height of a level is different for tile and lighting data");
+
+	this->width = json["tile"]["tileData"]["wall"][0].size();
 }
 
 int Scene::wallIndexAt(unsigned int x, unsigned int y)
@@ -185,7 +223,7 @@ double Scene::getSectorSaturation(unsigned int x, unsigned int y)
 {
 	if (y < this->height)
 		if (x < this->width)
-			return this->sectorSaturation[y][x];
+			return this->sectorSaturations[y][x];
 
 	return 0;
 }
