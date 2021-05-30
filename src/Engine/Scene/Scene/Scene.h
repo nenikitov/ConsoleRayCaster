@@ -31,7 +31,7 @@ class Scene
 		SurfaceColors getFogColor();
 		double getFogSaturation();
 		double getFogBrightness();
-		double getFogDistance();
+		int getFogDistance();
 		// Sector lighting
 		SurfaceColors getSectorColor(unsigned int x, unsigned int y);
 		double getSectorSaturation(unsigned int x, unsigned int y);
@@ -65,7 +65,7 @@ class Scene
 		SurfaceColors fogColor;
 		double fogSaturation;
 		double fogBrightness;
-		double fogDistance;
+		int fogDistance;
 		// Sector
 		SurfaceColors** sectorColors;
 		double** sectorSaturation;
@@ -74,5 +74,6 @@ class Scene
 		#pragma region Loading helper methods
 		void loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outSize, Tile*& outArray);
 		void loadPlayerStart(Json::Value& json);
+		void loadFog(Json::Value& json);
 		#pragma endregion
 };

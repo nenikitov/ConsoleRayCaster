@@ -40,34 +40,7 @@ void Scene::openLevelFile(std::string levelName)
 	this->loadPlayerStart(json);
 
 	// Load fog data
-	#pragma region Load fog data
-	{
-		const int FOG_COLOR = json["lighting"]["fog"]["color"].asInt();
-		const int FOG_SATURATION = json["lighting"]["fog"]["saturation"].asInt();
-		const int FOG_BRIGHTNESS = json["lighting"]["fog"]["brightness"].asInt();
-		const double FOG_DISTANCE = json["lighting"]["fog"]["distance"].asDouble();
-		// Color
-		if (FOG_COLOR < 0 || FOG_COLOR > 7)
-			throw std::invalid_argument(levelName + " - fog color is invalid");
-		else
-			this->fogColor = (SurfaceColors)FOG_COLOR;
-		// Saturation
-		if (FOG_SATURATION < 0 || FOG_SATURATION > 7)
-			throw std::invalid_argument(levelName + " - fog saturation is invalid");
-		else
-			this->fogSaturation = FOG_SATURATION / 7.f;
-		// Brightness
-		if (FOG_BRIGHTNESS < 0 || FOG_BRIGHTNESS > 7)
-			throw std::invalid_argument(levelName + " - fog brightness is invalid");
-		else
-			this->fogBrightness = FOG_BRIGHTNESS / 7.f;
-		// Distance
-		if (FOG_DISTANCE < 0)
-			throw std::invalid_argument(levelName + " - fog distance is invalid");
-		else
-			this->fogDistance = FOG_DISTANCE;
-	}
-	#pragma endregion
+	this->loadFog(json);
 
 	// Load lookup data
 	this->loadLookUp("wall", json, this->wallTiles, this->wallLookup);
@@ -218,7 +191,7 @@ double Scene::getFogBrightness()
 	return this->fogBrightness;
 }
 
-double Scene::getFogDistance()
+int Scene::getFogDistance()
 {
 	return this->fogDistance;
 }
@@ -255,7 +228,7 @@ void Scene::loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outS
 	const int LOOKUP_SIZE = json["tile"]["tileLookUp"][TARGET].size();
 	// ERROR CATCHING - No lookup present
 	if (LOOKUP_SIZE == 0)
-		throw std::invalid_argument("The lookup for " + std::string(TARGET) + " is empty");
+		throw std::invalid_argument("Lookup for " + std::string(TARGET) + " is empty");
 
 	outSize = LOOKUP_SIZE - 1;
 	outArray = (Tile*)malloc(LOOKUP_SIZE * sizeof(Tile));
@@ -275,6 +248,28 @@ void Scene::loadPlayerStart(Json::Value& json)
 	this->playerStartX = X;
 	this->playerStartY = Y;
 	this->playerStartAngle = angle;
+}
+
+void Scene::loadFog(Json::Value& json)
+{
+	int fogColor;
+	double fogSaturation;
+	double fogBrightness;
+	int fogDistance;
+	// Color
+	if (!LoadingUtils::loadCapped(json["lighting"]["fog"]["color"].asInt(), fogColor))
+		throw std::invalid_argument("Fog color is invalid");
+
+	// Saturation
+	if (!LoadingUtils::loadCappedNormalized(json["lighting"]["fog"]["saturation"].asInt(), this->fogSaturation))
+		throw std::invalid_argument("Fog saturation is invalid");
+
+	// Brightness
+	if (!LoadingUtils::loadCappedNormalized(json["lighting"]["fog"]["brightness"].asInt(), this->fogBrightness))
+		throw std::invalid_argument("Fog saturation is invalid");
+
+	if (!LoadingUtils::loadCapped(json["lighting"]["fog"]["distance"].asInt(), this->fogDistance, 0, 64))
+		throw std::invalid_argument("Fog distance is invalid");
 }
 
 double Scene::getPlayerStartX()
