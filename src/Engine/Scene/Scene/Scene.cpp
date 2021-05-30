@@ -36,21 +36,10 @@ void Scene::openLevelFile(std::string levelName)
 		throw std::invalid_argument(levelName + " - recieved invalid JSON file");
 	#pragma endregion
 
-	#pragma region Load player data
-	{
-		const double X = json["playerStart"]["x"].asDouble();
-		const double Y = json["playerStart"]["y"].asDouble();
-		double angle = json["playerStart"]["angle"].asInt() % 360; 
-		if (angle < 0)
-			angle = 360 + angle;
-		angle *= 0.017453292; // Transform degrees to radians
+	// Load player start data
+	this->loadPlayerStart(json);
 
-		this->playerStartX = X;
-		this->playerStartY = Y;
-		this->playerStartAngle = angle;
-	}
-	#pragma endregion
-
+	// Load fog data
 	#pragma region Load fog data
 	{
 		const int FOG_COLOR = json["lighting"]["fog"]["color"].asInt();
@@ -80,11 +69,12 @@ void Scene::openLevelFile(std::string levelName)
 	}
 	#pragma endregion
 
-	#pragma region Load lookup data
+	// Load lookup data
 	this->loadLookUp("wall", json, this->wallTiles, this->wallLookup);
 	this->loadLookUp("floor", json, this->floorTiles, this->floorLookup);
 	this->loadLookUp("ceiling", json, this->ceilingTiles, this->ceilingLookup);
-	#pragma endregion
+	
+	
 	#pragma region Initialize level height
 	// Get height of the level
 	this->height = json["tile"]["tileData"]["wall"].size();
@@ -271,6 +261,20 @@ void Scene::loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outS
 	outArray = (Tile*)malloc(LOOKUP_SIZE * sizeof(Tile));
 	for (unsigned int i = 0; i < LOOKUP_SIZE; i++)
 		outArray[i] = Tile(json["tile"]["tileLookUp"][TARGET][i].asString());
+}
+
+void Scene::loadPlayerStart(Json::Value& json)
+{
+	const double X = json["playerStart"]["x"].asDouble();
+	const double Y = json["playerStart"]["y"].asDouble();
+	double angle = json["playerStart"]["angle"].asInt() % 360;
+	if (angle < 0)
+		angle = 360 + angle;
+	angle *= 0.017453292; // Transform degrees to radians
+
+	this->playerStartX = X;
+	this->playerStartY = Y;
+	this->playerStartAngle = angle;
 }
 
 double Scene::getPlayerStartX()

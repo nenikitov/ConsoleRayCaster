@@ -2,6 +2,7 @@
 #include <fstream>
 #include "../Tile/Tile.h"
 #include "../../../../lib/JsonCpp/json/json.h"
+#include "../../Utils/LoadingUtils.h"
 
 class Scene
 {
@@ -72,5 +73,6 @@ class Scene
 		#pragma endregion
 		#pragma region Loading helper methods
 		void loadLookUp(const char* TARGET, Json::Value& json, unsigned int& outSize, Tile*& outArray);
+		void loadPlayerStart(Json::Value& json);
 		#pragma endregion
 };

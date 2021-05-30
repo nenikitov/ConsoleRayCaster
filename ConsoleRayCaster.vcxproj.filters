@@ -83,6 +83,9 @@
     <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Utils\LoadingUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
@@ -155,6 +158,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Utils\LoadingUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
