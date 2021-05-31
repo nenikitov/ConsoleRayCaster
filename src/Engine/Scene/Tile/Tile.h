@@ -3,6 +3,7 @@
 #include <fstream>
 #include "../../../../lib/JsonCpp/json/json.h"
 #include "../../Render/FrameBuffer/CustomBufferTypes/SurfaceColors.h"
+#include "../../Utils/LoadingUtils.h"
 
 class Tile
 {
