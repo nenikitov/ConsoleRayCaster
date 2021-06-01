@@ -1,7 +1,8 @@
 #include "SceneRenderer.h"
+#include <iostream>
 
-SceneRenderer::SceneRenderer(int width, int height, Scene& scene, Camera& camera)
-	: AbstractBufferRenderer(width, height), scene(scene), camera(camera) { }
+SceneRenderer::SceneRenderer(int width, int height, double fontRatio, Scene& scene, Camera& camera)
+	: AbstractBufferRenderer(width, height), scene(scene), camera(camera), FONT_RATIO(fontRatio) { }
 
 FrameBufferPixel** SceneRenderer::render()
 {
@@ -9,13 +10,15 @@ FrameBufferPixel** SceneRenderer::render()
 	const double HALF_HEIGHT = this->height / 2.f;
 	const double HALF_WIDTH = this->width / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
-	const double HALF_V_FOV = HALF_H_FOV / this->width * this->height;
+	const double HALF_V_FOV = atan(tan(HALF_H_FOV) * this->height / (this->width * FONT_RATIO));
 	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2.f;
 	const double PERPENDICULAR_LENGTH = HALF_WIDTH / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
 		renderResult[i] = new FrameBufferPixel[this->width];
 	#pragma endregion
+
+	std::cout << HALF_V_FOV << std::endl;
 
 	#pragma region Render column by column
 	for (int x = 0; x < this->width; x++)

@@ -59,7 +59,7 @@ int main()
 
     FPSPlayer player(scene, FOV);
     
-    SceneRenderer sceneRenderer(renderWidth, renderHeight, scene, player.getCamera());
+    SceneRenderer sceneRenderer(renderWidth, renderHeight, 0.5, scene, player.getCamera());
     RenderLayerComposer composer(renderWidth, renderHeight);
     
     
