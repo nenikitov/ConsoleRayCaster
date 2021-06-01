@@ -231,20 +231,35 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma region Find sample point
 	double sampleY = ((double)y - ceilingEnd) / ((double)perceivedWallHeight + 1);
 	double sampleX = 0;
+	double sectorX = intersection.X;
+	double sectorY = intersection.Y;
 	if (intersection.WALL_NORMAL == SurfaceTypes::WALL_NORTH)
+	{
 		sampleX = -intersection.X;
+		sectorY -= 0.01;
+	}
 	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_SOUTH)
+	{
 		sampleX = intersection.X;
+		sectorY += 0.01;
+	}
 	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_WEST)
+	{
 		sampleX = intersection.Y;
+		sectorX -= 0.01;
+	}
 	else
+	{
 		sampleX = -intersection.Y;
+		sectorX += 0.01;
+	}
 	#pragma endregion
 
 	#pragma region Sample texture from the rendered tile
 	Tile renderedTile = this->scene.wallTileFrom(intersection.TILE);
-	double texelBrightness = renderedTile.sampleBrightness(sampleX, sampleY);
-	SurfaceColors texelColor = renderedTile.sampleColor(sampleX, sampleY);
+	const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(sampleX, sampleY);
+	const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(sampleX, sampleY);
+	const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(sectorX, sectorY);
 	#pragma endregion
 
 	#pragma region Calculate other buffers
@@ -252,9 +267,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma endregion
 
 	return FrameBufferPixel(
-		intersection.WALL_NORMAL, texelBrightness, texelColor, true,
+		intersection.WALL_NORMAL, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
 		FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-		1, SurfaceColors::WHITE, 1);
+		SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 }
 
 double SceneRenderer::calculateFogTransparency(double distance)
