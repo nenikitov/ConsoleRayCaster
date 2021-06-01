@@ -18,6 +18,7 @@ void errorExit(std::string process, std::string exception)
 
 // TODO
 // - Code modifications
+//       * Fix FOV
 //       * Investigate further composer scaling. It has some inconsistencies
 //       * Implement fullbright texels
 // - Code cleanup
