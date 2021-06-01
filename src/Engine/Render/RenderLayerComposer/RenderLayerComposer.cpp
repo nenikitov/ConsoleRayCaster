@@ -9,8 +9,8 @@ void RenderLayerComposer::changeDimensions(int width, int height)
 {
     this->clearBuffer();
 
-    this->width = width;
-    this->height = height;
+    this->width = width + 1;
+    this->height = height + 1;
 
     this->initializeBuffer();
 }
@@ -34,8 +34,8 @@ void RenderLayerComposer::addRenderLayer(FrameBufferPixel** renderLayer, int ren
     {
         for (int x = 0; x < DELTA_X_PIXELS; x++)
         {
-            const int RENDER_PIXEL_X = (double)x / DELTA_X_PIXELS * ((double)renderedWidth);
-            const int RENDER_PIXEL_Y = (double)y / DELTA_Y_PIXELS * ((double)renderedHeight);
+            const int RENDER_PIXEL_X = x / (double)DELTA_X_PIXELS * ((double)renderedWidth);
+            const int RENDER_PIXEL_Y = y / (double)DELTA_Y_PIXELS * ((double)renderedHeight);
 
             const int COMPOSER_PIXEL_X = x + START_X_PIXEL;
             const int COMPOSER_PIXEL_Y = y + START_Y_PIXEL;
