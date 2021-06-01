@@ -44,7 +44,8 @@ int main()
 
     int renderWidth = visualizer.getWidth() * RENDER_SCALE;
     int renderHeight = visualizer.getHeight() * RENDER_SCALE;
-    const double FOV = 2.0944;
+    const double FOV = 2.26893; // 130 degrees
+    const double FONT_RATIO = 0.5;
 
     Scene scene;
     try
@@ -59,7 +60,7 @@ int main()
 
     FPSPlayer player(scene, FOV);
     
-    SceneRenderer sceneRenderer(renderWidth, renderHeight, 0.5, scene, player.getCamera());
+    SceneRenderer sceneRenderer(renderWidth, renderHeight, FONT_RATIO, scene, player.getCamera());
     RenderLayerComposer composer(renderWidth, renderHeight);
     
     
