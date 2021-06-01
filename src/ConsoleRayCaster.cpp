@@ -17,26 +17,18 @@ void errorExit(std::string process, std::string exception)
 }
 
 // TODO
-// - File structure cleanup
-//       + Move FPS player from engine to game directory
-//       + Delete old classes
 // - Code modifications
-//       + Handle exceptions
-//       + Make a window that adapts to screen size
-//       * Implement more advanced lighting (fullbright texels, sector lighting)
+//       * Investigate further composer scaling. It has some inconsistencies
+//       * Implement fullbright texels
 // - Code cleanup
-//       + Create general equations in SCENE RENDERER to increase readability
-//       + Cleanup in SCENE RENDERER
-//       * Find a better way of generating a pointer array than a bunch of switches in ASCII RENDERER
 //       * Comments and docs for new classes
 // - Further tasks
-//       * Implement simple graphics settings (setting renderer to half resolution)
+//       * Implement simple graphics settings (setting renderer to half resolution) with launch parameters
 //       * Implement new cutting-edge 'SHADE' renderer that uses shading characters
-//       * Finally merge
 
 int main()
 {
-    const double RENDER_SCALE = 1;
+    const double RENDER_SCALE = 0.5;
 
     ASCIIVisualizer visualizer;
     try
