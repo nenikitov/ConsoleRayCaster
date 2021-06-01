@@ -28,7 +28,7 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const double RENDER_SCALE = 0.5;
+    const double RENDER_SCALE = 1;
 
     ASCIIVisualizer visualizer;
     try

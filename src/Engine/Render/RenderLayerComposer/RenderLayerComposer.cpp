@@ -9,8 +9,8 @@ void RenderLayerComposer::changeDimensions(int width, int height)
 {
     this->clearBuffer();
 
-    this->width = width + 1;
-    this->height = height + 1;
+    this->width = width;
+    this->height = height;
 
     this->initializeBuffer();
 }

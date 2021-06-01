@@ -18,7 +18,7 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 
 			FrameBufferPixel pixel = composerResult[COMPOSER_Y_PIXEL][COMPOSER_X_PIXEL];
 
-			int brightness = (pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness) * 7;
+			int brightness = 7; // (pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness) * 
 			brightness = min(max(brightness, 0), 7);
 
 			renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
