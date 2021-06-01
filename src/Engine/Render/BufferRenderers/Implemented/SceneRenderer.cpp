@@ -281,9 +281,9 @@ double SceneRenderer::calculateFogTransparency(double distance)
 void SceneRenderer::horizontalSurfaceMath(bool invert, int y, double halfHeight, double halfVFov, double wallHeight, double correctedDistance, double deltaX, double deltaY, double& tileX, double& tileY, double& distnace, double& vAngle)
 {
 	// Vertical angle of the pixel
-	vAngle = (y - halfHeight) / (double)this->height * halfVFov * (invert ? -1 : 1);
+	vAngle = atan((y - halfHeight) / (halfHeight / tan(halfVFov))) * (invert ? -1 : 1);
 	// Ratio of distances between floor texel and wall intersection
-	const double PROJECTION_RATIO = (wallHeight / 2 / tan(vAngle)) / correctedDistance / this->width;
+	const double PROJECTION_RATIO = (wallHeight / 2 / tan(vAngle)) / correctedDistance / wallHeight;
 	// Project the point into world space
 	tileX = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
 	tileY = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
