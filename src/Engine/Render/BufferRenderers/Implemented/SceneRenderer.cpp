@@ -11,7 +11,7 @@ FrameBufferPixel** SceneRenderer::render()
 	const double HALF_WIDTH = this->width / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
 	const double HALF_V_FOV = atan(tan(HALF_H_FOV) * this->height / (this->width * FONT_RATIO));
-	const int WALL_HEIGHT = 1 / tan(HALF_V_FOV) * HALF_HEIGHT; // this->width / pow(2, this->camera.getFov() - 1) / 2.f  // 
+	const int WALL_HEIGHT = 1 / tan(HALF_V_FOV) * HALF_HEIGHT;
 	const double PERPENDICULAR_LENGTH = HALF_WIDTH / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
@@ -145,7 +145,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 
 		#pragma region Find sample point
 		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 6.283184, -1);
-		const double SAMPLE_Y = fmax(-vAngle - 0.5, -1);
+		const double SAMPLE_Y = fmax(-vAngle / 1.5708, -1);
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
