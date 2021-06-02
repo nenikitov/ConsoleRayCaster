@@ -208,9 +208,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		Tile pitTile = this->scene.floorTileFrom(0);
 
 		#pragma region Find sample point
-		const double VOID_RATIO = ((double)y - lastTexturedFloor) / vAngle / this->height;
+		const double VOID_RATIO = atan((double)y / this->height) - atan((double)lastTexturedFloor / this->height);
 		const double SAMPLE_X = (double)x / this->width * 128;
-		const double SAMPLE_Y = fmin(VOID_RATIO * halfVFov, 0.99);
+		const double SAMPLE_Y = fmin(VOID_RATIO / vAngle * halfVFov * 5, 0.99);
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
