@@ -23,6 +23,8 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 
 			renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
 
+			renderResult[y * WIDTH + x].Char.AsciiChar = 219;
+
 			switch (pixel.surfaceType)
 			{
 				case SurfaceTypes::NONE:
@@ -30,27 +32,27 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 					renderResult[y * WIDTH + x].Char.AsciiChar = ' ';
 					break;
 				case SurfaceTypes::CEILING:
-					renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
+					// renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::SKY:
 					renderResult[y * WIDTH + x].Attributes += 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
+					// renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::FLOOR:
 					renderResult[y * WIDTH + x].Attributes += 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
+					// renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::PIT:
-					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
+					// renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::WALL_NORTH:
 				case SurfaceTypes::WALL_SOUTH:
-					renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
+					// renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
 					break;
 				case SurfaceTypes::WALL_WEST:
 				case SurfaceTypes::WALL_EAST:
 					renderResult[y * WIDTH + x].Attributes += 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
+					// renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
 					break;
 			}
 		}

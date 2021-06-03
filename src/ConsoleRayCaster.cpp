@@ -41,8 +41,8 @@ int main()
         return 1;
     }
 
-    int renderWidth = visualizer.getWidth() * RENDER_SCALE;
-    int renderHeight = visualizer.getHeight() * RENDER_SCALE;
+    int renderWidth = 200; // visualizer.getWidth() * RENDER_SCALE
+    int renderHeight = 53; // visualizer.getHeight() * RENDER_SCALE
     const double FOV = 2.26893; // 130 degrees
     const double FONT_RATIO = 0.5;
 
@@ -80,7 +80,8 @@ int main()
 
         #pragma region Set window title
         const int FPS = 1 / DELTA_TIME;
-        std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
+        //std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
+        std::string title = "Console Ray Caster: X - " + std::to_string(player.getPosX()) + ", Y - " + std::to_string(player.getPosY()) + ", A - " + std::to_string(player.getAngle());
         visualizer.setTitle(title.c_str());
         #pragma endregion
 
@@ -88,6 +89,7 @@ int main()
         player.tick(DELTA_TIME);
         #pragma endregion
 
+        /*
         #pragma region Update buffer sizes
         const int VISUALIZER_WIDTH = visualizer.getWidth();
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
@@ -104,6 +106,7 @@ int main()
             visualizer.refreshSize();
         }
         #pragma endregion
+        */
 
         #pragma region Generate screen buffers and render
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
