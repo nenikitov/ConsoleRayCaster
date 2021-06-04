@@ -41,8 +41,8 @@ int main()
         return 1;
     }
 
-    int renderWidth = 200; // visualizer.getWidth() * RENDER_SCALE
-    int renderHeight = 53; // visualizer.getHeight() * RENDER_SCALE
+    int renderWidth = visualizer.getWidth() * RENDER_SCALE;
+    int renderHeight = visualizer.getHeight() * RENDER_SCALE;
     const double FOV = 2.26893; // 130 degrees
     const double FONT_RATIO = 0.5;
 
@@ -89,7 +89,6 @@ int main()
         player.tick(DELTA_TIME);
         #pragma endregion
 
-        /*
         #pragma region Update buffer sizes
         const int VISUALIZER_WIDTH = visualizer.getWidth();
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
@@ -106,7 +105,6 @@ int main()
             visualizer.refreshSize();
         }
         #pragma endregion
-        */
 
         #pragma region Generate screen buffers and render
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
