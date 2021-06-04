@@ -11,18 +11,15 @@ Tile::Tile(std::string tileName)
 
 	// ERROR CATCHING - Invalid file
 	if (!parseFromStream(builder, ifs, &json, &errs))
-		throw std::invalid_argument(tileName + " - recieved invalid JSON file");
+		throw std::invalid_argument(tileName + " texture - recieved invalid JSON file");
 
-	// Set texture dimensions 
-	this->textureDimensions = json["rendering"]["brightness"].size();
-
-	// ERROR CATCHING - Dimensions are 0
-	if (this->textureDimensions == 0)
-		throw std::invalid_argument(tileName + " - the height of a level is 0");
+	// Set texture dimensions
+	if (!LoadingUtils::loadNotZero(json["rendering"]["brightness"].size(), this->textureDimensions))
+		throw std::invalid_argument(tileName + " - empty tile texture data found");
 
 	// ERROR CATCHING - Inconsistent dimensions between color and brightness data
 	if (json["rendering"]["colors"].size() != this->textureDimensions)
-		throw std::invalid_argument(tileName + " - brightness and color data have different sizes");
+		throw std::invalid_argument(tileName + " - brightness and color texture data have different sizes");
 
 	// Initialize internal arrays
 	this->textureBrightness = new double*[this->textureDimensions];
@@ -42,20 +39,14 @@ Tile::Tile(std::string tileName)
 		for (int x = 0; x < this->textureDimensions; x++)
 		{
 			// Get brightness
-			const short BRIGHTNESS = json["rendering"]["brightness"][y][x].asInt();
-
-			if (abs(BRIGHTNESS) > 7)
+			if (!LoadingUtils::loadCappedNormalized(json["rendering"]["brightness"][y][x].asInt(), this->textureBrightness[y][x], -7, 7))
 				throw std::invalid_argument(tileName + " - brightness is illegal at " + std::to_string(x) + ", " + std::to_string(y));
 
-			this->textureBrightness[y][x] = BRIGHTNESS / 7.f;
-
 			// Get color
-			unsigned char COLOR = json["rendering"]["colors"][y][x].asInt();
-			// ERROR CATCHING - Color data is invalid
-			if (COLOR < 0 || COLOR > 7)
+			int color;
+			if (!LoadingUtils::loadCapped(json["rendering"]["colors"][y][x].asInt(), color))
 				throw std::invalid_argument(tileName + " - color is illegal at " + std::to_string(x) + ", " + std::to_string(y));
-
-			this->textureColors[y][x] = static_cast<SurfaceColors>(COLOR);
+			this->textureColors[y][x] = (SurfaceColors) color;
 		}
 	}
 }

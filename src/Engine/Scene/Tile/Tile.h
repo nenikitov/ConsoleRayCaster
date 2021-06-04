@@ -14,7 +14,7 @@ class Tile
 	private:
 		void treatCoords(double x, double y, int& outX, int& outY);
 
-		unsigned short textureDimensions;
+		int textureDimensions;
 		double** textureBrightness;
 		SurfaceColors** textureColors;
 };
