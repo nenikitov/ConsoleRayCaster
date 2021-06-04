@@ -90,7 +90,7 @@ FrameBufferPixel** SceneRenderer::render()
 		#pragma endregion
 	}
 	#pragma endregion
-	
+
 	return renderResult;
 }
 
