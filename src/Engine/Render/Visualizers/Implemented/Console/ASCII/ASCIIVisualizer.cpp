@@ -20,7 +20,7 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 
 			int brightness = 0;
 			if (pixel.surfaceReceiveLighting)
-				brightness = (pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness) * 7;
+				brightness = pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness * 7;
 			else
 				brightness = pixel.surfaceBrightness * 7;
 

@@ -39,7 +39,7 @@ Tile::Tile(std::string tileName)
 		for (int x = 0; x < this->textureDimensions; x++)
 		{
 			// Get brightness
-			if (!LoadingUtils::loadCappedNormalized(json["rendering"]["brightness"][y][x].asInt(), this->textureBrightness[y][x], -7, 7))
+			if (!LoadingUtils::loadCappedMinMaxNormalized(json["rendering"]["brightness"][y][x].asInt(), this->textureBrightness[y][x], -7, 7))
 				throw std::invalid_argument(tileName + " - brightness is illegal at " + std::to_string(x) + ", " + std::to_string(y));
 
 			// Get color
