@@ -60,6 +60,15 @@ double Tile::sampleBrightness(double x, double y)
 	return abs(this->textureBrightness[sampleY][sampleX]);
 }
 
+bool Tile::sampleReceiveLighting(double x, double y)
+{
+	int sampleX = 0;
+	int sampleY = 0;
+	this->treatCoords(x, y, sampleX, sampleY);
+
+	return this->textureBrightness[sampleY][sampleX] >= 0;
+}
+
 SurfaceColors Tile::sampleColor(double x, double y)
 {
 	int sampleX = 0;

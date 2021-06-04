@@ -10,6 +10,7 @@ class Tile
 	public:
 		Tile(std::string tileName);
 		double sampleBrightness(double x, double y);
+		bool sampleReceiveLighting(double x, double y);
 		SurfaceColors sampleColor(double x, double y);
 	private:
 		void treatCoords(double x, double y, int& outX, int& outY);

@@ -129,11 +129,12 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
+		const bool SURFACE_RECEIVE_LIGHTING = renderedTile.sampleReceiveLighting(SAMPLE_X, SAMPLE_Y);
 		const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(ceilingX, ceilingY);
         #pragma endregion
 
 		return FrameBufferPixel(
-			SurfaceTypes::CEILING, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			SurfaceTypes::CEILING, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 		#pragma endregion
@@ -191,13 +192,14 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
+		const bool SURFACE_RECEIVE_LIGHTING = renderedTile.sampleReceiveLighting(SAMPLE_X, SAMPLE_Y);
 		const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(floorX, floorY);
 		#pragma endregion
 
 		lastTexturedFloor = y;
 
 		return FrameBufferPixel(
-			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 		#pragma endregion
@@ -260,6 +262,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	Tile renderedTile = this->scene.wallTileFrom(intersection.TILE);
 	const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(sampleX, sampleY);
 	const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(sampleX, sampleY);
+	const bool SURFACE_RECEIVE_LIGHTING = renderedTile.sampleReceiveLighting(sampleX, sampleY);
 	const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(sectorX, sectorY);
 	#pragma endregion
 
@@ -268,7 +271,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma endregion
 
 	return FrameBufferPixel(
-		intersection.WALL_NORMAL, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+		intersection.WALL_NORMAL, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
 		FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
 		SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 }
