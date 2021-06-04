@@ -78,7 +78,6 @@ SurfaceColors Tile::sampleColor(double x, double y)
 	return this->textureColors[sampleY][sampleX];
 }
 
-
 void Tile::treatCoords(double x, double y, int& outX, int& outY)
 {
 	outX = (int)floor(x * this->textureDimensions) % this->textureDimensions;

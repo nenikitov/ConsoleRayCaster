@@ -270,6 +270,7 @@ void Scene::loadFog(Json::Value& json)
 	// Color
 	if (!LoadingUtils::loadCapped(json["lighting"]["fog"]["color"].asInt(), fogColor))
 		throw std::invalid_argument("Fog color is invalid");
+	this->fogColor = (SurfaceColors)fogColor;
 
 	// Saturation
 	if (!LoadingUtils::loadCappedNormalized(json["lighting"]["fog"]["saturation"].asInt(), this->fogSaturation))
