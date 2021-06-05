@@ -11,7 +11,7 @@ FrameBufferPixel** SceneRenderer::render()
 	const double HALF_WIDTH = this->width / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
 	const double HALF_V_FOV = atan(tan(HALF_H_FOV) * this->height / (this->width * FONT_RATIO));
-	const int WALL_HEIGHT = 1 / tan(HALF_V_FOV) * HALF_HEIGHT;
+	const int WALL_HEIGHT = int(1 / tan(HALF_V_FOV) * HALF_HEIGHT);
 	const double PERPENDICULAR_LENGTH = HALF_WIDTH / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
@@ -44,9 +44,9 @@ FrameBufferPixel** SceneRenderer::render()
 			// Calculate the distance in relation to the camera projection to fix fisheye effect
 			const double CORRECTED_DISTANCE = cos(this->camera.getAngle()) * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y;
 			// The height of a texel where floor, ceiling and wall should start
-			const int PERCEIVED_WALL_HEIGHT = abs(WALL_HEIGHT / CORRECTED_DISTANCE) + 2;
+			const int PERCEIVED_WALL_HEIGHT = int(abs(WALL_HEIGHT / CORRECTED_DISTANCE) + 2);
 			const double CEILING_END = (this->height - PERCEIVED_WALL_HEIGHT) / 2.f;
-			const int FLOOR_START = CEILING_END + PERCEIVED_WALL_HEIGHT;
+			const int FLOOR_START = int(CEILING_END) + PERCEIVED_WALL_HEIGHT;
 			// Counter for void renderer
 			int lastTexturedFloor = -1;
 			#pragma endregion
@@ -210,8 +210,8 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		Tile pitTile = this->scene.floorTileFrom(0);
 
 		#pragma region Find sample point
-		const double VOID_RATIO = atan((double)y / this->height) - atan((double)lastTexturedFloor / this->height);
-		const double SAMPLE_X = (double)x / this->width * 128;
+		const double VOID_RATIO = atan(double(y) / this->height) - atan(double(lastTexturedFloor) / this->height);
+		const double SAMPLE_X = double(x) / this->width * 128;
 		const double SAMPLE_Y = fmin(VOID_RATIO / vAngle * halfVFov * 5, 0.99);
 		#pragma endregion
 
@@ -232,7 +232,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, double perceivedWallHeight, Intersection& intersection)
 {
 	#pragma region Find sample point
-	double sampleY = ((double)y - ceilingEnd) / ((double)perceivedWallHeight + 1);
+	double sampleY = (double(y) - ceilingEnd) / (double(perceivedWallHeight) + 1);
 	double sampleX = 0;
 	double sectorX = intersection.X;
 	double sectorY = intersection.Y;

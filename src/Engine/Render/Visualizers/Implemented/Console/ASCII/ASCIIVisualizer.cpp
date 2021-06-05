@@ -13,20 +13,20 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
-			int COMPOSER_X_PIXEL = (COMPOSER_WIDTH - 1) * x / (WIDTH - 1.f);
-			int COMPOSER_Y_PIXEL = (COMPOSER_HEIGHT - 1) * y / (HEIGHT - 1.f);
+			int COMPOSER_X_PIXEL = int((COMPOSER_WIDTH - 1) * x / (WIDTH - 1.f));
+			int COMPOSER_Y_PIXEL = int((COMPOSER_HEIGHT - 1) * y / (HEIGHT - 1.f));
 
 			FrameBufferPixel pixel = composerResult[COMPOSER_Y_PIXEL][COMPOSER_X_PIXEL];
 
 			int brightness = 0;
 			if (pixel.surfaceReceiveLighting)
-				brightness = pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness * 7;
+				brightness = int(pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness * 7);
 			else
-				brightness = pixel.surfaceBrightness * 7;
+				brightness = int(pixel.surfaceBrightness * 7);
 
 			brightness = min(max(brightness, 0), 7);
 
-			renderResult[y * WIDTH + x].Attributes = (int)pixel.surfaceColor;
+			renderResult[y * WIDTH + x].Attributes = int(pixel.surfaceColor);
 
 			switch (pixel.surfaceType)
 			{

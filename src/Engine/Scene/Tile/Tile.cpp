@@ -46,7 +46,7 @@ Tile::Tile(std::string tileName)
 			int color;
 			if (!LoadingUtils::loadCapped(json["rendering"]["colors"][y][x].asInt(), color))
 				throw std::invalid_argument(tileName + " - color is illegal at " + std::to_string(x) + ", " + std::to_string(y));
-			this->textureColors[y][x] = (SurfaceColors) color;
+			this->textureColors[y][x] = SurfaceColors(color);
 		}
 	}
 }
@@ -80,8 +80,8 @@ SurfaceColors Tile::sampleColor(double x, double y)
 
 void Tile::treatCoords(double x, double y, int& outX, int& outY)
 {
-	outX = (int)floor(x * this->textureDimensions) % this->textureDimensions;
-	outY = (int)floor(y * this->textureDimensions) % this->textureDimensions;
+	outX = int(floor(x * this->textureDimensions)) % this->textureDimensions;
+	outY = int(floor(y * this->textureDimensions)) % this->textureDimensions;
 
 	if (outX < 0)
 		outX = this->textureDimensions + outX;

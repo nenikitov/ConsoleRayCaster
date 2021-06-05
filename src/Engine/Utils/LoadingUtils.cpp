@@ -37,7 +37,7 @@ bool LoadingUtils::loadCappedMaxNormalized(const int VALUE, double& out, const i
     }
     else
     {
-        out = (double)VALUE / MAX;
+        out = double(VALUE) / MAX;
         return true;
     }
 }
@@ -52,7 +52,7 @@ bool LoadingUtils::loadCappedMinMaxNormalized(const int VALUE, double& out, cons
     else
     {
         const double DELTA = 2.f / (MAX - MIN);
-        out = ((double)VALUE - MIN) * DELTA - 1;
+        out = (double(VALUE) - MIN) * DELTA - 1;
         return true;
     }
 }

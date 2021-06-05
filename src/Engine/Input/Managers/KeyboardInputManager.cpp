@@ -2,10 +2,10 @@
 
 bool KeyboardInputManager::getActionKeyState(int key)
 {
-    return (bool)GetAsyncKeyState(key);
+    return bool(GetAsyncKeyState(key));
 }
 
 int KeyboardInputManager::getAxisKeyState(AxisKeys keys)
 {
-    return (bool)GetAsyncKeyState(keys.positiveKey) - (bool)GetAsyncKeyState(keys.oppositeKey);
+    return bool(GetAsyncKeyState(keys.positiveKey)) - bool(GetAsyncKeyState(keys.oppositeKey));
 }

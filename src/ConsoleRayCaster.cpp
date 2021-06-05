@@ -37,8 +37,8 @@ int main()
     }
 
     const double RENDER_SCALE = 1;
-    int renderWidth = visualizer.getWidth() * RENDER_SCALE;
-    int renderHeight = visualizer.getHeight() * RENDER_SCALE;
+    int renderWidth = int(visualizer.getWidth() * RENDER_SCALE);
+    int renderHeight = int(visualizer.getHeight() * RENDER_SCALE);
     const double FOV = 2.26893; // 130 degrees
     const double FONT_RATIO = 0.5;
 
@@ -75,7 +75,7 @@ int main()
         #pragma endregion
 
         #pragma region Set window title
-        const int FPS = 1 / DELTA_TIME;
+        const int FPS = int(round(1.f / DELTA_TIME));
         std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
         visualizer.setTitle(title.c_str());
         #pragma endregion
@@ -89,8 +89,8 @@ int main()
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
-            renderWidth = visualizer.getWidth() * RENDER_SCALE;
-            renderHeight = visualizer.getHeight() * RENDER_SCALE;
+            renderWidth = int(visualizer.getWidth() * RENDER_SCALE);
+            renderHeight = int(visualizer.getHeight() * RENDER_SCALE);
 
             sceneRenderer.changeDimensions(renderWidth, renderHeight);
             composer.changeDimensions(renderWidth, renderHeight);

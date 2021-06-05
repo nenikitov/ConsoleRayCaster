@@ -18,13 +18,13 @@ class Scene
 		#pragma endregion
 		#pragma region Tile getters
 		// Tile index
-		int wallIndexAt(unsigned int x, unsigned int y);
-		int floorIndexAt(unsigned int x, unsigned int y);
-		int ceilingIndexAt(unsigned int x, unsigned int y);
+		int wallIndexAt(double x, double y);
+		int floorIndexAt(double x, double y);
+		int ceilingIndexAt(double x, double y);
 		// Tile object
-		Tile wallTileFrom(unsigned int i);
-		Tile floorTileFrom(unsigned int i);
-		Tile ceilingTileFrom(unsigned int i);
+		Tile wallTileFrom(int i);
+		Tile floorTileFrom(int i);
+		Tile ceilingTileFrom(int i);
 		#pragma endregion
 		#pragma region Lighting getters
 		// Fog
@@ -33,9 +33,9 @@ class Scene
 		double getFogBrightness();
 		int getFogDistance();
 		// Sector lighting
-		SurfaceColors getSectorColor(unsigned int x, unsigned int y);
-		double getSectorSaturation(unsigned int x, unsigned int y);
-		double getSectorBrightness(unsigned int x, unsigned int y);
+		SurfaceColors getSectorColor(double x, double y);
+		double getSectorSaturation(double x, double y);
+		double getSectorBrightness(double x, double y);
 		#pragma endregion
 	private:
 		#pragma region Dimensions
