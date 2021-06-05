@@ -17,11 +17,13 @@ void errorExit(std::string process, std::string exception)
 }
 
 // TODO
+// - Code modifications
+//     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
 // - Code cleanup
-//       * Comments and docs for new classes
+//     * Comments and docs for new classes
 // - Further tasks
-//       * Implement simple graphics settings (setting renderer to half resolution) with launch parameters
-//       * Implement new cutting-edge 'SHADE' renderer that uses shading characters
+//     * Implement simple graphics settings (setting renderer to half resolution) with launch parameters
+//     * Implement new cutting-edge 'SHADE' renderer that uses shading characters
 
 int main()
 {
