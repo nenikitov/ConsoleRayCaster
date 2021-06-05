@@ -17,9 +17,6 @@ void errorExit(std::string process, std::string exception)
 }
 
 // TODO
-// - Code modifications
-//       * Investigate further composer scaling. It has some inconsistencies
-//       * Implement fullbright texels
 // - Code cleanup
 //       * Comments and docs for new classes
 // - Further tasks
@@ -28,8 +25,6 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    const double RENDER_SCALE = 1;
-
     ASCIIVisualizer visualizer;
     try
     {
@@ -41,6 +36,7 @@ int main()
         return 1;
     }
 
+    const double RENDER_SCALE = 1;
     int renderWidth = visualizer.getWidth() * RENDER_SCALE;
     int renderHeight = visualizer.getHeight() * RENDER_SCALE;
     const double FOV = 2.26893; // 130 degrees
@@ -80,8 +76,7 @@ int main()
 
         #pragma region Set window title
         const int FPS = 1 / DELTA_TIME;
-        //std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
-        std::string title = "Console Ray Caster: X - " + std::to_string(player.getPosX()) + ", Y - " + std::to_string(player.getPosY()) + ", A - " + std::to_string(player.getAngle());
+        std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
         visualizer.setTitle(title.c_str());
         #pragma endregion
 

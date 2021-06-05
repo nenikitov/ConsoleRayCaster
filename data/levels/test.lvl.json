@@ -1,8 +1,8 @@
 {
 	"playerStart": {
-		"x": 10.033073,
-		"y": 8.318764,
-		"angle": 307
+		"x": 8.5,
+		"y": 8.5,
+		"angle": 0
 	},
 	"tile": {
 		"tileLookUp": {
