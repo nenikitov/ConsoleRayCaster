@@ -18,17 +18,6 @@ FrameBufferPixel** SceneRenderer::render()
 		renderResult[i] = new FrameBufferPixel[this->width];
 	#pragma endregion
 
-	for (int x = 0; x < this->width; x++)
-	{
-		for (int y = 0; y < this->height; y++)
-		{
-			renderResult[y][x] = FrameBufferPixel(SurfaceTypes::WALL_EAST, y % 2, SurfaceColors::WHITE, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::BLACK, 1);
-		}
-	}
-
-
-
-	/*
 	#pragma region Render column by column
 	for (int x = 0; x < this->width; x++)
 	{
@@ -101,7 +90,6 @@ FrameBufferPixel** SceneRenderer::render()
 		#pragma endregion
 	}
 	#pragma endregion
-	*/
 
 	return renderResult;
 }
