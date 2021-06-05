@@ -26,7 +26,7 @@ void ASCIIVisualizer::visualize(RenderLayerComposer& composer)
 
 			brightness = min(max(brightness, 0), 7);
 
-			renderResult[y * WIDTH + x].Attributes = int(pixel.surfaceColor);
+			renderResult[y * WIDTH + x].Attributes = WORD(pixel.surfaceColor);
 
 			switch (pixel.surfaceType)
 			{
