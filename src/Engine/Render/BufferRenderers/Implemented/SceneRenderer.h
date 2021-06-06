@@ -9,11 +9,12 @@
 class SceneRenderer : public AbstractBufferRenderer
 {
 	public:
-		SceneRenderer(int width, int height, Scene& scene, Camera& camera);
+		SceneRenderer(int width, int height, double fontRatio, Scene& scene, Camera& camera);
 		FrameBufferPixel** render() override;
 	private:
 		Scene& scene;
 		Camera& camera;
+		const double FONT_RATIO;
 
 		FrameBufferPixel renderSurfaceVoid();
 		FrameBufferPixel renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, double hAngle);

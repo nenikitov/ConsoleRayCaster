@@ -9,8 +9,8 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 	const double DIR_X = cos(angle);
 	const double DIR_Y = sin(angle);
 	// Tile for checking
-	int mapCheckX = (int)startX;
-	int mapCheckY = (int)startY;
+	int mapCheckX = int(startX);
+	int mapCheckY = int(startY);
 	// Distance that the ray should pass to go through one unit of the scene grid
 	const double UNIT_STEP_X = sqrt(1 + (DIR_Y / DIR_X) * (DIR_Y / DIR_X));
 	const double UNIT_STEP_Y = sqrt(1 + (DIR_X / DIR_Y) * (DIR_X / DIR_Y));
@@ -29,7 +29,7 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 	if (DIR_X > 0)
 	{
 		stepX = 1;
-		rayLengthX = ((double)mapCheckX + 1 - startX) * UNIT_STEP_X;
+		rayLengthX = (double(mapCheckX) + 1.f - startX) * UNIT_STEP_X;
 	}
 	else
 	{
@@ -41,7 +41,7 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 	if (DIR_Y > 0)
 	{
 		stepY = 1;
-		rayLengthY = ((double)mapCheckY + 1 - startY) * UNIT_STEP_Y;
+		rayLengthY = (double(mapCheckY) + 1.f - startY) * UNIT_STEP_Y;
 	}
 	else
 	{

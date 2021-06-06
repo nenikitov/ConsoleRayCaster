@@ -1,7 +1,8 @@
 #include "SceneRenderer.h"
+#include <iostream>
 
-SceneRenderer::SceneRenderer(int width, int height, Scene& scene, Camera& camera)
-	: AbstractBufferRenderer(width, height), scene(scene), camera(camera) { }
+SceneRenderer::SceneRenderer(int width, int height, double fontRatio, Scene& scene, Camera& camera)
+	: AbstractBufferRenderer(width, height), scene(scene), camera(camera), FONT_RATIO(fontRatio) { }
 
 FrameBufferPixel** SceneRenderer::render()
 {
@@ -9,8 +10,8 @@ FrameBufferPixel** SceneRenderer::render()
 	const double HALF_HEIGHT = this->height / 2.f;
 	const double HALF_WIDTH = this->width / 2.f;
 	const double HALF_H_FOV = this->camera.getFov() / 2.f;
-	const double HALF_V_FOV = HALF_H_FOV / this->width * this->height;
-	const int WALL_HEIGHT = this->width / pow(2, this->camera.getFov()) / 2.f;
+	const double HALF_V_FOV = atan(tan(HALF_H_FOV) * this->height / (this->width * FONT_RATIO));
+	const int WALL_HEIGHT = int(1 / tan(HALF_V_FOV) * HALF_HEIGHT);
 	const double PERPENDICULAR_LENGTH = HALF_WIDTH / tan(HALF_H_FOV);
 	FrameBufferPixel** renderResult = new FrameBufferPixel*[this->height];
 	for (int i = 0; i < this->height; i++)
@@ -43,9 +44,9 @@ FrameBufferPixel** SceneRenderer::render()
 			// Calculate the distance in relation to the camera projection to fix fisheye effect
 			const double CORRECTED_DISTANCE = cos(this->camera.getAngle()) * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y;
 			// The height of a texel where floor, ceiling and wall should start
-			const int PERCEIVED_WALL_HEIGHT = abs(WALL_HEIGHT / CORRECTED_DISTANCE);
+			const int PERCEIVED_WALL_HEIGHT = int(abs(WALL_HEIGHT / CORRECTED_DISTANCE) + 2);
 			const double CEILING_END = (this->height - PERCEIVED_WALL_HEIGHT) / 2.f;
-			const int FLOOR_START = CEILING_END + PERCEIVED_WALL_HEIGHT;
+			const int FLOOR_START = int(CEILING_END) + PERCEIVED_WALL_HEIGHT;
 			// Counter for void renderer
 			int lastTexturedFloor = -1;
 			#pragma endregion
@@ -89,7 +90,7 @@ FrameBufferPixel** SceneRenderer::render()
 		#pragma endregion
 	}
 	#pragma endregion
-	
+
 	return renderResult;
 }
 
@@ -101,7 +102,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, double hAngle)
 {
 	#pragma region Preclacultate and initialize variables
-#pragma region Preclacultate and initialize variables
+	#pragma region Preclacultate and initialize variables
 	double ceilingX;
 	double ceilingY;
 	double distance;
@@ -128,12 +129,14 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
+		const bool SURFACE_RECEIVE_LIGHTING = renderedTile.sampleReceiveLighting(SAMPLE_X, SAMPLE_Y);
+		const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(ceilingX, ceilingY);
         #pragma endregion
 
 		return FrameBufferPixel(
-			SurfaceTypes::CEILING, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			SurfaceTypes::CEILING, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			1, SurfaceColors::WHITE, 1);
+			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 		#pragma endregion
 	}
 	else
@@ -143,7 +146,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 
 		#pragma region Find sample point
 		const double SAMPLE_X = fmax((this->camera.getAngle() + hAngle) / 6.283184, -1);
-		const double SAMPLE_Y = fmax(-vAngle - 0.5, -1);
+		const double SAMPLE_Y = fmax(-vAngle / 1.5708, -1);
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
@@ -189,14 +192,16 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		#pragma region Sample texture from the rendered tile
 		const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(SAMPLE_X, SAMPLE_Y);
 		const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(SAMPLE_X, SAMPLE_Y);
+		const bool SURFACE_RECEIVE_LIGHTING = renderedTile.sampleReceiveLighting(SAMPLE_X, SAMPLE_Y);
+		const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(floorX, floorY);
 		#pragma endregion
 
 		lastTexturedFloor = y;
 
 		return FrameBufferPixel(
-			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, true,
+			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
 			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			1, SurfaceColors::WHITE, 1);
+			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 		#pragma endregion
 	}
 	else
@@ -205,9 +210,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 		Tile pitTile = this->scene.floorTileFrom(0);
 
 		#pragma region Find sample point
-		const double VOID_RATIO = ((double)y - lastTexturedFloor) / vAngle / this->height;
-		const double SAMPLE_X = (double)x / this->width * 128;
-		const double SAMPLE_Y = fmin(VOID_RATIO * halfVFov, 0.99);
+		const double VOID_RATIO = atan(double(y) / this->height) - atan(double(lastTexturedFloor) / this->height);
+		const double SAMPLE_X = double(x) / this->width * 128;
+		const double SAMPLE_Y = fmin(VOID_RATIO / vAngle * halfVFov * 5, 0.99);
 		#pragma endregion
 
 		#pragma region Sample texture from the rendered tile
@@ -227,22 +232,38 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, double perceivedWallHeight, Intersection& intersection)
 {
 	#pragma region Find sample point
-	double sampleY = ((double)y - ceilingEnd) / ((double)perceivedWallHeight + 1);
+	double sampleY = (double(y) - ceilingEnd) / (double(perceivedWallHeight) + 1);
 	double sampleX = 0;
+	double sectorX = intersection.X;
+	double sectorY = intersection.Y;
 	if (intersection.WALL_NORMAL == SurfaceTypes::WALL_NORTH)
+	{
 		sampleX = -intersection.X;
+		sectorY -= 0.01;
+	}
 	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_SOUTH)
+	{
 		sampleX = intersection.X;
+		sectorY += 0.01;
+	}
 	else if (intersection.WALL_NORMAL == SurfaceTypes::WALL_WEST)
+	{
 		sampleX = intersection.Y;
+		sectorX -= 0.01;
+	}
 	else
+	{
 		sampleX = -intersection.Y;
+		sectorX += 0.01;
+	}
 	#pragma endregion
 
 	#pragma region Sample texture from the rendered tile
 	Tile renderedTile = this->scene.wallTileFrom(intersection.TILE);
-	double texelBrightness = renderedTile.sampleBrightness(sampleX, sampleY);
-	SurfaceColors texelColor = renderedTile.sampleColor(sampleX, sampleY);
+	const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(sampleX, sampleY);
+	const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(sampleX, sampleY);
+	const bool SURFACE_RECEIVE_LIGHTING = renderedTile.sampleReceiveLighting(sampleX, sampleY);
+	const double SECTOR_BRIGHTNESS = scene.getSectorBrightness(sectorX, sectorY);
 	#pragma endregion
 
 	#pragma region Calculate other buffers
@@ -250,9 +271,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma endregion
 
 	return FrameBufferPixel(
-		intersection.WALL_NORMAL, texelBrightness, texelColor, true,
+		intersection.WALL_NORMAL, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
 		FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-		1, SurfaceColors::WHITE, 1);
+		SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
 }
 
 double SceneRenderer::calculateFogTransparency(double distance)
@@ -263,9 +284,9 @@ double SceneRenderer::calculateFogTransparency(double distance)
 void SceneRenderer::horizontalSurfaceMath(bool invert, int y, double halfHeight, double halfVFov, double wallHeight, double correctedDistance, double deltaX, double deltaY, double& tileX, double& tileY, double& distnace, double& vAngle)
 {
 	// Vertical angle of the pixel
-	vAngle = (y - halfHeight) / (double)this->height * halfVFov * (invert ? -1 : 1);
+	vAngle = atan((y - halfHeight) / (halfHeight / tan(halfVFov))) * (invert ? -1 : 1);
 	// Ratio of distances between floor texel and wall intersection
-	const double PROJECTION_RATIO = (wallHeight / 2 / tan(vAngle)) / correctedDistance / this->width;
+	const double PROJECTION_RATIO = (wallHeight / 2 / tan(vAngle)) / correctedDistance / wallHeight;
 	// Project the point into world space
 	tileX = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
 	tileY = this->camera.getPosY() + deltaY * PROJECTION_RATIO;

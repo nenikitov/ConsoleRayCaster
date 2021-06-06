@@ -17,27 +17,16 @@ void errorExit(std::string process, std::string exception)
 }
 
 // TODO
-// - File structure cleanup
-//       + Move FPS player from engine to game directory
-//       + Delete old classes
 // - Code modifications
-//       + Handle exceptions
-//       + Make a window that adapts to screen size
-//       * Implement more advanced lighting (fullbright texels, sector lighting)
+//     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
 // - Code cleanup
-//       + Create general equations in SCENE RENDERER to increase readability
-//       + Cleanup in SCENE RENDERER
-//       * Find a better way of generating a pointer array than a bunch of switches in ASCII RENDERER
-//       * Comments and docs for new classes
+//     * Comments and docs for new classes
 // - Further tasks
-//       * Implement simple graphics settings (setting renderer to half resolution)
-//       * Implement new cutting-edge 'SHADE' renderer that uses shading characters
-//       * Finally merge
+//     * Implement simple graphics settings (setting renderer to half resolution) with launch parameters
+//     * Implement new cutting-edge 'SHADE' renderer that uses shading characters
 
 int main()
 {
-    const double RENDER_SCALE = 1;
-
     ASCIIVisualizer visualizer;
     try
     {
@@ -49,9 +38,11 @@ int main()
         return 1;
     }
 
-    int renderWidth = visualizer.getWidth() * RENDER_SCALE;
-    int renderHeight = visualizer.getHeight() * RENDER_SCALE;
-    const double FOV = 2.0944;
+    const double RENDER_SCALE = 1;
+    int renderWidth = int(visualizer.getWidth() * RENDER_SCALE);
+    int renderHeight = int(visualizer.getHeight() * RENDER_SCALE);
+    const double FOV = 2.26893; // 130 degrees
+    const double FONT_RATIO = 0.5;
 
     Scene scene;
     try
@@ -66,7 +57,7 @@ int main()
 
     FPSPlayer player(scene, FOV);
     
-    SceneRenderer sceneRenderer(renderWidth, renderHeight, scene, player.getCamera());
+    SceneRenderer sceneRenderer(renderWidth, renderHeight, FONT_RATIO, scene, player.getCamera());
     RenderLayerComposer composer(renderWidth, renderHeight);
     
     
@@ -86,7 +77,7 @@ int main()
         #pragma endregion
 
         #pragma region Set window title
-        const int FPS = 1 / DELTA_TIME;
+        const int FPS = int(round(1.f / DELTA_TIME));
         std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
         visualizer.setTitle(title.c_str());
         #pragma endregion
@@ -100,9 +91,8 @@ int main()
         const int VISUALIZER_HEIGHT = visualizer.getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
-
-            renderWidth = visualizer.getWidth() * RENDER_SCALE;
-            renderHeight = visualizer.getHeight() * RENDER_SCALE;
+            renderWidth = int(visualizer.getWidth() * RENDER_SCALE);
+            renderHeight = int(visualizer.getHeight() * RENDER_SCALE);
 
             sceneRenderer.changeDimensions(renderWidth, renderHeight);
             composer.changeDimensions(renderWidth, renderHeight);
@@ -110,7 +100,6 @@ int main()
             previousVisualizerHeight = VISUALIZER_HEIGHT;
 
             visualizer.refreshSize();
-
         }
         #pragma endregion
 

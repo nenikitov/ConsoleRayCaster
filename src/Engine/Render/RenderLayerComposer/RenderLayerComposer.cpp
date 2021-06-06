@@ -22,10 +22,10 @@ void RenderLayerComposer::addRenderLayer(FrameBufferPixel** renderLayer, int ren
     endX = fmax(0, fmin(1, endX));
     endY = fmax(0, fmin(1, endY));
 
-    const int START_X_PIXEL = startX * ((double)this->width);
-    const int START_Y_PIXEL = startY * ((double)this->height);
-    const int END_X_PIXEL = endX * ((double)this->width);
-    const int END_Y_PIXEL = endY * ((double)this->height);
+    const int START_X_PIXEL = int(startX * double(this->width));
+    const int START_Y_PIXEL = int(startY * double(this->height));
+    const int END_X_PIXEL = int(endX * double(this->width));
+    const int END_Y_PIXEL = int(endY * double(this->height));
 
     const int DELTA_X_PIXELS = END_X_PIXEL - START_X_PIXEL;
     const int DELTA_Y_PIXELS = END_Y_PIXEL - START_Y_PIXEL;
@@ -34,8 +34,8 @@ void RenderLayerComposer::addRenderLayer(FrameBufferPixel** renderLayer, int ren
     {
         for (int x = 0; x < DELTA_X_PIXELS; x++)
         {
-            const int RENDER_PIXEL_X = (double)x / DELTA_X_PIXELS * ((double)renderedWidth);
-            const int RENDER_PIXEL_Y = (double)y / DELTA_Y_PIXELS * ((double)renderedHeight);
+            const int RENDER_PIXEL_X = int(round(x / double(DELTA_X_PIXELS) * double(renderedWidth)));
+            const int RENDER_PIXEL_Y = int(round(y / double(DELTA_Y_PIXELS) * double(renderedHeight)));
 
             const int COMPOSER_PIXEL_X = x + START_X_PIXEL;
             const int COMPOSER_PIXEL_Y = y + START_Y_PIXEL;
