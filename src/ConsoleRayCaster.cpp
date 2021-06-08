@@ -19,6 +19,10 @@ void errorExit(std::string process, std::string exception)
 // TODO
 // - Code modifications
 //     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
+//     * Add console line arguments for:
+//         + Resolution scale
+//         + Render (ASCII, Shade)
+//         + Level file
 // - Code cleanup
 //     * Comments and docs for new classes
 // - Further tasks
@@ -27,10 +31,13 @@ void errorExit(std::string process, std::string exception)
 
 int main()
 {
-    ASCIIVisualizer visualizer;
+    IVisualizer* visualizer;
+    
+    visualizer = &ASCIIVisualizer();
+
     try
     {
-        visualizer.init();
+        visualizer->init();
     }
     catch (std::runtime_error e)
     {
@@ -39,8 +46,8 @@ int main()
     }
 
     const double RENDER_SCALE = 1;
-    int renderWidth = int(visualizer.getWidth() * RENDER_SCALE);
-    int renderHeight = int(visualizer.getHeight() * RENDER_SCALE);
+    int renderWidth = int(visualizer->getWidth() * RENDER_SCALE);
+    int renderHeight = int(visualizer->getHeight() * RENDER_SCALE);
     const double FOV = 2.26893; // 130 degrees
     const double FONT_RATIO = 0.5;
 
@@ -79,7 +86,7 @@ int main()
         #pragma region Set window title
         const int FPS = int(round(1.f / DELTA_TIME));
         std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
-        visualizer.setTitle(title.c_str());
+        visualizer->setTitle(title.c_str());
         #pragma endregion
 
         #pragma region Update the objects
@@ -87,26 +94,26 @@ int main()
         #pragma endregion
 
         #pragma region Update buffer sizes
-        const int VISUALIZER_WIDTH = visualizer.getWidth();
-        const int VISUALIZER_HEIGHT = visualizer.getHeight();
+        const int VISUALIZER_WIDTH = visualizer->getWidth();
+        const int VISUALIZER_HEIGHT = visualizer->getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
-            renderWidth = int(visualizer.getWidth() * RENDER_SCALE);
-            renderHeight = int(visualizer.getHeight() * RENDER_SCALE);
+            renderWidth = int(visualizer->getWidth() * RENDER_SCALE);
+            renderHeight = int(visualizer->getHeight() * RENDER_SCALE);
 
             sceneRenderer.changeDimensions(renderWidth, renderHeight);
             composer.changeDimensions(renderWidth, renderHeight);
             previousVisualizerWidth = VISUALIZER_WIDTH;
             previousVisualizerHeight = VISUALIZER_HEIGHT;
 
-            visualizer.refreshSize();
+            visualizer->refreshSize();
         }
         #pragma endregion
 
         #pragma region Generate screen buffers and render
         FrameBufferPixel** sceneRenderResult = sceneRenderer.render();
         composer.addRenderLayer(sceneRenderResult, renderWidth, renderHeight, 0, 0, 1, 1);
-        visualizer.visualize(composer);
+        visualizer->visualize(composer);
         #pragma endregion
 
         #pragma region Delete screen buffers
