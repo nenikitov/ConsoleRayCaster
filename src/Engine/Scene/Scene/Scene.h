@@ -2,7 +2,7 @@
 #include <fstream>
 #include "../Tile/Tile.h"
 #include "../../../../lib/JsonCpp/json/json.h"
-#include "../../Utils/LoadingUtils.h"
+#include "../../Utils/LoadingUtils/LoadingUtils.h"
 
 class Scene
 {

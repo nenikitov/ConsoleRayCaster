@@ -29,7 +29,7 @@ void errorExit(std::string process, std::string exception)
 //     * Implement simple graphics settings (setting renderer to half resolution) with launch parameters
 //     * Implement new cutting-edge 'SHADE' renderer that uses shading characters
 
-int main()
+int main(int argc, char* argv[])
 {
     IVisualizer* visualizer;
     
