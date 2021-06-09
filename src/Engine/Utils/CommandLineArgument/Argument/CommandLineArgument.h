@@ -3,8 +3,8 @@
 struct CommandLineArgument
 {
 	public:
-		CommandLineArgument(char* fullName, char shortName, bool isOption);
+		CommandLineArgument(char* fullName, char shortName, bool requiresFollowingArgument);
 		const char* FULL_NAME;
 		const char SHORT_NAME;
-		const bool IS_OPTION;
+		const bool REQUIRES_FOLLOWING_ARGUMENT;
 };
