@@ -86,6 +86,12 @@
     <ClCompile Include="src\Engine\Utils\LoadingUtils\LoadingUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
@@ -161,6 +167,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Utils\LoadingUtils\LoadingUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

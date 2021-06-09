@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.cpp" />
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.cpp" />
     <ClCompile Include="src\Engine\Utils\LoadingUtils\LoadingUtils.cpp" />
     <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp" />
     <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp" />
@@ -164,6 +166,8 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.h" />
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.h" />
     <ClInclude Include="src\Engine\Utils\LoadingUtils\LoadingUtils.h" />
     <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h" />
     <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h" />
