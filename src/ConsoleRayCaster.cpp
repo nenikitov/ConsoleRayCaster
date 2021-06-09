@@ -7,6 +7,7 @@
 #include "Engine/Render/RenderLayerComposer/RenderLayerComposer.h"
 #include "Engine/Render/Visualizers/Implemented/Console/ASCII/ASCIIVisualizer.h"
 #include "Game/SceneObjects/FPSPlayer/FPSPlayer.h"
+#include "Engine/Utils/CommandLineArgument/Reader/ArgumentReader.h"
 
 void errorExit(std::string process, std::string exception)
 {
@@ -31,6 +32,16 @@ void errorExit(std::string process, std::string exception)
 
 int main(int argc, char* argv[])
 {
+    CommandLineArgument argument = CommandLineArgument("help", 'h', true);
+    std::string outArgument;
+
+    bool contains = ArgumentReader::containsWithFollowingArgument(argc, argv, argument, outArgument);
+
+    std::cout << (contains ? outArgument : "False");
+
+    return 0;
+
+    /*
     IVisualizer* visualizer;
     
     visualizer = &ASCIIVisualizer();
@@ -122,4 +133,5 @@ int main(int argc, char* argv[])
         delete sceneRenderResult;
         #pragma endregion
     }
+    */
 }

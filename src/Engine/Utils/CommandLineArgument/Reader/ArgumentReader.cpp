@@ -22,14 +22,11 @@ bool ArgumentReader::containsWithFollowingArgument(int argc, char* argv[], Comma
     }
     else
     {
-        if (ArgumentReader::isFullNameArgument(index, argc, argv))
-        {
-            std::string currentArg = argv[index];
-            currentArg.erase(0, currentArg.find("=") + 1);
+        std::string currentArg = argv[index];
+        currentArg.erase(0, currentArg.find("=") + 1);
 
-            outArgument = currentArg;
-            return true;
-        }
+        outArgument = currentArg;
+        return true;
     }
 
     return false;
@@ -41,13 +38,14 @@ bool ArgumentReader::findArgument(int argc, char* argv[], CommandLineArgument& a
     {
         const std::string CURRENT_ARG = argv[i];
         const bool HAS_NEXT_OPTION = ArgumentReader::isFollowingOption(i + 1, argc, argv);
-        const bool CONTAINS_EQUALS = (CURRENT_ARG.find("=") == -1);
+        const bool CONTAINS_EQUALS = (CURRENT_ARG.find("=") != -1);
 
         if (ArgumentReader::isFullNameArgument(i, argc, argv))
         {
+            const std::string PREFIX = std::string("--") + argument.FULL_NAME;
+
             if (argument.REQUIRES_FOLLOWING_ARGUMENT)
             {
-                const std::string PREFIX = std::string("--") + argument.FULL_NAME;
                 if (CURRENT_ARG.rfind(PREFIX, 0) == 0)
                 {
                     if (CONTAINS_EQUALS || HAS_NEXT_OPTION)
@@ -59,7 +57,7 @@ bool ArgumentReader::findArgument(int argc, char* argv[], CommandLineArgument& a
             }
             else
             {
-                if (CURRENT_ARG == argument.FULL_NAME && !HAS_NEXT_OPTION)
+                if (CURRENT_ARG == PREFIX && !HAS_NEXT_OPTION)
                 {
                     index = i;
                     return true;
@@ -68,9 +66,10 @@ bool ArgumentReader::findArgument(int argc, char* argv[], CommandLineArgument& a
         }
         else if (ArgumentReader::isShortNameArgument(i, argc, argv))
         {
+            const std::string PREFIX = std::string("-") + argument.SHORT_NAME;
+
             if (argument.REQUIRES_FOLLOWING_ARGUMENT)
             {
-                const std::string PREFIX = std::string("-") + argument.SHORT_NAME;
                 if (CURRENT_ARG.rfind(PREFIX, 0) == 0)
                 {
                     if (CONTAINS_EQUALS || HAS_NEXT_OPTION)
