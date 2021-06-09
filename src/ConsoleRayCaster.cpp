@@ -32,6 +32,7 @@ void errorExit(std::string process, std::string exception)
 
 int main(int argc, char* argv[])
 {
+    /*
     CommandLineArgument argument = CommandLineArgument("help", 'h', true);
     std::string outArgument;
 
@@ -40,10 +41,10 @@ int main(int argc, char* argv[])
     std::cout << (contains ? outArgument : "False");
 
     return 0;
+    */
 
-    /*
     IVisualizer* visualizer;
-    
+
     visualizer = &ASCIIVisualizer();
 
     try
@@ -74,11 +75,11 @@ int main(int argc, char* argv[])
     }
 
     FPSPlayer player(scene, FOV);
-    
+
     SceneRenderer sceneRenderer(renderWidth, renderHeight, FONT_RATIO, scene, player.getCamera());
     RenderLayerComposer composer(renderWidth, renderHeight);
-    
-    
+
+
     auto previousTime = std::chrono::system_clock::now();
     auto currentTime = std::chrono::system_clock::now();
 
@@ -133,5 +134,4 @@ int main(int argc, char* argv[])
         delete sceneRenderResult;
         #pragma endregion
     }
-    */
 }
