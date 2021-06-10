@@ -17,14 +17,24 @@ void errorExit(std::string process, std::string exception)
     std::cin.get();
 }
 
-void readConsoleLineArguments(int argc, char* argv[], std::string levelFile, std::string renderer, double resolutionScale)
+bool readConsoleLineArguments(int argc, char* argv[], std::string& levelName, std::string& renderer, std::string& resScaleString)
 {
     CommandLineArgument argHelp = CommandLineArgument("help", 'h', false);
-    CommandLineArgument argLevel = CommandLineArgument("level_file", 'l', true);
-    CommandLineArgument argRenderr = CommandLineArgument("renderer", 'r', true);
+    CommandLineArgument argLevel = CommandLineArgument("level_name", 'l', true);
+    CommandLineArgument argRenderer = CommandLineArgument("renderer", 'r', true);
     CommandLineArgument argResScale = CommandLineArgument("res_scale", 's', true);
 
-    if (ArgumentReader::containsSimple(argc, argv, argHelp));
+    if (ArgumentReader::containsSimple(argc, argv, argHelp))
+    {
+        std::cout << "Example help page" << std::endl;
+        return true;
+    }
+
+    ArgumentReader::containsWithFollowingArgument(argc, argv, argLevel, levelName);
+    ArgumentReader::containsWithFollowingArgument(argc, argv, argRenderer, renderer);
+    ArgumentReader::containsWithFollowingArgument(argc, argv, argResScale, resScaleString);
+
+    return false;
 }
 
 // TODO
@@ -53,9 +63,41 @@ int main(int argc, char* argv[])
     return 0;
     */
 
+
+    std::string levelName = "test";
+    std::string renderer = "ascii";
+    std::string resScaleString = "1.0";
+    double resScale;
+
+    if (readConsoleLineArguments(argc, argv, levelName, renderer, resScaleString))
+        return 0;
+
+    try
+    {
+        resScale = std::stod(resScaleString);
+
+        if (resScale < 0.25 || resScale > 2)
+            throw std::invalid_argument("");
+
+    }
+    catch (std::invalid_argument e)
+    {
+        errorExit("Reading arguments", "Resolution scale should be a number between 0.25 and 2");
+        return 1;
+    }
+
     IVisualizer* visualizer;
 
-    visualizer = &ASCIIVisualizer();
+    if (renderer == "ASCII" || renderer == "ascii")
+    {
+        visualizer = &ASCIIVisualizer();
+    }
+    else
+    {
+        errorExit("Reading arguments", "Unsupported renderer. Please consult --help to see available options");
+        return 1;
+    }
+
 
     try
     {
@@ -67,9 +109,8 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    const double RENDER_SCALE = 1;
-    int renderWidth = int(visualizer->getWidth() * RENDER_SCALE);
-    int renderHeight = int(visualizer->getHeight() * RENDER_SCALE);
+    int renderWidth = int(visualizer->getWidth() * resScale);
+    int renderHeight = int(visualizer->getHeight() * resScale);
     const double FOV = 2.26893; // 130 degrees
     const double FONT_RATIO = 0.5;
 
@@ -120,8 +161,8 @@ int main(int argc, char* argv[])
         const int VISUALIZER_HEIGHT = visualizer->getHeight();
         if (VISUALIZER_WIDTH != previousVisualizerWidth || VISUALIZER_HEIGHT != previousVisualizerHeight)
         {
-            renderWidth = int(visualizer->getWidth() * RENDER_SCALE);
-            renderHeight = int(visualizer->getHeight() * RENDER_SCALE);
+            renderWidth = int(visualizer->getWidth() * resScale);
+            renderHeight = int(visualizer->getHeight() * resScale);
 
             sceneRenderer.changeDimensions(renderWidth, renderHeight);
             composer.changeDimensions(renderWidth, renderHeight);
