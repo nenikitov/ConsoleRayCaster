@@ -17,6 +17,16 @@ void errorExit(std::string process, std::string exception)
     std::cin.get();
 }
 
+void readConsoleLineArguments(int argc, char* argv[], std::string levelFile, std::string renderer, double resolutionScale)
+{
+    CommandLineArgument argHelp = CommandLineArgument("help", 'h', false);
+    CommandLineArgument argLevel = CommandLineArgument("level_file", 'l', true);
+    CommandLineArgument argRenderr = CommandLineArgument("renderer", 'r', true);
+    CommandLineArgument argResScale = CommandLineArgument("res_scale", 's', true);
+
+    if (ArgumentReader::containsSimple(argc, argv, argHelp));
+}
+
 // TODO
 // - Code modifications
 //     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
@@ -33,12 +43,12 @@ void errorExit(std::string process, std::string exception)
 int main(int argc, char* argv[])
 {
     /*
-    CommandLineArgument argument = CommandLineArgument("help", 'h', true);
-    std::string outArgument;
 
-    bool contains = ArgumentReader::containsWithFollowingArgument(argc, argv, argument, outArgument);
+    CommandLineArgument argument = CommandLineArgument("help", 'h', false);
+    
+    bool contains = ArgumentReader::containsSimple(argc, argv, argument);
 
-    std::cout << (contains ? outArgument : "False");
+    std::cout << (contains ? "True" : "False");
 
     return 0;
     */

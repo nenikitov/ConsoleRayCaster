@@ -81,7 +81,7 @@ bool ArgumentReader::findArgument(int argc, char* argv[], CommandLineArgument& a
             }
             else
             {
-                if ((CURRENT_ARG.find(argument.SHORT_NAME) != -1) && !CONTAINS_EQUALS && !HAS_NEXT_OPTION)
+                if (CURRENT_ARG.find(argument.SHORT_NAME) != -1)
                 {
                     index = i;
                     return true;
