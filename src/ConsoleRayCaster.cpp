@@ -42,8 +42,10 @@ bool readConsoleLineArguments(int argc, char* argv[], std::string& levelName, st
 //     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
 //     * Add console line arguments for:
 //         + Resolution scale
-//         + Render (ASCII, Shade)
-//         + Level file
+//         . Level file
+//         . Render (ASCII, Shade)
+//         . Font ratio
+//     * Move all command line argument reading stuff away from main so it is more readable
 // - Code cleanup
 //     * Comments and docs for new classes
 // - Further tasks
