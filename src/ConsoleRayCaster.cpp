@@ -54,22 +54,11 @@ bool readConsoleLineArguments(int argc, char* argv[], std::string& levelName, st
 
 int main(int argc, char* argv[])
 {
-    /*
-
-    CommandLineArgument argument = CommandLineArgument("help", 'h', false);
-    
-    bool contains = ArgumentReader::containsSimple(argc, argv, argument);
-
-    std::cout << (contains ? "True" : "False");
-
-    return 0;
-    */
-
-
     std::string levelName = "test";
     std::string renderer = "ascii";
     std::string resScaleString = "1.0";
     double resScale;
+
 
     if (readConsoleLineArguments(argc, argv, levelName, renderer, resScaleString))
         return 0;
@@ -88,8 +77,8 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    IVisualizer* visualizer;
 
+    IVisualizer* visualizer;
     if (renderer == "ASCII" || renderer == "ascii")
     {
         visualizer = &ASCIIVisualizer();
@@ -99,8 +88,6 @@ int main(int argc, char* argv[])
         errorExit("Reading arguments", "Unsupported renderer. Please consult --help to see available options");
         return 1;
     }
-
-
     try
     {
         visualizer->init();
@@ -110,6 +97,7 @@ int main(int argc, char* argv[])
         errorExit("Render initialization", e.what());
         return 1;
     }
+
 
     int renderWidth = int(visualizer->getWidth() * resScale);
     int renderHeight = int(visualizer->getHeight() * resScale);
