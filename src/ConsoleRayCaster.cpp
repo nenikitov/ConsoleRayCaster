@@ -12,12 +12,12 @@
 void errorExit(std::string process, std::string exception)
 {
     std::cout << "ERROR DURING " << process
-        << std::endl << exception
-        << std::endl << "Press ENTER to exit...";
-    std::cin.get();
+           << std::endl << exception;
+
+    exit(1);
 }
 
-bool readConsoleLineArguments(int argc, char* argv[], std::string& levelName, std::string& renderer, std::string& resScaleString)
+void readConsoleLineArguments(int argc, char* argv[], std::string& levelName, std::string& renderer, std::string& resScaleString)
 {
     CommandLineArgument argHelp = CommandLineArgument("help", 'h', false);
     CommandLineArgument argLevel = CommandLineArgument("level_name", 'l', true);
@@ -27,14 +27,12 @@ bool readConsoleLineArguments(int argc, char* argv[], std::string& levelName, st
     if (ArgumentReader::containsSimple(argc, argv, argHelp))
     {
         std::cout << "Example help page" << std::endl;
-        return true;
+        exit(0);
     }
 
     ArgumentReader::containsWithFollowingArgument(argc, argv, argLevel, levelName);
     ArgumentReader::containsWithFollowingArgument(argc, argv, argRenderer, renderer);
     ArgumentReader::containsWithFollowingArgument(argc, argv, argResScale, resScaleString);
-
-    return false;
 }
 
 // TODO
@@ -60,8 +58,7 @@ int main(int argc, char* argv[])
     double resScale;
 
 
-    if (readConsoleLineArguments(argc, argv, levelName, renderer, resScaleString))
-        return 0;
+    readConsoleLineArguments(argc, argv, levelName, renderer, resScaleString);
 
     try
     {
@@ -74,7 +71,6 @@ int main(int argc, char* argv[])
     catch (std::invalid_argument e)
     {
         errorExit("Reading arguments", "Resolution scale should be a number between 0.25 and 2");
-        return 1;
     }
 
 
@@ -86,7 +82,6 @@ int main(int argc, char* argv[])
     else
     {
         errorExit("Reading arguments", "Unsupported renderer. Please consult --help to see available options");
-        return 1;
     }
     try
     {
@@ -95,7 +90,6 @@ int main(int argc, char* argv[])
     catch (std::runtime_error e)
     {
         errorExit("Render initialization", e.what());
-        return 1;
     }
 
 
@@ -112,7 +106,6 @@ int main(int argc, char* argv[])
     catch (std::invalid_argument e)
     {
         errorExit("Level loading", e.what());
-        return 1;
     }
 
     FPSPlayer player(scene, FOV);
