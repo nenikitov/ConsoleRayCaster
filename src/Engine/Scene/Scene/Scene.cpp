@@ -141,8 +141,8 @@ void Scene::initLevelDimensions(Json::Value& json)
 
 int Scene::wallIndexAt(double x, double y)
 {
-	if (y < this->height)
-		if (x < this->width)
+	if (y < this->height && y >= 0)
+		if (x < this->width && x >= 0)
 			return this->wallData[int(y)][int(x)];
 	
 	return 0;
@@ -150,8 +150,8 @@ int Scene::wallIndexAt(double x, double y)
 
 int Scene::floorIndexAt(double x, double y)
 {
-	if (y < this->height)
-		if (x < this->width)
+	if (y < this->height && y >= 0)
+		if (x < this->width && x >= 0)
 			return this->floorData[int(y)][int(x)];
 
 	return 0;
@@ -159,8 +159,8 @@ int Scene::floorIndexAt(double x, double y)
 
 int Scene::ceilingIndexAt(double x, double y)
 {
-	if (y < this->height)
-		if (x < this->width)
+	if (y < this->height && y >= 0)
+		if (x < this->width && x >= 0)
 			return this->ceilingData[int(y)][int(x)];
 
 	return 0;
