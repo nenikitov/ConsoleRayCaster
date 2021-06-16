@@ -2,6 +2,7 @@
 
 #include "../Argument/CommandLineArgument.h"
 #include <functional>
+#include <vector>
 
 class ArgumentParser
 {
@@ -10,8 +11,8 @@ class ArgumentParser
 		void addSimpleArgumentToParser();
 		void addArgumentWithOptionsToParser();
 	private:
-		CommandLineArgument* simpleArguments;
-		std::function<void()>* simpleArgumentsFunctions;
-		CommandLineArgument* argumentsWithOptions;
-		std::function<void(int&)>* argumentsWithOptionsMethods;
+		std::vector<CommandLineArgument> simpleArguments;
+		std::vector<std::function<void()>> simpleArgumentsFunctions;
+		std::vector<CommandLineArgument> argumentsWithOptions;
+		std::vector<std::function<void(int&)>> argumentsWithOptionsMethods;
 };
