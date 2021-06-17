@@ -85,6 +85,7 @@ int main(int argc, char* argv[])
 
     argumentParser.parse(argc, argv);
 
+
     IVisualizer* visualizer;
     if (renderer == "ascii")
         visualizer = &ASCIIVisualizer();
@@ -108,7 +109,7 @@ int main(int argc, char* argv[])
     Scene scene;
     try
     {
-        scene.openLevelFile("test");
+        scene.openLevelFile(levelName);
     }
     catch (std::invalid_argument e)
     {
