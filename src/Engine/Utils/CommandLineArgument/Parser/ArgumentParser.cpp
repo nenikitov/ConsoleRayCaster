@@ -4,17 +4,19 @@ ArgumentParser::ArgumentParser()
 {
 	simpleArguments = std::vector<CommandLineArgument>();
 	simpleArgumentsFunctions = std::vector<std::function<void()>>();
+	simpleArgumentDescriptions = std::vector<const char*>();
 	argumentsWithOptions = std::vector<CommandLineArgument>();
 	argumentsWithOptionsMethods = std::vector<std::function<void(std::string&)>>();
+	argumentWithOptionsDescriptions = std::vector<const char*>();
 }
 
-void ArgumentParser::addSimpleArgumentToParser(const char* fullName, char shortName, std::function<void()> function)
+void ArgumentParser::addSimpleArgumentToParser(const char* fullName, char shortName, const char* description, std::function<void()> function)
 {
 	simpleArguments.push_back(CommandLineArgument(fullName, shortName, false));
 	simpleArgumentsFunctions.push_back(function);
 }
 
-void ArgumentParser::addArgumentWithOptionsToParser(const char* fullName, char shortName, std::function<void(std::string&)> function)
+void ArgumentParser::addArgumentWithOptionsToParser(const char* fullName, char shortName, const char* description, std::function<void(std::string&)> function)
 {
 	argumentsWithOptions.push_back(CommandLineArgument(fullName, shortName, true));
 	argumentsWithOptionsMethods.push_back(function);
