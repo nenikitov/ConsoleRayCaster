@@ -7,35 +7,57 @@
 #include "Engine/Render/RenderLayerComposer/RenderLayerComposer.h"
 #include "Engine/Render/Visualizers/Implemented/Console/ASCII/ASCIIVisualizer.h"
 #include "Game/SceneObjects/FPSPlayer/FPSPlayer.h"
-#include "Engine/Utils/CommandLineArgument/Reader/ArgumentReader.h"
+#include "Engine/Utils/CommandLineArgument/Parser/ArgumentParser.h"
+
+double resScale = 1.0;
+std::string renderer = "ascii";
+std::string levelName = "test";
 
 void errorExit(std::string process, std::string exception)
 {
     std::cout << "ERROR DURING " << process
-           << std::endl << exception;
+        << std::endl << exception;
 
     exit(1);
 }
 
-void readConsoleLineArguments(int argc, char* argv[], std::string& levelName, std::string& renderer, std::string& resScaleString)
+void argHelp(ArgumentParser& parser)
 {
-    /*
-    CommandLineArgument argHelp = CommandLineArgument("help", 'h', false);
-    CommandLineArgument argLevel = CommandLineArgument("level_name", 'l', true);
-    CommandLineArgument argRenderer = CommandLineArgument("renderer", 'r', true);
-    CommandLineArgument argResScale = CommandLineArgument("res_scale", 's', true);
-
-    if (ArgumentReader::containsSimple(argc, argv, argHelp))
-    {
-        std::cout << "Example help page" << std::endl;
-        exit(0);
-    }
-
-    ArgumentReader::containsWithFollowingArgument(argc, argv, argLevel, levelName);
-    ArgumentReader::containsWithFollowingArgument(argc, argv, argRenderer, renderer);
-    ArgumentReader::containsWithFollowingArgument(argc, argv, argResScale, resScaleString);
-    */
+    parser.printHelp("Console Ray Caster", "An application that draws pseudo 3D graphics in console");
+    exit(0);
 }
+void argResScale(ArgumentParser& parser, std::string out)
+{
+    try
+    {
+        resScale = std::stod(out);
+
+        if (resScale < 0.25 || resScale > 2)
+            throw std::invalid_argument("");
+
+    }
+    catch (std::invalid_argument e)
+    {
+        errorExit("Reading arguments", "Resolution scale should be a number between 0.25 and 2");
+    }
+}
+void argRenderer(ArgumentParser& parser, std::string out)
+{
+    if (out == "ASCII" || out == "ascii")
+    {
+        renderer = "ascii";
+    }
+    else
+    {
+        errorExit("Reading arguments", "Unsupported renderer. Please consult --help to see available options");
+    }
+}
+void argLevel(ArgumentParser& parser, std::string out)
+{
+    levelName = out;
+}
+
+
 
 // TODO
 // - Code modifications
@@ -54,37 +76,21 @@ void readConsoleLineArguments(int argc, char* argv[], std::string& levelName, st
 
 int main(int argc, char* argv[])
 {
-    std::string levelName = "test";
-    std::string renderer = "ascii";
-    std::string resScaleString = "1.0";
-    double resScale;
+    // Read arguments
+    ArgumentParser argumentParser = ArgumentParser();
+    argumentParser.addSimpleArgumentToParser("help", 'h', "Print the help message", argHelp);
+    argumentParser.addArgumentWithOptionsToParser("resScale", 's', "Sets the resolution scale of the rendered image (from 0 to 1)", argResScale);
+    argumentParser.addArgumentWithOptionsToParser("renderer", 'r', "Sets the renderer ('ascii' or 'shade')", argRenderer);
+    argumentParser.addArgumentWithOptionsToParser("level", 'l', "Sets the played level (name of the level file)", argLevel);
 
-
-    readConsoleLineArguments(argc, argv, levelName, renderer, resScaleString);
-
-    try
-    {
-        resScale = std::stod(resScaleString);
-
-        if (resScale < 0.25 || resScale > 2)
-            throw std::invalid_argument("");
-
-    }
-    catch (std::invalid_argument e)
-    {
-        errorExit("Reading arguments", "Resolution scale should be a number between 0.25 and 2");
-    }
-
+    argumentParser.parse(argc, argv);
 
     IVisualizer* visualizer;
-    if (renderer == "ASCII" || renderer == "ascii")
-    {
+    if (renderer == "ascii")
         visualizer = &ASCIIVisualizer();
-    }
     else
-    {
-        errorExit("Reading arguments", "Unsupported renderer. Please consult --help to see available options");
-    }
+        return 1;
+
     try
     {
         visualizer->init();
@@ -93,7 +99,6 @@ int main(int argc, char* argv[])
     {
         errorExit("Render initialization", e.what());
     }
-
 
     int renderWidth = int(visualizer->getWidth() * resScale);
     int renderHeight = int(visualizer->getHeight() * resScale);
