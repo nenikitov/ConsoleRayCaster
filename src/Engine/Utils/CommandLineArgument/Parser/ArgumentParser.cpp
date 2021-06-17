@@ -36,6 +36,20 @@ void ArgumentParser::parse(int argc, char* argv[])
 	}
 }
 
-void ArgumentParser::printHelp()
+void ArgumentParser::printHelp(const char* appName, const char* appDescription)
 {
+	std::cout << SEPARATOR;
+	std::cout << appName << std::endl;
+	
+	std::cout << SEPARATOR;
+	std::cout << appDescription << std::endl;
+
+	std::cout << SEPARATOR;
+	for (int i = 0; i < this->simpleArguments.size(); i++)
+	{
+		std::cout << simpleArguments[i].SHORT_NAME << std::endl;
+		std::cout << simpleArguments[i].FULL_NAME << std::endl;
+		std::cout << "\t" << simpleArguments[i].DESCRIPTION << std::endl;
+		std::cout << std::endl;
+	}
 }

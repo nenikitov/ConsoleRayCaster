@@ -19,6 +19,7 @@ void errorExit(std::string process, std::string exception)
 
 void readConsoleLineArguments(int argc, char* argv[], std::string& levelName, std::string& renderer, std::string& resScaleString)
 {
+    /*
     CommandLineArgument argHelp = CommandLineArgument("help", 'h', false);
     CommandLineArgument argLevel = CommandLineArgument("level_name", 'l', true);
     CommandLineArgument argRenderer = CommandLineArgument("renderer", 'r', true);
@@ -33,6 +34,7 @@ void readConsoleLineArguments(int argc, char* argv[], std::string& levelName, st
     ArgumentReader::containsWithFollowingArgument(argc, argv, argLevel, levelName);
     ArgumentReader::containsWithFollowingArgument(argc, argv, argRenderer, renderer);
     ArgumentReader::containsWithFollowingArgument(argc, argv, argResScale, resScaleString);
+    */
 }
 
 // TODO
