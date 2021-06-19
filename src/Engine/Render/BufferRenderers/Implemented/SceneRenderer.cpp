@@ -70,7 +70,7 @@ FrameBufferPixel** SceneRenderer::render()
 				}
 				else
 				{
-					#pragma region Wall Rendering
+					#pragma region Wall rendering
 					FrameBufferPixel pixel = this->renderSurfaceWall(y, CEILING_END, PERCEIVED_WALL_HEIGHT, intersection);
 					renderResult[y][x] = pixel;
 					lastTexturedFloor = y;
