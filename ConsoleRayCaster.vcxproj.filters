@@ -101,6 +101,9 @@
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
@@ -191,6 +194,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

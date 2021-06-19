@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.cpp" />
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.cpp" />
@@ -171,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.h" />
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.h" />
