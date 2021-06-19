@@ -95,7 +95,10 @@
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractArgument.cpp">
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -184,7 +187,10 @@
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractArgument.h">
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
