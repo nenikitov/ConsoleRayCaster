@@ -80,10 +80,9 @@ void argLevel(std::string out)
 // - Code modifications
 //     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
 //     * Add console line arguments for:
-//         + Resolution scale
-//         . Level file
-//         . Render (ASCII, Shade)
-//         . Font ratio
+//         - Add REQUIRED field for complex arguments
+//         - Add verification, each REQUIRED field should be present
+//         - Implement just ADD method to argument parser that accepts both simple and complex
 //     * Move all command line argument reading stuff away from main so it is more readable
 // - Code cleanup
 //     * Comments and docs for new classes
