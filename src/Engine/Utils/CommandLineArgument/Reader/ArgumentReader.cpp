@@ -44,7 +44,7 @@ bool ArgumentReader::findArgument(int argc, char* argv[], AbstractCommandLineArg
         {
             const std::string PREFIX = std::string("--") + argument.FULL_NAME;
 
-            if (argument.REQUIRES_FOLLOWING_ARGUMENT)
+            if (argument.getIsComplex())
             {
                 if (CURRENT_ARG.rfind(PREFIX, 0) == 0)
                 {
