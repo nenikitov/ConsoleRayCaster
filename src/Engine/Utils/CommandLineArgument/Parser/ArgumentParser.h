@@ -1,8 +1,6 @@
 #pragma once
 
 #include "../Reader/ArgumentReader.h"
-#include "../Argument/ImplementedArguments/Simple/SimpleCommandLineArgument.h"
-#include "../Argument/ImplementedArguments/Complex/ComplexCommandLineArgument.h"
 #include <vector>
 #include <string>
 #include <iostream>

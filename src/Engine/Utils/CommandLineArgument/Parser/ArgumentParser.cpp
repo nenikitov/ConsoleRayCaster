@@ -29,7 +29,7 @@ void ArgumentParser::parse(int argc, char* argv[])
 	for (int i = 0; i < complexArguments.size(); i++)
 	{
 		std::string out = "";
-		if (ArgumentReader::containsWithFollowingArgument(argc, argv, complexArguments[i], out))
+		if (ArgumentReader::containsComplex(argc, argv, complexArguments[i], out))
 			complexArguments[i].ACTION(out);
 	}
 }

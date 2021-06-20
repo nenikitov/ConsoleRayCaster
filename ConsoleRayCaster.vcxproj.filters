@@ -89,9 +89,6 @@
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -182,9 +179,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.h">
