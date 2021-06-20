@@ -9,6 +9,7 @@
 #include "Game/SceneObjects/FPSPlayer/FPSPlayer.h"
 #include "Engine/Utils/CommandLineArgument/Parser/ArgumentParser.h"
 
+ArgumentParser argumentParser = ArgumentParser();
 double resScale = 1.0;
 std::string renderer = "ascii";
 std::string levelName = "test";
@@ -21,12 +22,12 @@ void errorExit(std::string process, std::string exception)
     exit(1);
 }
 
-void argHelp(ArgumentParser& parser)
+void argHelp()
 {
-    parser.printHelp("Console Ray Caster", "An application that draws pseudo 3D graphics in console");
+    argumentParser.printHelp("Console Ray Caster", "An application that draws pseudo 3D graphics in console");
     exit(0);
 }
-void argResScale(ArgumentParser& parser, std::string out)
+void argResScale(std::string out)
 {
     try
     {
@@ -41,7 +42,7 @@ void argResScale(ArgumentParser& parser, std::string out)
         errorExit("Reading arguments", "Resolution scale should be a number between 0.25 and 2");
     }
 }
-void argRenderer(ArgumentParser& parser, std::string out)
+void argRenderer(std::string out)
 {
     if (out == "ASCII" || out == "ascii")
     {
@@ -52,7 +53,7 @@ void argRenderer(ArgumentParser& parser, std::string out)
         errorExit("Reading arguments", "Unsupported renderer. Please consult --help to see available options");
     }
 }
-void argLevel(ArgumentParser& parser, std::string out)
+void argLevel(std::string out)
 {
     levelName = out;
 }
@@ -77,11 +78,15 @@ void argLevel(ArgumentParser& parser, std::string out)
 int main(int argc, char* argv[])
 {
     // Read arguments
-    ArgumentParser argumentParser = ArgumentParser();
-    argumentParser.addSimpleArgumentToParser("help", 'h', "Print the help message", argHelp);
-    argumentParser.addArgumentWithOptionsToParser("resScale", 's', "Sets the resolution scale of the rendered image (from 0 to 1)", argResScale);
-    argumentParser.addArgumentWithOptionsToParser("renderer", 'r', "Sets the renderer ('ascii' or 'shade')", argRenderer);
-    argumentParser.addArgumentWithOptionsToParser("level", 'l', "Sets the played level (name of the level file)", argLevel);
+    SimpleCommandLineArgument helpArg("help", 'h', "Prints the help message", argHelp);
+    ComplexCommandLineArgument resolutionScaleArg("resolution-scale", 's', "Sets the resolution factor of the rendered image (from 0 to 1)", argResScale);
+    ComplexCommandLineArgument rendererArg("renderer", 'r', "Sets the renderer ('ascii' or 'shade')", argRenderer);
+    ComplexCommandLineArgument levelArg("level", 'l', "Sets the played level (name of the level file)", argLevel);
+
+    argumentParser.addSimpleArgumentToParser(helpArg);
+    argumentParser.addArgumentWithOptionsToParser(resolutionScaleArg);
+    argumentParser.addArgumentWithOptionsToParser(rendererArg);
+    argumentParser.addArgumentWithOptionsToParser(levelArg);
 
     argumentParser.parse(argc, argv);
 
