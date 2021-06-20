@@ -11,6 +11,7 @@
 
 ArgumentParser argumentParser = ArgumentParser();
 double resScale = 1.0;
+double fov = 2.26893;
 std::string renderer = "ascii";
 std::string levelName = "test";
 
@@ -40,6 +41,21 @@ void argResScale(std::string out)
     catch (std::invalid_argument e)
     {
         errorExit("Reading arguments", "Resolution scale should be a number between 0.25 and 2");
+    }
+}
+void argFov(std::string out)
+{
+    try
+    {
+        fov = std::stod(out) * 0.0174533;
+
+        if (fov < 1.0471 || fov > 2.44347)
+            throw std::invalid_argument("");
+
+    }
+    catch (std::invalid_argument e)
+    {
+        errorExit("Reading arguments", "Fov should be between 60 and 140 degrees");
     }
 }
 void argRenderer(std::string out)
@@ -80,11 +96,13 @@ int main(int argc, char* argv[])
     // Read arguments
     SimpleCommandLineArgument helpArg("help", 'h', "Prints the help message", argHelp);
     ComplexCommandLineArgument resolutionScaleArg("resolution-scale", 's', "Sets the resolution factor of the rendered image (from 0 to 1)", argResScale);
+    ComplexCommandLineArgument fovArg("fov", 'f', "Sets the field of view of the camera (from 60 to 140)", argFov);
     ComplexCommandLineArgument rendererArg("renderer", 'r', "Sets the renderer ('ascii' or 'shade')", argRenderer);
     ComplexCommandLineArgument levelArg("level", 'l', "Sets the played level (name of the level file)", argLevel);
 
     argumentParser.addSimpleArgumentToParser(helpArg);
     argumentParser.addArgumentWithOptionsToParser(resolutionScaleArg);
+    argumentParser.addArgumentWithOptionsToParser(fovArg);
     argumentParser.addArgumentWithOptionsToParser(rendererArg);
     argumentParser.addArgumentWithOptionsToParser(levelArg);
 
@@ -108,7 +126,6 @@ int main(int argc, char* argv[])
 
     int renderWidth = int(visualizer->getWidth() * resScale);
     int renderHeight = int(visualizer->getHeight() * resScale);
-    const double FOV = 2.26893; // 130 degrees
     const double FONT_RATIO = 0.5;
 
     Scene scene;
@@ -121,7 +138,7 @@ int main(int argc, char* argv[])
         errorExit("Level loading", e.what());
     }
 
-    FPSPlayer player(scene, FOV);
+    FPSPlayer player(scene, fov);
 
     SceneRenderer sceneRenderer(renderWidth, renderHeight, FONT_RATIO, scene, player.getCamera());
     RenderLayerComposer composer(renderWidth, renderHeight);
