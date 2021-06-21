@@ -6,14 +6,16 @@ ArgumentParser::ArgumentParser()
 	complexArguments = std::vector<ComplexCommandLineArgument>();
 }
 
-void ArgumentParser::addSimpleArgumentToParser(SimpleCommandLineArgument& argument)
+void ArgumentParser::addArgumentToParser(AbstractCommandLineArgument& argument)
 {
-	simpleArguments.push_back(argument);
-}
-
-void ArgumentParser::addArgumentWithOptionsToParser(ComplexCommandLineArgument& argument)
-{
-	complexArguments.push_back(argument);
+	if (argument.getIsComplex())
+	{
+		complexArguments.push_back((ComplexCommandLineArgument&)argument);
+	}
+	else
+	{
+		simpleArguments.push_back((SimpleCommandLineArgument&)argument);
+	}
 }
 
 void ArgumentParser::parse(int argc, char* argv[])

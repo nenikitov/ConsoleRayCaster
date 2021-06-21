@@ -94,16 +94,16 @@ int main(int argc, char* argv[])
 {
     // Read arguments
     SimpleCommandLineArgument helpArg("help", 'h', "Prints the help message", argHelp);
-    ComplexCommandLineArgument resolutionScaleArg("resolution-scale", 's', "Sets the resolution factor of the rendered image (from 0 to 1)", argResScale);
+    ComplexCommandLineArgument resolutionScaleArg("resolution-scale", 's', "Sets the resolution factor of the rendered image (from 0.25 for quarter resolution to 2 for double resolution)", argResScale);
     ComplexCommandLineArgument fovArg("fov", 'f', "Sets the field of view of the camera (from 60 to 140)", argFov);
     ComplexCommandLineArgument rendererArg("renderer", 'r', "Sets the renderer ('ascii' or 'shade')", argRenderer);
     ComplexCommandLineArgument levelArg("level", 'l', "Sets the played level (name of the level file)", argLevel);
 
-    argumentParser.addSimpleArgumentToParser(helpArg);
-    argumentParser.addArgumentWithOptionsToParser(resolutionScaleArg);
-    argumentParser.addArgumentWithOptionsToParser(fovArg);
-    argumentParser.addArgumentWithOptionsToParser(rendererArg);
-    argumentParser.addArgumentWithOptionsToParser(levelArg);
+    argumentParser.addArgumentToParser(helpArg);
+    argumentParser.addArgumentToParser(resolutionScaleArg);
+    argumentParser.addArgumentToParser(fovArg);
+    argumentParser.addArgumentToParser(rendererArg);
+    argumentParser.addArgumentToParser(levelArg);
 
     argumentParser.parse(argc, argv);
 

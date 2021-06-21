@@ -9,8 +9,7 @@ class ArgumentParser
 {
 	public:
 		ArgumentParser();
-		void addSimpleArgumentToParser(SimpleCommandLineArgument& argument);
-		void addArgumentWithOptionsToParser(ComplexCommandLineArgument& argument);
+		void addArgumentToParser(AbstractCommandLineArgument& argument);
 		void parse(int argc, char* argv[]);
 		void printHelp(const char* appName, const char* appDescription);
 	private:
