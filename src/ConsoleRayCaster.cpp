@@ -65,13 +65,13 @@ void argFontRatio(std::string out)
     {
         fontRatio = std::stod(out);
 
-        if (fov < 0.1 || fov > 4)
+        if (fontRatio < 0.375 || fontRatio > 2)
             throw std::invalid_argument("");
 
     }
     catch (std::invalid_argument e)
     {
-        errorExit("Reading arguments", "Font proportions ratio should be between 0.1 and 4");
+        errorExit("Reading arguments", "Font proportions ratio should be between 0.375 and 2");
     }
 }
 void argRenderer(std::string out)
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
     SimpleCommandLineArgument helpArg("help", 'h', "Prints the help message", argHelp);
     ComplexCommandLineArgument resolutionScaleArg("resolution-scale", 's', "Sets the resolution factor of the rendered image (from 0.25 for quarter resolution to 2 for double resolution)", false, argResScale);
     ComplexCommandLineArgument fovArg("fov", 'f', "Sets the field of view of the camera (from 60 to 140)", false, argFov);
-    ComplexCommandLineArgument fontRatioArg("font-proportion-ratio", 'p', "Sets the ratio width/height of the used font to unstretch the image with certain fonts (from 0.1 to 4)", false, argFontRatio);
+    ComplexCommandLineArgument fontRatioArg("font-ratio", 'p', "Sets the ratio width/height of the used font to unstretch the image with certain fonts (from 0.375 to 2)", false, argFontRatio);
     ComplexCommandLineArgument rendererArg("renderer", 'r', "Sets the renderer ('ascii' or 'shade')", false, argRenderer);
     ComplexCommandLineArgument levelArg("level", 'l', "Sets the played level (name of the level file)", true, argLevel);
 
