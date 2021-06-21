@@ -14,7 +14,7 @@ double resScale = 1.0;
 double fov = 2.26893;
 double fontRatio = 0.5;
 std::string renderer = "ascii";
-std::string levelName = "";
+std::string levelName = "`";
 
 void errorExit(std::string process, std::string exception)
 {
