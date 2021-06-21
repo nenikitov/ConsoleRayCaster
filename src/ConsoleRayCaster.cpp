@@ -14,7 +14,7 @@ double resScale = 1.0;
 double fov = 2.26893;
 double fontRatio = 0.5;
 std::string renderer = "ascii";
-std::string levelName = "test";
+std::string levelName = "";
 
 void errorExit(std::string process, std::string exception)
 {
@@ -98,7 +98,6 @@ void argLevel(std::string out)
 //     * Add console line arguments for:
 //         - Add REQUIRED field for complex arguments
 //         - Add verification, each REQUIRED field should be present
-//         - Implement just ADD method to argument parser that accepts both simple and complex
 //     * Move all command line argument reading stuff away from main so it is more readable
 // - Code cleanup
 //     * Comments and docs for new classes
@@ -123,7 +122,14 @@ int main(int argc, char* argv[])
     argumentParser.addArgumentToParser(rendererArg);
     argumentParser.addArgumentToParser(levelArg);
 
-    argumentParser.parse(argc, argv);
+    try
+    {
+        argumentParser.parse(argc, argv);
+    }
+    catch (std::invalid_argument e)
+    {
+        errorExit("Argument reading", e.what());
+    }
 
 
     IVisualizer* visualizer;

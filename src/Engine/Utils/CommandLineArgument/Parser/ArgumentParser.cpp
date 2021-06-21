@@ -9,13 +9,9 @@ ArgumentParser::ArgumentParser()
 void ArgumentParser::addArgumentToParser(AbstractCommandLineArgument& argument)
 {
 	if (argument.getIsComplex())
-	{
 		complexArguments.push_back((ComplexCommandLineArgument&)argument);
-	}
 	else
-	{
 		simpleArguments.push_back((SimpleCommandLineArgument&)argument);
-	}
 }
 
 void ArgumentParser::parse(int argc, char* argv[])
@@ -33,6 +29,14 @@ void ArgumentParser::parse(int argc, char* argv[])
 		std::string out = "";
 		if (ArgumentReader::containsComplex(argc, argv, complexArguments[i], out))
 			complexArguments[i].ACTION(out);
+		else
+		{
+			if (complexArguments[i].REQUIRED)
+			{
+				std::string name = complexArguments[i].FULL_NAME;
+				throw std::invalid_argument("Required argument '" + name + "' was not received");
+			}
+		}
 	}
 }
 
@@ -60,6 +64,8 @@ void ArgumentParser::printHelp(const char* appName, const char* appDescription)
 	{
 		std::cout << "-" << complexArguments[i].SHORT_NAME << std::endl;
 		std::cout << "--" << complexArguments[i].FULL_NAME << std::endl;
+		if (complexArguments[i].REQUIRED)
+			std::cout << "REQUIRED" << std::endl;
 		std::cout << "\t" << complexArguments[i].DESCRIPTION << std::endl;
 		std::cout << std::endl;
 	}
