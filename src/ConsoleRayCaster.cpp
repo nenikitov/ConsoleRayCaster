@@ -12,6 +12,7 @@
 ArgumentParser argumentParser = ArgumentParser();
 double resScale = 1.0;
 double fov = 2.26893;
+double fontRatio = 0.5;
 std::string renderer = "ascii";
 std::string levelName = "test";
 
@@ -58,6 +59,21 @@ void argFov(std::string out)
         errorExit("Reading arguments", "Fov should be between 60 and 140 degrees");
     }
 }
+void argFontRatio(std::string out)
+{
+    try
+    {
+        fontRatio = std::stod(out);
+
+        if (fov < 0.1 || fov > 4)
+            throw std::invalid_argument("");
+
+    }
+    catch (std::invalid_argument e)
+    {
+        errorExit("Reading arguments", "Font proportions ratio should be between 0.1 and 4");
+    }
+}
 void argRenderer(std::string out)
 {
     if (out == "ASCII" || out == "ascii")
@@ -96,12 +112,14 @@ int main(int argc, char* argv[])
     SimpleCommandLineArgument helpArg("help", 'h', "Prints the help message", argHelp);
     ComplexCommandLineArgument resolutionScaleArg("resolution-scale", 's', "Sets the resolution factor of the rendered image (from 0.25 for quarter resolution to 2 for double resolution)", false, argResScale);
     ComplexCommandLineArgument fovArg("fov", 'f', "Sets the field of view of the camera (from 60 to 140)", false, argFov);
+    ComplexCommandLineArgument fontRatioArg("font-proportion-ratio", 'p', "Sets the ratio width/height of the used font to unstretch the image with certain fonts (from 0.1 to 4)", false, argFontRatio);
     ComplexCommandLineArgument rendererArg("renderer", 'r', "Sets the renderer ('ascii' or 'shade')", false, argRenderer);
     ComplexCommandLineArgument levelArg("level", 'l', "Sets the played level (name of the level file)", true, argLevel);
 
     argumentParser.addArgumentToParser(helpArg);
     argumentParser.addArgumentToParser(resolutionScaleArg);
     argumentParser.addArgumentToParser(fovArg);
+    argumentParser.addArgumentToParser(fontRatioArg);
     argumentParser.addArgumentToParser(rendererArg);
     argumentParser.addArgumentToParser(levelArg);
 
@@ -125,7 +143,6 @@ int main(int argc, char* argv[])
 
     int renderWidth = int(visualizer->getWidth() * resScale);
     int renderHeight = int(visualizer->getHeight() * resScale);
-    const double FONT_RATIO = 0.5;
 
     Scene scene;
     try
@@ -139,7 +156,7 @@ int main(int argc, char* argv[])
 
     FPSPlayer player(scene, fov);
 
-    SceneRenderer sceneRenderer(renderWidth, renderHeight, FONT_RATIO, scene, player.getCamera());
+    SceneRenderer sceneRenderer(renderWidth, renderHeight, fontRatio, scene, player.getCamera());
     RenderLayerComposer composer(renderWidth, renderHeight);
 
 
