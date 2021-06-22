@@ -141,8 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.cpp" />
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.cpp" />
+    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.cpp" />
-    <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.cpp" />
     <ClCompile Include="src\Engine\Utils\LoadingUtils\LoadingUtils.cpp" />
     <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp" />
@@ -167,8 +169,10 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h" />
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.h" />
+    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Parser\ArgumentParser.h" />
-    <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\CommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.h" />
     <ClInclude Include="src\Engine\Utils\LoadingUtils\LoadingUtils.h" />
     <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h" />

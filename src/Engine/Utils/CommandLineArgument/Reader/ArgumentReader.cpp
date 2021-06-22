@@ -1,12 +1,12 @@
 #include "ArgumentReader.h"
 
-bool ArgumentReader::containsSimple(int argc, char* argv[], CommandLineArgument& argument)
+bool ArgumentReader::containsSimple(int argc, char* argv[], SimpleCommandLineArgument& argument)
 {
     int index;
     return ArgumentReader::findArgument(argc, argv, argument, index);
 }
 
-bool ArgumentReader::containsWithFollowingArgument(int argc, char* argv[], CommandLineArgument& argument, std::string& outArgument)
+bool ArgumentReader::containsComplex(int argc, char* argv[], ComplexCommandLineArgument& argument, std::string& outArgument)
 {
     int index;
     const bool CONTAINS = ArgumentReader::findArgument(argc, argv, argument, index);
@@ -32,7 +32,7 @@ bool ArgumentReader::containsWithFollowingArgument(int argc, char* argv[], Comma
     return false;
 }
 
-bool ArgumentReader::findArgument(int argc, char* argv[], CommandLineArgument& argument, int& index)
+bool ArgumentReader::findArgument(int argc, char* argv[], AbstractCommandLineArgument& argument, int& index)
 {
     for (int i = 1; i < argc; i++)
     {
@@ -44,7 +44,7 @@ bool ArgumentReader::findArgument(int argc, char* argv[], CommandLineArgument& a
         {
             const std::string PREFIX = std::string("--") + argument.FULL_NAME;
 
-            if (argument.REQUIRES_FOLLOWING_ARGUMENT)
+            if (argument.getIsComplex())
             {
                 if (CURRENT_ARG.rfind(PREFIX, 0) == 0)
                 {
@@ -68,7 +68,7 @@ bool ArgumentReader::findArgument(int argc, char* argv[], CommandLineArgument& a
         {
             const std::string PREFIX = std::string("-") + argument.SHORT_NAME;
 
-            if (argument.REQUIRES_FOLLOWING_ARGUMENT)
+            if (argument.getIsComplex())
             {
                 if (CURRENT_ARG.rfind(PREFIX, 0) == 0)
                 {

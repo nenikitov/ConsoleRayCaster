@@ -2,22 +2,16 @@
 
 ArgumentParser::ArgumentParser()
 {
-	simpleArguments = std::vector<CommandLineArgument>();
-	simpleArgumentsFunctions = std::vector<std::function<void(ArgumentParser& parser)>>();
-	argumentsWithOptions = std::vector<CommandLineArgument>();
-	argumentsWithOptionsMethods = std::vector<std::function<void(ArgumentParser& parser, std::string&)>>();
+	simpleArguments = std::vector<SimpleCommandLineArgument>();
+	complexArguments = std::vector<ComplexCommandLineArgument>();
 }
 
-void ArgumentParser::addSimpleArgumentToParser(const char* fullName, char shortName, const char* description, std::function<void(ArgumentParser& parser)> function)
+void ArgumentParser::addArgumentToParser(AbstractCommandLineArgument& argument)
 {
-	simpleArguments.push_back(CommandLineArgument(fullName, shortName, description, false));
-	simpleArgumentsFunctions.push_back(function);
-}
-
-void ArgumentParser::addArgumentWithOptionsToParser(const char* fullName, char shortName, const char* description, std::function<void(ArgumentParser& parser, std::string&)> function)
-{
-	argumentsWithOptions.push_back(CommandLineArgument(fullName, shortName, description, true));
-	argumentsWithOptionsMethods.push_back(function);
+	if (argument.getIsComplex())
+		complexArguments.push_back((ComplexCommandLineArgument&)argument);
+	else
+		simpleArguments.push_back((SimpleCommandLineArgument&)argument);
 }
 
 void ArgumentParser::parse(int argc, char* argv[])
@@ -27,14 +21,22 @@ void ArgumentParser::parse(int argc, char* argv[])
 	for (int i = 0; i < simpleArguments.size(); i++)
 	{
 		if (ArgumentReader::containsSimple(argc, argv, simpleArguments[i]))
-			simpleArgumentsFunctions[i](self);
+			simpleArguments[i].ACTION();
 	}
 
-	for (int i = 0; i < argumentsWithOptions.size(); i++)
+	for (int i = 0; i < complexArguments.size(); i++)
 	{
 		std::string out = "";
-		if (ArgumentReader::containsWithFollowingArgument(argc, argv, argumentsWithOptions[i], out))
-			argumentsWithOptionsMethods[i](self, out);
+		if (ArgumentReader::containsComplex(argc, argv, complexArguments[i], out))
+			complexArguments[i].ACTION(out);
+		else
+		{
+			if (complexArguments[i].REQUIRED)
+			{
+				std::string name = complexArguments[i].FULL_NAME;
+				throw std::invalid_argument("Required argument '" + name + "' was not received");
+			}
+		}
 	}
 }
 
@@ -58,11 +60,13 @@ void ArgumentParser::printHelp(const char* appName, const char* appDescription)
 
 	std::cout << SEPARATOR;
 	std::cout << "Complex arguments (require options after)" << std::endl;
-	for (int i = 0; i < this->argumentsWithOptions.size(); i++)
+	for (int i = 0; i < this->complexArguments.size(); i++)
 	{
-		std::cout << "-" << argumentsWithOptions[i].SHORT_NAME << std::endl;
-		std::cout << "--" << argumentsWithOptions[i].FULL_NAME << std::endl;
-		std::cout << "\t" << argumentsWithOptions[i].DESCRIPTION << std::endl;
+		std::cout << "-" << complexArguments[i].SHORT_NAME << std::endl;
+		std::cout << "--" << complexArguments[i].FULL_NAME << std::endl;
+		if (complexArguments[i].REQUIRED)
+			std::cout << "REQUIRED" << std::endl;
+		std::cout << "\t" << complexArguments[i].DESCRIPTION << std::endl;
 		std::cout << std::endl;
 	}
 }
