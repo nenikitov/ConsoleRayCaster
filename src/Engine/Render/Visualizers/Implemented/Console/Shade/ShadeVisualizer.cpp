@@ -24,6 +24,8 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 			else
 				brightness = pixel.surfaceBrightness;
 
+			brightness = pixel.fogTransparency;
+
 			const char PIXEL_CHAR = this->lookupChar(brightness);
 			const int FG_COLOR = this->lookupFGColor(pixel.surfaceColor, brightness);
 			const int BG_COLOR = this->lookupBGColor(pixel.surfaceColor, brightness);

@@ -57,14 +57,14 @@ FrameBufferPixel** SceneRenderer::render()
 				if (y < CEILING_END)
 				{
 					#pragma region Ceiling rendering
-					FrameBufferPixel pixel = this->renderSurfaceCeiling(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, RAY_H_ANGLE);
+					FrameBufferPixel pixel = this->renderSurfaceCeiling(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, intersection.DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, RAY_H_ANGLE);
 					renderResult[y][x] = pixel;
 					#pragma endregion
 				}
 				else if (y > FLOOR_START)
 				{
 					#pragma region Floor rendering
-					FrameBufferPixel pixel = this->renderSurfaceFloor(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, lastTexturedFloor);
+					FrameBufferPixel pixel = this->renderSurfaceFloor(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, intersection.DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, lastTexturedFloor);
 					renderResult[y][x] = pixel;
 					#pragma endregion
 				}
@@ -99,7 +99,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 	return FrameBufferPixel(SurfaceTypes::NONE, 1, SurfaceColors::BLACK, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
 }
 
-FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, double hAngle)
+FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double realDistance, double wallHeight, double deltaX, double deltaY, double hAngle)
 {
 	#pragma region Preclacultate and initialize variables
 	#pragma region Preclacultate and initialize variables
@@ -109,7 +109,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	double vAngle;
 	this->horizontalSurfaceMath(
 		true,
-		y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY,
+		y, halfHeight, halfVFov, wallHeight, correctedDistance, realDistance, deltaX, deltaY,
 		ceilingX, ceilingY, distance, vAngle);
 
 	const int TILE_INDEX = this->scene.ceilingIndexAt(ceilingX, ceilingY);
@@ -163,7 +163,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 	#pragma endregion
 }
 
-FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double wallHeight, double deltaX, double deltaY, int& lastTexturedFloor)
+FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double realDistance, double wallHeight, double deltaX, double deltaY, int& lastTexturedFloor)
 {
 	#pragma region Preclacultate and initialize variables
 	double floorX;
@@ -172,7 +172,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 	double vAngle;
 	this->horizontalSurfaceMath(
 		false,
-		y, halfHeight, halfVFov, wallHeight, correctedDistance, deltaX, deltaY,
+		y, halfHeight, halfVFov, wallHeight, correctedDistance, realDistance, deltaX, deltaY,
 		floorX, floorY, distance, vAngle);
 
 	const int TILE_INDEX = this->scene.floorIndexAt(floorX, floorY);
@@ -281,7 +281,7 @@ double SceneRenderer::calculateFogTransparency(double distance)
 	return 1 - (distance / 3.5);
 }
 
-void SceneRenderer::horizontalSurfaceMath(bool invert, int y, double halfHeight, double halfVFov, double wallHeight, double correctedDistance, double deltaX, double deltaY, double& tileX, double& tileY, double& distnace, double& vAngle)
+void SceneRenderer::horizontalSurfaceMath(bool invert, int y, double halfHeight, double halfVFov, double wallHeight, double correctedDistance, double realDistance, double deltaX, double deltaY, double& tileX, double& tileY, double& distnace, double& vAngle)
 {
 	// Vertical angle of the pixel
 	vAngle = atan((y - halfHeight) / (halfHeight / tan(halfVFov))) * (invert ? -1 : 1);
@@ -291,5 +291,5 @@ void SceneRenderer::horizontalSurfaceMath(bool invert, int y, double halfHeight,
 	tileX = this->camera.getPosX() + deltaX * PROJECTION_RATIO;
 	tileY = this->camera.getPosY() + deltaY * PROJECTION_RATIO;
 
-	distnace = PROJECTION_RATIO * correctedDistance;
+	distnace = abs(PROJECTION_RATIO * realDistance);
 }
