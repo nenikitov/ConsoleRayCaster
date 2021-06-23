@@ -21,13 +21,12 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 			double surfaceTypeBrightness = 0;
 			switch (pixel.surfaceType)
 			{
-				case SurfaceTypes::FLOOR:
 				case SurfaceTypes::SKY:
+					surfaceTypeBrightness = 4;
+					break;
+				case SurfaceTypes::FLOOR:
 				case SurfaceTypes::WALL_WEST:
 					surfaceTypeBrightness = 1.25;
-					break;
-				case SurfaceTypes::WALL_EAST:
-					surfaceTypeBrightness = 0.75;
 					break;
 				case SurfaceTypes::WALL_NORTH:
 				case SurfaceTypes::PIT:
@@ -36,6 +35,9 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 				case SurfaceTypes::WALL_SOUTH:
 				case SurfaceTypes::CEILING:
 					surfaceTypeBrightness = 0.9;
+					break;
+				case SurfaceTypes::WALL_EAST:
+					surfaceTypeBrightness = 0.75;
 					break;
 				default:
 					break;
@@ -65,8 +67,8 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 
 int ShadeVisualizer::getLookupIndex(double brightness)
 {
-	brightness = brightness * 10;
-	int lookup = max(min(brightness, 10), 0);
+	brightness = brightness * 9;
+	int lookup = max(min(brightness, 9), 0);
 
 	return lookup;
 }
