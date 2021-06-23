@@ -18,37 +18,40 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 
 			FrameBufferPixel pixel = composerResult[COMPOSER_Y_PIXEL][COMPOSER_X_PIXEL];
 
+			double surfaceTypeBrightness = 0;
+			switch (pixel.surfaceType)
+			{
+				case SurfaceTypes::FLOOR:
+				case SurfaceTypes::SKY:
+				case SurfaceTypes::WALL_WEST:
+					surfaceTypeBrightness = 1.25;
+					break;
+				case SurfaceTypes::WALL_EAST:
+					surfaceTypeBrightness = 0.75;
+					break;
+				case SurfaceTypes::WALL_NORTH:
+				case SurfaceTypes::PIT:
+					surfaceTypeBrightness = 1.1;
+					break;
+				case SurfaceTypes::WALL_SOUTH:
+				case SurfaceTypes::CEILING:
+					surfaceTypeBrightness = 0.9;
+					break;
+				default:
+					break;
+			}
+
 			double brightness = 0;
 			if (pixel.surfaceReceiveLighting)
 				brightness = pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness;
 			else
 				brightness = pixel.surfaceBrightness;
 
-			int offset = 0;
-			switch (pixel.surfaceType)
-			{
-				case SurfaceTypes::WALL_WEST:
-				case SurfaceTypes::CEILING:
-					offset = 1;
-					break;
-				case SurfaceTypes::FLOOR:
-				case SurfaceTypes::WALL_NORTH:
-				case SurfaceTypes::WALL_SOUTH:
-					offset = 2;
-					break;
-				case SurfaceTypes::WALL_EAST:
-					offset = 3;
-					break;
-				case SurfaceTypes::SKY:
-					offset = 4;
-					break;
-				default:
-					break;
-			}
+			brightness *= surfaceTypeBrightness;
 
-			const char PIXEL_CHAR = this->lookupChar(brightness, offset);
-			const int FG_COLOR = this->lookupFGColor(pixel.surfaceColor, brightness, offset);
-			const int BG_COLOR = this->lookupBGColor(pixel.surfaceColor, brightness, offset);
+			const char PIXEL_CHAR = this->lookupChar(brightness);
+			const int FG_COLOR = this->lookupFGColor(pixel.surfaceColor, brightness);
+			const int BG_COLOR = this->lookupBGColor(pixel.surfaceColor, brightness);
 
 			renderResult[y * WIDTH + x].Attributes = FG_COLOR | (BG_COLOR * 16);
 			renderResult[y * WIDTH + x].Char.AsciiChar = PIXEL_CHAR;
@@ -60,23 +63,22 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 	delete[] renderResult;
 }
 
-int ShadeVisualizer::getLookupIndex(double brightness, int offset)
+int ShadeVisualizer::getLookupIndex(double brightness)
 {
 	brightness = brightness * 10;
-	int lookup = brightness + offset;
-	lookup = max(min(lookup, 10), 0);
+	int lookup = max(min(brightness, 10), 0);
 
 	return lookup;
 }
 
-unsigned char ShadeVisualizer::lookupChar(double brightness, int offset)
+unsigned char ShadeVisualizer::lookupChar(double brightness)
 {
-	return this->GRADIENT_CHAR_LOOKUP[this->getLookupIndex(brightness, offset)];
+	return this->GRADIENT_CHAR_LOOKUP[this->getLookupIndex(brightness)];
 }
 
-int ShadeVisualizer::lookupFGColor(SurfaceColors color, double brightness, int offset)
+int ShadeVisualizer::lookupFGColor(SurfaceColors color, double brightness)
 {
-	int col = this->FG_COLOR_LOOKUP[this->getLookupIndex(brightness, offset)];
+	int col = this->FG_COLOR_LOOKUP[this->getLookupIndex(brightness)];
 
 	switch (col)
 	{
@@ -91,9 +93,9 @@ int ShadeVisualizer::lookupFGColor(SurfaceColors color, double brightness, int o
 	}
 }
 
-int ShadeVisualizer::lookupBGColor(SurfaceColors color, double brightness, int offset)
+int ShadeVisualizer::lookupBGColor(SurfaceColors color, double brightness)
 {
-	int col = this->BG_COLOR_LOOKUP[this->getLookupIndex(brightness, offset)];
+	int col = this->BG_COLOR_LOOKUP[this->getLookupIndex(brightness)];
 
 	switch (col)
 	{
