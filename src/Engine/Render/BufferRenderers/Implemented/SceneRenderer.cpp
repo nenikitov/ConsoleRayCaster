@@ -278,7 +278,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 
 double SceneRenderer::calculateFogTransparency(double distance)
 {
-	return 1 - (distance / 3.5);
+	return 1 - (distance / 6);
 }
 
 void SceneRenderer::horizontalSurfaceMath(bool invert, int y, double halfHeight, double halfVFov, double wallHeight, double correctedDistance, double realDistance, double deltaX, double deltaY, double& tileX, double& tileY, double& distnace, double& vAngle)

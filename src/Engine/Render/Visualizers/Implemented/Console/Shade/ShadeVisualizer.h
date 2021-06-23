@@ -11,8 +11,8 @@ class ShadeVisualizer : public AbstractConsoleVisualizer
 		const char FG_COLOR_LOOKUP[11] = { 1, 1, 1, 1, 0, 2, 2, 2, 2, 1, 2 };
 		const char BG_COLOR_LOOKUP[11] = { 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 1 };
 
-		int getLookupIndex(double brightness);
-		unsigned char lookupChar(double brightness);
-		int lookupFGColor(SurfaceColors color, double brightness);
-		int lookupBGColor(SurfaceColors color, double brightness);
+		int getLookupIndex(double brightness, int offset);
+		unsigned char lookupChar(double brightness, int offset);
+		int lookupFGColor(SurfaceColors color, double brightness, int offset);
+		int lookupBGColor(SurfaceColors color, double brightness, int offset);
 };
