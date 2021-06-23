@@ -6,6 +6,7 @@
 #include "Engine/Render/BufferRenderers/Implemented/SceneRenderer.h"
 #include "Engine/Render/RenderLayerComposer/RenderLayerComposer.h"
 #include "Engine/Render/Visualizers/Implemented/Console/ASCII/ASCIIVisualizer.h"
+#include "Engine/Render/Visualizers/Implemented/Console/Shade/ShadeVisualizer.h"
 #include "Game/SceneObjects/FPSPlayer/FPSPlayer.h"
 #include "Engine/Utils/CommandLineArgument/Parser/ArgumentParser.h"
 
@@ -80,6 +81,10 @@ void argRenderer(std::string out)
     {
         renderer = "ascii";
     }
+    else if (out == "SHADE" || out == "shade")
+    {
+        renderer = "shade";
+    }
     else
     {
         errorExit("Reading arguments", "Unsupported renderer. Please consult --help to see available options");
@@ -134,6 +139,8 @@ int main(int argc, char* argv[])
     IVisualizer* visualizer;
     if (renderer == "ascii")
         visualizer = &ASCIIVisualizer();
+    else if (renderer == "shade")
+        visualizer = &ShadeVisualizer();
     else
         return 1;
 

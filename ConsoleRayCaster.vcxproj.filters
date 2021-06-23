@@ -77,9 +77,6 @@
     <ClCompile Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,6 +96,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -169,9 +172,6 @@
     <ClInclude Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -191,6 +191,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
