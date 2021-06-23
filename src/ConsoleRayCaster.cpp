@@ -91,7 +91,6 @@ void argLevel(std::string out)
 }
 
 
-
 // TODO
 // - Code modifications
 //     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
