@@ -26,42 +26,55 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 
 			brightness = min(max(brightness, 0), 7);
 
-			renderResult[y * WIDTH + x].Attributes = WORD(pixel.surfaceColor);
+			renderResult[y * WIDTH + x].Attributes = WORD(pixel.surfaceColor) + 8;
 
-			switch (pixel.surfaceType)
-			{
-				case SurfaceTypes::NONE:
-					renderResult[y * WIDTH + x].Attributes = 0;
-					renderResult[y * WIDTH + x].Char.AsciiChar = ' ';
-					break;
-				case SurfaceTypes::CEILING:
-					renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
-					break;
-				case SurfaceTypes::SKY:
-					renderResult[y * WIDTH + x].Attributes += 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = CEILING_CHAR_LOOKUP[brightness];
-					break;
-				case SurfaceTypes::FLOOR:
-					renderResult[y * WIDTH + x].Attributes += 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
-					break;
-				case SurfaceTypes::PIT:
-					renderResult[y * WIDTH + x].Char.AsciiChar = FLOOR_CHAR_LOOKUP[brightness];
-					break;
-				case SurfaceTypes::WALL_NORTH:
-				case SurfaceTypes::WALL_SOUTH:
-					renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
-					break;
-				case SurfaceTypes::WALL_WEST:
-				case SurfaceTypes::WALL_EAST:
-					renderResult[y * WIDTH + x].Attributes += 8;
-					renderResult[y * WIDTH + x].Char.AsciiChar = WALL_CHAR_LOOKUP[brightness];
-					break;
-			}
+			renderResult[y * WIDTH + x].Char.AsciiChar = 219;
 		}
 	}
 
 	this->printChars(renderResult, 0, 0, WIDTH, HEIGHT);
 
 	delete[] renderResult;
+}
+
+int ShadeVisualizer::getLookupIndex(double brightness)
+{
+	brightness = fmax(fmin(brightness, 1), 0);
+
+	return int(brightness * 7);
+}
+
+char ShadeVisualizer::lookupChar(double brightness)
+{
+	return this->GRADIENT_CHAR_LOOKUP[this->getLookupIndex(brightness)];
+}
+
+int ShadeVisualizer::lookupFGColor(SurfaceColors color, double brightness)
+{
+	int col = this->FG_COLOR_LOOKUP[this->getLookupIndex(brightness)];
+
+	switch (col)
+	{
+		case 0:
+			return 0;
+		case 1:
+			return (int)color;
+		case 2:
+			return (int)color + 8;
+	}
+}
+
+int ShadeVisualizer::lookupBGColor(SurfaceColors color, double brightness)
+{
+	int col = this->BG_COLOR_LOOKUP[this->getLookupIndex(brightness)];
+
+	switch (col)
+	{
+		case 0:
+			return 0;
+		case 1:
+			return (int)color;
+		case 2:
+			return (int)color + 8;
+	}
 }
