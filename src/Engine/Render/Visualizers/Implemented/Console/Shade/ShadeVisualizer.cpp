@@ -18,17 +18,18 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 
 			FrameBufferPixel pixel = composerResult[COMPOSER_Y_PIXEL][COMPOSER_X_PIXEL];
 
-			int brightness = 0;
+			double brightness = 0;
 			if (pixel.surfaceReceiveLighting)
-				brightness = int(pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness * 7);
+				brightness = pixel.fogTransparency * pixel.surfaceBrightness * pixel.sectorBrightness;
 			else
-				brightness = int(pixel.surfaceBrightness * 7);
+				brightness = pixel.surfaceBrightness;
 
-			brightness = min(max(brightness, 0), 7);
+			const char PIXEL_CHAR = this->lookupChar(brightness);
+			const int FG_COLOR = this->lookupFGColor(pixel.surfaceColor, brightness);
+			const int BG_COLOR = this->lookupBGColor(pixel.surfaceColor, brightness);
 
-			renderResult[y * WIDTH + x].Attributes = WORD(pixel.surfaceColor) + 8;
-
-			renderResult[y * WIDTH + x].Char.AsciiChar = 219;
+			renderResult[y * WIDTH + x].Attributes = FG_COLOR | (BG_COLOR * 16);
+			renderResult[y * WIDTH + x].Char.AsciiChar = PIXEL_CHAR;
 		}
 	}
 
@@ -41,10 +42,10 @@ int ShadeVisualizer::getLookupIndex(double brightness)
 {
 	brightness = fmax(fmin(brightness, 1), 0);
 
-	return int(brightness * 7);
+	return int(brightness * 10);
 }
 
-char ShadeVisualizer::lookupChar(double brightness)
+unsigned char ShadeVisualizer::lookupChar(double brightness)
 {
 	return this->GRADIENT_CHAR_LOOKUP[this->getLookupIndex(brightness)];
 }
@@ -61,6 +62,8 @@ int ShadeVisualizer::lookupFGColor(SurfaceColors color, double brightness)
 			return (int)color;
 		case 2:
 			return (int)color + 8;
+		default:
+			return 0;
 	}
 }
 
@@ -76,5 +79,7 @@ int ShadeVisualizer::lookupBGColor(SurfaceColors color, double brightness)
 			return (int)color;
 		case 2:
 			return (int)color + 8;
+		default:
+			return 0;
 	}
 }

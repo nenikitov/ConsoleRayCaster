@@ -7,12 +7,12 @@ class ShadeVisualizer : public AbstractConsoleVisualizer
 	public:
 		virtual void visualize(RenderLayerComposer& composer) override;
 	private:
-		const char GRADIENT_CHAR_LOOKUP[11] = { 219,  176, 178, 177, 176, 32, 176, 178, 177, 176, 32 };
-		const char FG_COLOR_LOOKUP[11] = { 2, 1, 2, 2, 2, 2, 0, 1, 1, 1, 1 };
-		const char BG_COLOR_LOOKUP[11] = { 1, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0 };
+		const unsigned char GRADIENT_CHAR_LOOKUP[11] = { 32, 176, 177, 178, 176, 32, 176, 177, 178, 176, 219 };
+		const char FG_COLOR_LOOKUP[11] = { 1, 1, 1, 1, 0, 2, 2, 2, 2, 1, 2 };
+		const char BG_COLOR_LOOKUP[11] = { 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 1 };
 
 		int getLookupIndex(double brightness);
-		char lookupChar(double brightness);
+		unsigned char lookupChar(double brightness);
 		int lookupFGColor(SurfaceColors color, double brightness);
 		int lookupBGColor(SurfaceColors color, double brightness);
 };
