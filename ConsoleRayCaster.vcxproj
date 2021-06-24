@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h" />
