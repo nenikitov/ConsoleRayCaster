@@ -39,8 +39,6 @@ void ShadeVisualizer::visualize(RenderLayerComposer& composer)
 				case SurfaceTypes::WALL_EAST:
 					surfaceTypeBrightness = 0.75;
 					break;
-				default:
-					break;
 			}
 
 			double brightness = 0;
