@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../IVisualizer.h"
+#include "../IVisualizer.h"
 #include <Windows.h>
 #include <stdexcept>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../Abstract/Console/AbstractConsoleVisualizer.h"
+#include "../../../Abstract/AbstractConsoleVisualizer.h"
 
 class ShadeVisualizer : public AbstractConsoleVisualizer
 {

@@ -68,9 +68,6 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\AbstractConsoleVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -157,9 +157,6 @@
     <ClInclude Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Render\Visualizers\IVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -191,6 +188,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\AbstractConsoleVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
