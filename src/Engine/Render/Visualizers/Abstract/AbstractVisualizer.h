@@ -1,19 +1,20 @@
 #pragma once
 
-#include "../IVisualizer.h"
+#include "../../BufferRequirements/BufferRequirements.h"
+#include "../../RenderLayerComposer/RenderLayerComposer.h"
 #include <Windows.h>
 #include <stdexcept>
 
-class AbstractConsoleVisualizer : public IVisualizer
+class AbstractVisualizer
 {
 	public:
-		BufferRequirements getRequirements() override;
-		void init() override;
-		virtual void visualize(RenderLayerComposer& composer) override = 0;
-		void refreshSize() override;
-		void setTitle(const char* title) override;
-		int getWidth() override;
-		int getHeight() override;
+		BufferRequirements getRequirements();
+		void init();
+		virtual void visualize(RenderLayerComposer& composer) = 0;
+		void refreshSize();
+		void setTitle(const char* title);
+		int getWidth();
+		int getHeight();
 	protected:
 		void printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY);
 	private:

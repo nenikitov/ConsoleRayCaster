@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
     }
 
 
-    IVisualizer* visualizer;
+    AbstractVisualizer* visualizer;
     if (renderer == "ascii")
         visualizer = &ASCIIVisualizer();
     else if (renderer == "shade")

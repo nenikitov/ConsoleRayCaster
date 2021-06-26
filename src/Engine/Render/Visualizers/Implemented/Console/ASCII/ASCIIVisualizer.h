@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../../Abstract/AbstractConsoleVisualizer.h"
+#include "../../../Abstract/AbstractVisualizer.h"
 
-class ASCIIVisualizer : public AbstractConsoleVisualizer
+class ASCIIVisualizer : public AbstractVisualizer
 {
 	public:
 		virtual void visualize(RenderLayerComposer& composer) override;

@@ -160,7 +160,7 @@
     <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.cpp" />
-    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\AbstractConsoleVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\AbstractVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
     <ClCompile Include="lib\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp" />
@@ -189,9 +189,8 @@
     <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h" />
-    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\AbstractConsoleVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\AbstractVisualizer.h" />
     <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h" />
-    <ClInclude Include="src\Engine\Render\Visualizers\IVisualizer.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceTypes.h" />
     <ClInclude Include="lib\JsonCpp\json\json-forwards.h" />
