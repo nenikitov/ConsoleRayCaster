@@ -26,9 +26,6 @@
     <ClCompile Include="src\ConsoleRayCaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,9 +100,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h">
       <Filter>Header Files</Filter>
     </ClInclude>

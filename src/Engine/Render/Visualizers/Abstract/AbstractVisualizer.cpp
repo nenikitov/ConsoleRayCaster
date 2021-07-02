@@ -1,10 +1,5 @@
 #include "AbstractVisualizer.h"
 
-BufferRequirements AbstractVisualizer::getRequirements()
-{
-	return this->BUFFER_REQUIREMENTS;
-}
-
 void AbstractVisualizer::init()
 {
 	if (this->CONSOLE_HANDLE == INVALID_HANDLE_VALUE)
