@@ -96,7 +96,7 @@ FrameBufferPixel** SceneRenderer::render()
 
 FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 {
-	return FrameBufferPixel(SurfaceTypes::NONE, 1, SurfaceColors::BLACK, true, 1, SurfaceColors::BLACK, 1, 1, SurfaceColors::WHITE, 1);
+	return FrameBufferPixel(SurfaceTypes::NONE, 1, SurfaceColors::BLACK, true, 1, 1);
 }
 
 FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double realDistance, double wallHeight, double deltaX, double deltaY, double hAngle)
@@ -135,8 +135,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 
 		return FrameBufferPixel(
 			SurfaceTypes::CEILING, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
-			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
+			FOG_TRANSPARENCY, SECTOR_BRIGHTNESS);
 		#pragma endregion
 	}
 	else
@@ -156,8 +155,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHe
 
 		return FrameBufferPixel(
 			SurfaceTypes::SKY, SURFACE_BRIGHTNESS, SURFACE_COLOR, false,
-			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			1, SurfaceColors::WHITE, 1);
+			FOG_TRANSPARENCY, 1);
 		#pragma endregion
 	}
 	#pragma endregion
@@ -200,8 +198,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 
 		return FrameBufferPixel(
 			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
-			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
+			FOG_TRANSPARENCY, 1);
 		#pragma endregion
 	}
 	else
@@ -222,8 +219,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 
 		return FrameBufferPixel(
 			SurfaceTypes::PIT, SURFACE_BRIGHTNESS, SURFACE_COLOR, false,
-			FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-			1, SurfaceColors::WHITE, 1);
+			FOG_TRANSPARENCY, 1);
 		#pragma endregion
 	}
 	#pragma endregion
@@ -272,8 +268,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 
 	return FrameBufferPixel(
 		intersection.WALL_NORMAL, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
-		FOG_TRANSPARENCY, SurfaceColors::BLACK, 1,
-		SECTOR_BRIGHTNESS, SurfaceColors::WHITE, 1);
+		FOG_TRANSPARENCY, 1);
 }
 
 double SceneRenderer::calculateFogTransparency(double distance)
