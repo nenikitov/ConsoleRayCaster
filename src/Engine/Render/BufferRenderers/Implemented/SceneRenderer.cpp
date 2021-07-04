@@ -198,7 +198,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 
 		return FrameBufferPixel(
 			SurfaceTypes::FLOOR, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
-			FOG_TRANSPARENCY, 1);
+			FOG_TRANSPARENCY, SECTOR_BRIGHTNESS);
 		#pragma endregion
 	}
 	else
@@ -219,7 +219,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceFloor(int x, int y, double halfHeig
 
 		return FrameBufferPixel(
 			SurfaceTypes::PIT, SURFACE_BRIGHTNESS, SURFACE_COLOR, false,
-			FOG_TRANSPARENCY, 1);
+			FOG_TRANSPARENCY, 0.5);
 		#pragma endregion
 	}
 	#pragma endregion
@@ -268,7 +268,7 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 
 	return FrameBufferPixel(
 		intersection.WALL_NORMAL, SURFACE_BRIGHTNESS, SURFACE_COLOR, SURFACE_RECEIVE_LIGHTING,
-		FOG_TRANSPARENCY, 1);
+		FOG_TRANSPARENCY, SECTOR_BRIGHTNESS);
 }
 
 double SceneRenderer::calculateFogTransparency(double distance)
