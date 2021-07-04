@@ -20,13 +20,9 @@ Scene::Scene()
 	this->floorLookupSize = 0;
 	this->ceilingLookupSize = 0;
 
-	this->fogColor = SurfaceColors::BLACK;
-	this->fogSaturation = 0;
 	this->fogBrightness = 0;
 	this->fogDistance = 0;
 
-	this->sectorColors = nullptr;
-	this->sectorSaturations = nullptr;
 	this->sectorBrightness = nullptr;
 }
 
@@ -61,8 +57,6 @@ void Scene::openLevelFile(std::string levelName)
 	this->wallData = new int* [this->height];
 	this->floorData = new int* [this->height];
 	this->ceilingData = new int* [this->height];
-	this->sectorColors = new SurfaceColors* [this->height];
-	this->sectorSaturations = new double* [this->height];
 	this->sectorBrightness = new double* [this->height];
 
 	// Read level data row by row
@@ -88,8 +82,6 @@ void Scene::openLevelFile(std::string levelName)
 		this->wallData[y] = new int[this->width];
 		this->floorData[y] = new int[this->width];
 		this->ceilingData[y] = new int[this->width];
-		this->sectorColors[y] = new SurfaceColors[this->width];
-		this->sectorSaturations[y] = new double[this->width];
 		this->sectorBrightness[y] = new double[this->width];
 
 		// Read the tile data column by column (or tile by tile in this case)
@@ -106,16 +98,6 @@ void Scene::openLevelFile(std::string levelName)
 			// Load ceiling tile data
 			if (!LoadingUtils::loadCapped(json["tile"]["tileData"]["ceiling"][y][x].asInt(), this->ceilingData[y][x], 0, this->ceilingLookupSize - 1))
 				throw std::invalid_argument("Wall index at " + std::to_string(x) + ", " + std::to_string(y) + " is out of range for wall lookup");
-
-			// Load sector colors
-			int currentSectorColor;
-			if (!LoadingUtils::loadCapped(json["lighting"]["sector"]["color"][y][x].asInt(), currentSectorColor))
-				throw std::invalid_argument("Sector lighting color at " + std::to_string(x) + ", " + std::to_string(y) + " is invalid");
-			this->sectorColors[y][x] = SurfaceColors(currentSectorColor);
-
-			// Load sector saturation
-			if (!LoadingUtils::loadCappedMaxNormalized(json["lighting"]["sector"]["saturation"][y][x].asInt(), this->sectorSaturations[y][x]))
-				throw std::invalid_argument("Sector lighting saturation at " + std::to_string(x) + ", " + std::to_string(y) + " is invalid");
 
 			// Load sector brightness
 			if (!LoadingUtils::loadCappedMaxNormalized(json["lighting"]["sector"]["brightness"][y][x].asInt(), this->sectorBrightness[y][x]))
@@ -190,16 +172,6 @@ Tile Scene::ceilingTileFrom(int i)
 		return this->ceilingLookup[i];
 }
 
-SurfaceColors Scene::getFogColor()
-{
-	return this->fogColor;
-}
-
-double Scene::getFogSaturation()
-{
-	return this->fogSaturation;
-}
-
 double Scene::getFogBrightness()
 {
 	return this->fogBrightness;
@@ -208,24 +180,6 @@ double Scene::getFogBrightness()
 int Scene::getFogDistance()
 {
 	return this->fogDistance;
-}
-
-SurfaceColors Scene::getSectorColor(double x, double y)
-{
-	if (y < this->height)
-		if (x < this->width)
-			return this->sectorColors[int(y)][int(x)];
-
-	return SurfaceColors::BLACK;
-}
-
-double Scene::getSectorSaturation(double x, double y)
-{
-	if (y < this->height)
-		if (x < this->width)
-			return this->sectorSaturations[int(y)][int(x)];
-
-	return 0;
 }
 
 double Scene::getSectorBrightness(double x, double y)
@@ -267,15 +221,6 @@ void Scene::loadFog(Json::Value& json)
 	double fogSaturation = 0;
 	double fogBrightness = 0;
 	int fogDistance = 0;
-	// Color
-	if (!LoadingUtils::loadCapped(json["lighting"]["fog"]["color"].asInt(), fogColor))
-		throw std::invalid_argument("Fog color is invalid");
-	this->fogColor = SurfaceColors(fogColor);
-
-	// Saturation
-	if (!LoadingUtils::loadCappedMaxNormalized(json["lighting"]["fog"]["saturation"].asInt(), this->fogSaturation))
-		throw std::invalid_argument("Fog saturation is invalid");
-
 	// Brightness
 	if (!LoadingUtils::loadCappedMaxNormalized(json["lighting"]["fog"]["brightness"].asInt(), this->fogBrightness))
 		throw std::invalid_argument("Fog brightness is invalid");
