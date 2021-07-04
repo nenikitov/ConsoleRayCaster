@@ -74,6 +74,9 @@ void Scene::openLevelFile(std::string levelName)
 		if (rowWidth != json["tile"]["tileData"]["floor"][y].size() || rowWidth != json["tile"]["tileData"]["ceiling"][y].size())
 			throw std::invalid_argument("The width of a level is different for walls, ceiling and floor on the line on the line " + std::to_string(y));
 
+		if (rowWidth != json["lighting"]["sector"]["brightness"][y].size())
+			throw std::invalid_argument("The width of a level is different for tile and lighting data on the line " + std::to_string(y));
+
 		// Generate internal arrays for storing tile data
 		this->wallData[y] = new int[this->width];
 		this->floorData[y] = new int[this->width];
@@ -110,6 +113,9 @@ void Scene::initLevelDimensions(Json::Value& json)
 	// ERROR CATCHING - Inconsistent heights for wall, ceiling and floor data
 	if (this->height != json["tile"]["tileData"]["floor"].size() || this->height != json["tile"]["tileData"]["ceiling"].size())
 		throw std::invalid_argument("The height of a level is different for walls, ceiling and floor");
+
+	if (this->height != json["lighting"]["sector"]["brightness"].size())
+		throw std::invalid_argument("The height of a level is different for tile and lighting data");
 
 	this->width = json["tile"]["tileData"]["wall"][0].size();
 }
