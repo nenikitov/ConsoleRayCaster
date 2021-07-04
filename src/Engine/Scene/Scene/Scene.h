@@ -27,10 +27,8 @@ class Scene
 		Tile ceilingTileFrom(int i);
 		#pragma endregion
 		#pragma region Lighting getters
-		// Fog
-		double getFogBrightness();
+		// Lighting
 		int getFogDistance();
-		// Sector lighting
 		double getSectorBrightness(double x, double y);
 		#pragma endregion
 	private:
@@ -57,10 +55,8 @@ class Scene
 		int** ceilingData;
 		#pragma endregion
 		#pragma region Lighting
-		// Fog
-		double fogBrightness;
+		// Lighting
 		int fogDistance;
-		// Sector
 		double** sectorBrightness;
 		#pragma endregion
 		#pragma region Loading helper methods

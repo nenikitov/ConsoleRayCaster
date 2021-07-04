@@ -20,7 +20,6 @@ Scene::Scene()
 	this->floorLookupSize = 0;
 	this->ceilingLookupSize = 0;
 
-	this->fogBrightness = 0;
 	this->fogDistance = 0;
 
 	this->sectorBrightness = nullptr;
@@ -75,9 +74,6 @@ void Scene::openLevelFile(std::string levelName)
 		if (rowWidth != json["tile"]["tileData"]["floor"][y].size() || rowWidth != json["tile"]["tileData"]["ceiling"][y].size())
 			throw std::invalid_argument("The width of a level is different for walls, ceiling and floor on the line on the line " + std::to_string(y));
 
-		if (rowWidth != json["lighting"]["sector"]["color"][y].size() || rowWidth != json["lighting"]["sector"]["saturation"][y].size() || rowWidth != json["lighting"]["sector"]["brightness"][y].size())
-			throw std::invalid_argument("The width of a level is different for tile and lighting data on the line " + std::to_string(y));
-
 		// Generate internal arrays for storing tile data
 		this->wallData[y] = new int[this->width];
 		this->floorData[y] = new int[this->width];
@@ -114,9 +110,6 @@ void Scene::initLevelDimensions(Json::Value& json)
 	// ERROR CATCHING - Inconsistent heights for wall, ceiling and floor data
 	if (this->height != json["tile"]["tileData"]["floor"].size() || this->height != json["tile"]["tileData"]["ceiling"].size())
 		throw std::invalid_argument("The height of a level is different for walls, ceiling and floor");
-
-	if (this->height != json["lighting"]["sector"]["color"].size() || this->height != json["lighting"]["sector"]["saturation"].size() || this->height != json["lighting"]["sector"]["brightness"].size())
-		throw std::invalid_argument("The height of a level is different for tile and lighting data");
 
 	this->width = json["tile"]["tileData"]["wall"][0].size();
 }
@@ -172,11 +165,6 @@ Tile Scene::ceilingTileFrom(int i)
 		return this->ceilingLookup[i];
 }
 
-double Scene::getFogBrightness()
-{
-	return this->fogBrightness;
-}
-
 int Scene::getFogDistance()
 {
 	return this->fogDistance;
@@ -217,14 +205,8 @@ void Scene::loadPlayerStart(Json::Value& json)
 
 void Scene::loadFog(Json::Value& json)
 {
-	int fogColor = 0;
-	double fogSaturation = 0;
-	double fogBrightness = 0;
 	int fogDistance = 0;
-	// Brightness
-	if (!LoadingUtils::loadCappedMaxNormalized(json["lighting"]["fog"]["brightness"].asInt(), this->fogBrightness))
-		throw std::invalid_argument("Fog brightness is invalid");
-
+	// Distance
 	if (!LoadingUtils::loadCapped(json["lighting"]["fog"]["distance"].asInt(), this->fogDistance, 0, 64))
 		throw std::invalid_argument("Fog distance is invalid");
 }
