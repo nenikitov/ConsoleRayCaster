@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp" />
@@ -149,7 +149,7 @@
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.cpp" />
     <ClCompile Include="src\Engine\Utils\LoadingUtils\LoadingUtils.cpp" />
     <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp" />
-    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\ASCII\ASCIIVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.cpp" />
     <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.cpp" />
     <ClCompile Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.cpp" />
@@ -168,7 +168,7 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h" />
@@ -176,7 +176,7 @@
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.h" />
     <ClInclude Include="src\Engine\Utils\LoadingUtils\LoadingUtils.h" />
     <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h" />
-    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\ASCII\ASCIIVisualizer.h" />
     <ClInclude Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.h" />
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h" />
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.h" />

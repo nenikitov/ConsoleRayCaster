@@ -89,13 +89,13 @@
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Render\Visualizers\Abstract\AbstractVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\ASCII\ASCIIVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,13 +175,13 @@
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Render\Visualizers\Abstract\AbstractVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\ASCII\ASCIIVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

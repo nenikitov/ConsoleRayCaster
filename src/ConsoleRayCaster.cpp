@@ -5,8 +5,8 @@
 #include "Engine/Scene/Scene/Scene.h"
 #include "Engine/Render/BufferRenderers/Implemented/SceneRenderer.h"
 #include "Engine/Render/RenderLayerComposer/RenderLayerComposer.h"
-#include "Engine/Render/Visualizers/Implemented/Console/ASCII/ASCIIVisualizer.h"
-#include "Engine/Render/Visualizers/Implemented/Console/Shade/ShadeVisualizer.h"
+#include "Engine/Render/Visualizers/Implemented/ASCII/ASCIIVisualizer.h"
+#include "Engine/Render/Visualizers/Implemented/Shade/ShadeVisualizer.h"
 #include "Game/SceneObjects/FPSPlayer/FPSPlayer.h"
 #include "Engine/Utils/CommandLineArgument/Parser/ArgumentParser.h"
 
