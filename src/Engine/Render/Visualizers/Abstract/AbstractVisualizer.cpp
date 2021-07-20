@@ -1,11 +1,6 @@
-#include "AbstractConsoleVisualizer.h"
+#include "AbstractVisualizer.h"
 
-BufferRequirements AbstractConsoleVisualizer::getRequirements()
-{
-	return this->BUFFER_REQUIREMENTS;
-}
-
-void AbstractConsoleVisualizer::init()
+void AbstractVisualizer::init()
 {
 	if (this->CONSOLE_HANDLE == INVALID_HANDLE_VALUE)
 		throw std::runtime_error("Could not get console handle");
@@ -26,31 +21,31 @@ void AbstractConsoleVisualizer::init()
 	SetConsoleCursorInfo(this->CONSOLE_HANDLE, &cursorInfo);
 }
 
-void AbstractConsoleVisualizer::refreshSize()
+void AbstractVisualizer::refreshSize()
 {
 	system("cls");
 }
 
-void AbstractConsoleVisualizer::setTitle(const char* title)
+void AbstractVisualizer::setTitle(const char* title)
 {
 	SetConsoleTitleA(title);
 }
 
-int AbstractConsoleVisualizer::getWidth()
+int AbstractVisualizer::getWidth()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	GetConsoleScreenBufferInfo(this->CONSOLE_HANDLE, &info);
 	return info.srWindow.Right - info.srWindow.Left + 1;
 }
 
-int AbstractConsoleVisualizer::getHeight()
+int AbstractVisualizer::getHeight()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	GetConsoleScreenBufferInfo(this->CONSOLE_HANDLE, &info);
 	return info.srWindow.Bottom - info.srWindow.Top + 1;
 }
 
-void AbstractConsoleVisualizer::printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
+void AbstractVisualizer::printChars(CHAR_INFO* characters, SHORT x, SHORT y, SHORT lengthX, SHORT lengthY)
 {
 	SMALL_RECT rect = { 0, 0, lengthX, lengthY };
 	WriteConsoleOutputA(this->CONSOLE_HANDLE, characters, { lengthX, lengthY }, { x, y }, &rect);

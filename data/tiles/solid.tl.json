@@ -1,0 +1,13 @@
+{
+  "physics": {
+    "solid": false
+  },
+  "rendering": {
+    "brightness": [
+      [ 7 ]
+    ],
+    "colors": [
+      [ 1 ]
+    ]
+  }
+}

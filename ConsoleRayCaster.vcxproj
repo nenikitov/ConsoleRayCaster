@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.cpp" />
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.cpp" />
@@ -149,7 +149,7 @@
     <ClCompile Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.cpp" />
     <ClCompile Include="src\Engine\Utils\LoadingUtils\LoadingUtils.cpp" />
     <ClCompile Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.cpp" />
-    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Implemented\ASCII\ASCIIVisualizer.cpp" />
     <ClCompile Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.cpp" />
     <ClCompile Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.cpp" />
     <ClCompile Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.cpp" />
@@ -160,9 +160,7 @@
     <ClCompile Include="src\Engine\RayCaster\RayCaster\RayCaster.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.cpp" />
     <ClCompile Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.cpp" />
-    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\Graphics\AbstractGraphicsVisualizer.cpp" />
-    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.cpp" />
-    <ClCompile Include="src\Engine\Render\BufferRequirements\BufferRequirements.cpp" />
+    <ClCompile Include="src\Engine\Render\Visualizers\Abstract\AbstractVisualizer.cpp" />
     <ClCompile Include="lib\JsonCpp\jsoncpp.cpp" />
     <ClCompile Include="src\Engine\Scene\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Scene\Tile\Tile.cpp" />
@@ -170,7 +168,7 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\Shade\ShadeVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Complex\ComplexCommandLineArgument.h" />
@@ -178,7 +176,7 @@
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Reader\ArgumentReader.h" />
     <ClInclude Include="src\Engine\Utils\LoadingUtils\LoadingUtils.h" />
     <ClInclude Include="src\Game\SceneObjects\FPSPlayer\FPSPlayer.h" />
-    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Console\ASCII\ASCIIVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Implemented\ASCII\ASCIIVisualizer.h" />
     <ClInclude Include="src\Engine\Render\RenderLayerComposer\RenderLayerComposer.h" />
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\Player\AbstractPlayer.h" />
     <ClInclude Include="src\Engine\Scene\GameObject\Implemented\PhysicsObject\AbstractPhysicsObject.h" />
@@ -190,10 +188,7 @@
     <ClInclude Include="src\Engine\RayCaster\RayCaster\RayCaster.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Implemented\SceneRenderer.h" />
     <ClInclude Include="src\Engine\Render\BufferRenderers\Abstract\AbstractBufferRenderer.h" />
-    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\Graphics\AbstractGraphicsVisualizer.h" />
-    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\Console\AbstractConsoleVisualizer.h" />
-    <ClInclude Include="src\Engine\Render\BufferRequirements\BufferRequirements.h" />
-    <ClInclude Include="src\Engine\Render\Visualizers\IVisualizer.h" />
+    <ClInclude Include="src\Engine\Render\Visualizers\Abstract\AbstractVisualizer.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceColors.h" />
     <ClInclude Include="src\Engine\Render\FrameBuffer\CustomBufferTypes\SurfaceTypes.h" />
     <ClInclude Include="lib\JsonCpp\json\json-forwards.h" />
@@ -222,6 +217,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\tiles\sky.tl.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\tiles\solid.tl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\levels\test.lvl.json">
