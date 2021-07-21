@@ -5,7 +5,6 @@
 struct Intersection
 {
 	public:
-		Intersection();
 		Intersection(double x, double y, double distance);
 		Intersection(double x, double y, double distance, int tile, SurfaceTypes wallNormal);
 
