@@ -1,11 +1,12 @@
 #include "Intersection.h"
 
-Intersection::Intersection()
+Intersection::Intersection(
+	double x, double y, double distance)
 	: VALID(false),
-	X(0),
-	Y(0),
-	DISTANCE(0),
-	TILE(0),
+	X(x),
+	Y(y),
+	DISTANCE(distance),
+	TILE(-1),
 	WALL_NORMAL(SurfaceTypes::NONE) { }
 
 Intersection::Intersection(

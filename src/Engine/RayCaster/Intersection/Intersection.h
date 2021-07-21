@@ -5,9 +5,8 @@
 struct Intersection
 {
 	public:
-		Intersection();
-		Intersection(
-			double x, double y, double distance, int tile, SurfaceTypes wallNormal);
+		Intersection(double x, double y, double distance);
+		Intersection(double x, double y, double distance, int tile, SurfaceTypes wallNormal);
 
 		const bool VALID;
 		const double X;
