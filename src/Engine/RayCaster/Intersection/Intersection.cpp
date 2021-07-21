@@ -10,7 +10,7 @@ Intersection::Intersection()
 
 Intersection::Intersection(
 	double x, double y, double distance)
-	: VALID(true),
+	: VALID(false),
 	X(x),
 	Y(y),
 	DISTANCE(distance),

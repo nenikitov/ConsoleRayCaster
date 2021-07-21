@@ -35,58 +35,48 @@ FrameBufferPixel** SceneRenderer::render()
 		#pragma endregion
 
 		#pragma region Render from intersection
-		if (intersection.VALID)
-		{
-			// Intersection happened, render walls, floor and ceiling
-			#pragma region Precalculate and initialize needed values for the current intersection
-			const double DELTA_X = intersection.X - this->camera.getPosX();
-			const double DELTA_Y = intersection.Y - this->camera.getPosY();
-			// Calculate the distance in relation to the camera projection to fix fisheye effect
-			const double CORRECTED_DISTANCE = cos(this->camera.getAngle()) * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y;
-			// The height of a texel where floor, ceiling and wall should start
-			const int PERCEIVED_WALL_HEIGHT = int(abs(WALL_HEIGHT / CORRECTED_DISTANCE) + 2);
-			const double CEILING_END = (this->height - PERCEIVED_WALL_HEIGHT) / 2.f;
-			const int FLOOR_START = int(CEILING_END) + PERCEIVED_WALL_HEIGHT;
-			// Counter for void renderer
-			int lastTexturedFloor = -1;
-			#pragma endregion
+		// Intersection happened, render walls, floor and ceiling
+		#pragma region Precalculate and initialize needed values for the current intersection
+		const double DELTA_X = intersection.X - this->camera.getPosX();
+		const double DELTA_Y = intersection.Y - this->camera.getPosY();
+		// Calculate the distance in relation to the camera projection to fix fisheye effect
+		const double CORRECTED_DISTANCE = cos(this->camera.getAngle()) * DELTA_X + sin(this->camera.getAngle()) * DELTA_Y;
+		// The height of a texel where floor, ceiling and wall should start
+		const int PERCEIVED_WALL_HEIGHT = int(abs(WALL_HEIGHT / CORRECTED_DISTANCE) + 2);
+		const double CEILING_END = (this->height - PERCEIVED_WALL_HEIGHT) / 2.f;
+		const int FLOOR_START = int(CEILING_END) + PERCEIVED_WALL_HEIGHT;
+		// Counter for void renderer
+		int lastTexturedFloor = -1;
+		#pragma endregion
 
-			#pragma region Render pixel by pixel vertically
-			for (int y = 0; y < this->height; y++)
-			{
-				if (y < CEILING_END)
-				{
-					#pragma region Ceiling rendering
-					FrameBufferPixel pixel = this->renderSurfaceCeiling(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, intersection.DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, RAY_H_ANGLE);
-					renderResult[y][x] = pixel;
-					#pragma endregion
-				}
-				else if (y > FLOOR_START)
-				{
-					#pragma region Floor rendering
-					FrameBufferPixel pixel = this->renderSurfaceFloor(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, intersection.DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, lastTexturedFloor);
-					renderResult[y][x] = pixel;
-					#pragma endregion
-				}
-				else
-				{
-					#pragma region Wall rendering
-					FrameBufferPixel pixel = this->renderSurfaceWall(y, CEILING_END, PERCEIVED_WALL_HEIGHT, intersection);
-					renderResult[y][x] = pixel;
-					lastTexturedFloor = y;
-					#pragma endregion
-				}
-			}
-			#pragma endregion
-		}
-		else
+		#pragma region Render pixel by pixel vertically
+		for (int y = 0; y < this->height; y++)
 		{
-			for (int y = 0; y < this->height; y++)
+			if (y < CEILING_END)
 			{
-				FrameBufferPixel pixel = this->renderSurfaceVoid();
+				#pragma region Ceiling rendering
+				FrameBufferPixel pixel = this->renderSurfaceCeiling(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, intersection.DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, RAY_H_ANGLE);
 				renderResult[y][x] = pixel;
+				#pragma endregion
+			}
+			else if (y > FLOOR_START)
+			{
+				#pragma region Floor rendering
+				FrameBufferPixel pixel = this->renderSurfaceFloor(x, y, HALF_HEIGHT, HALF_V_FOV, CORRECTED_DISTANCE, intersection.DISTANCE, WALL_HEIGHT, DELTA_X, DELTA_Y, lastTexturedFloor);
+				renderResult[y][x] = pixel;
+				#pragma endregion
+			}
+			else
+			{
+				#pragma region Wall rendering
+				FrameBufferPixel pixel = this->renderSurfaceWall(y, CEILING_END, PERCEIVED_WALL_HEIGHT, intersection);
+				renderResult[y][x] = pixel;
+				if (intersection.VALID)
+					lastTexturedFloor = y;
+				#pragma endregion
 			}
 		}
+		#pragma endregion
 		#pragma endregion
 	}
 	#pragma endregion
@@ -254,6 +244,9 @@ FrameBufferPixel SceneRenderer::renderSurfaceWall(int y, double ceilingEnd, doub
 	#pragma endregion
 
 	#pragma region Sample texture from the rendered tile
+	if (!intersection.VALID)
+		return FrameBufferPixel(intersection.WALL_NORMAL, 0, SurfaceColors::BLACK, false, 0, 0);
+
 	Tile renderedTile = this->scene.wallTileFrom(intersection.TILE);
 	const double SURFACE_BRIGHTNESS = renderedTile.sampleBrightness(sampleX, sampleY);
 	const SurfaceColors SURFACE_COLOR = renderedTile.sampleColor(sampleX, sampleY);
