@@ -178,8 +178,8 @@ int Scene::getFogDistance()
 
 double Scene::getSectorBrightness(double x, double y)
 {
-	if (y < this->height)
-		if (x < this->width)
+	if (y < this->height && y >= 0)
+		if (x < this->width && x >= 0)
 			return this->sectorBrightness[int(y)][int(x)];
 
 	return 0;

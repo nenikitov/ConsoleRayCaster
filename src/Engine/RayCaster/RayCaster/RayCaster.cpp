@@ -85,5 +85,6 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 	#pragma endregion
 
 	// Return empty intersection if the ray went too far
-	return Intersection();
+	return Intersection(startX + DIR_X * distance, startY + DIR_Y * distance,
+		distance);
 }

@@ -102,7 +102,6 @@ FrameBufferPixel SceneRenderer::renderSurfaceVoid()
 FrameBufferPixel SceneRenderer::renderSurfaceCeiling(int x, int y, double halfHeight, double halfVFov, double correctedDistance, double realDistance, double wallHeight, double deltaX, double deltaY, double hAngle)
 {
 	#pragma region Preclacultate and initialize variables
-	#pragma region Preclacultate and initialize variables
 	double ceilingX;
 	double ceilingY;
 	double distance;
