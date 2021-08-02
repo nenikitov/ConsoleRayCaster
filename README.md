@@ -38,7 +38,6 @@ The levels are stored inside `data/levels/` folder. Level files are essentially 
     * #### `sectorBrightness`
         * Tthe brightess of each cell from 0 to 7.
 
-
 ## How to edit tiles
 The tiles are stored inside `data/tiles/` folder. Tile files are essentially `.json` files. The tile file should contain the following sections:
 * ### **`physics`**
