@@ -99,15 +99,9 @@ void argLevel(std::string out)
 // TODO
 // - Code modifications
 //     * Add a method to visualizer that will calculate the size of a "window" area that the render layer will be added (so, even with black bars, the render would be in the correct resolution)
-//     * Add console line arguments for:
-//         - Add REQUIRED field for complex arguments
-//         - Add verification, each REQUIRED field should be present
 //     * Move all command line argument reading stuff away from main so it is more readable
 // - Code cleanup
 //     * Comments and docs for new classes
-// - Further tasks
-//     * Implement simple graphics settings (setting renderer to half resolution) with launch parameters
-//     * Implement new cutting-edge 'SHADE' renderer that uses shading characters
 
 int main(int argc, char* argv[])
 {
