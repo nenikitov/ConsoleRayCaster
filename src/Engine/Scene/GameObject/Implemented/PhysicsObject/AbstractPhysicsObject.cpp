@@ -2,4 +2,4 @@
 
 AbstractPhysicsObject::AbstractPhysicsObject(
 	double posX, double posY, double angle, Scene& scene)
-		: AbstractGameObject(posX, posY, angle), SCENE(scene) { }
+		: AbstractGameObject(posX, posY, angle), scene(scene) { }

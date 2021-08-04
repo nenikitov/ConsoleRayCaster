@@ -11,6 +11,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-l test -r shade -p 1</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-l test -r shade</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
