@@ -25,27 +25,23 @@ void FPSPlayer::tick(double deltaTime)
 	{
 		const double MOVEMENT_SPEED = 2 * deltaTime;
 		
+		// Move along X axis
 		const double DELTA_X = MOVEMENT_SPEED * (cos(this->angle) * FORWARD_INPUT - sin(this->angle) * RIGHTWARD_INPUT);
+		Intersection intersectionX = RayCaster::trace(
+			this->scene,
+			this->posX,
+			this->posY,
+			(DELTA_X > 0 ? 0 : 1.57079632679));
+
+		if (intersectionX.DISTANCE > this->RADIUS)
+			this->posX += DELTA_X;
+		else
+			this->posX = intersectionX.X - (DELTA_X > 0 ? this->RADIUS : -this->RADIUS);
+
+		// Move along Y axis
 		const double DELTA_Y = MOVEMENT_SPEED * (sin(this->angle) * FORWARD_INPUT + cos(this->angle) * RIGHTWARD_INPUT);
 
-		const double MOVE_ANGLE = atan2(DELTA_Y, DELTA_X);
-
-		const double TARGET_X = this->posX + DELTA_X;
-		const double TARGET_Y = this->posY + DELTA_Y;
-
-		#pragma region Find intersection
-		Intersection intersection = RayCaster::trace(
-			this->scene,
-			this->camera.getPosX(),
-			this->camera.getPosY(),
-			MOVE_ANGLE);
-		#pragma endregion
-
-		if (intersection.DISTANCE > 0.2)
-		{
-			this->posX = TARGET_X;
-			this->posY = TARGET_Y;
-		}
+		this->posY += DELTA_Y;
 	}
 
 	// Move camera with the player
