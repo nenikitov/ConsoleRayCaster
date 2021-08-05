@@ -183,7 +183,8 @@ int main(int argc, char* argv[])
 
         #pragma region Set window title
         const int FPS = int(round(1.f / DELTA_TIME));
-        std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
+		// std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
+		std::string title = "Console Ray Caster: Coords - " + std::to_string(player.getPosX()) + ", " + std::to_string(player.getPosY());
         visualizer->setTitle(title.c_str());
         #pragma endregion
 
