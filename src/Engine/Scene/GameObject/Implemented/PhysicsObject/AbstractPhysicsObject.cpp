@@ -31,11 +31,4 @@ void AbstractPhysicsObject::moveAlongAxis(bool x, double delta)
 
 	if (intersection.DISTANCE > this->RADIUS)
 		pos += delta;
-	else
-	{
-		double INTERSECTION_LOCATION = x ? intersection.X : intersection.Y;
-		double RADIUS_CORRECTION = (delta > 0) ? -this->RADIUS : this->RADIUS;
-
-		pos = INTERSECTION_LOCATION + RADIUS_CORRECTION;
-	}
 }
