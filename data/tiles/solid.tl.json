@@ -1,6 +1,7 @@
 {
-  "physics": {
-    "solid": false
+  "traceVisibility": {
+    "rendering": true,
+    "physics": true
   },
   "rendering": {
     "brightness": [
