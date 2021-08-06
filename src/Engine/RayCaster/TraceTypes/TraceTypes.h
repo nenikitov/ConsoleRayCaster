@@ -2,6 +2,6 @@
 
 enum class TraceTypes : unsigned char
 {
-	VISIBILITY,
+	RENDERING,
 	PHYSICS
 };

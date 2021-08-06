@@ -93,10 +93,9 @@ const bool RayCaster::checkTile(Scene& scene, int tileIndex, TraceTypes traceTyp
 {
 	switch (traceType)
 	{
-		case TraceTypes::VISIBILITY:
-			return tileIndex;
+		case TraceTypes::RENDERING:
 		case TraceTypes::PHYSICS:
-			return tileIndex;
+			return scene.wallTileFrom(tileIndex).isVisibleForTrace(traceType);
 		default:
 			return false;
 	}
