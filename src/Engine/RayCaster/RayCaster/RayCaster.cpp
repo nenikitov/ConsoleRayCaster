@@ -2,7 +2,7 @@
 
 const double RayCaster::MAX_RAY_LENGTH = 24.f;
 
-Intersection RayCaster::trace(Scene& scene, double startX, double startY, double angle, double maxRayLength)
+Intersection RayCaster::trace(Scene& scene, double startX, double startY, double angle, TraceTypes traceType, double maxRayLength)
 {
 	#pragma region Precalculate values
 	// Direction
@@ -74,8 +74,8 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 		// Check the tile
 		int levelTile = scene.wallIndexAt(mapCheckX, mapCheckY);
 
-		// If found intersection - initialize it
-		if (levelTile)
+		// If found correcct intersection - initialize it
+		if (checkTile(scene, levelTile, traceType))
 			return Intersection(
 				startX + DIR_X * distance, startY + DIR_Y * distance,
 				distance, levelTile,
@@ -87,4 +87,17 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 	// Return empty intersection if the ray went too far
 	return Intersection(startX + DIR_X * distance, startY + DIR_Y * distance,
 		distance);
+}
+
+const bool RayCaster::checkTile(Scene& scene, int tileIndex, TraceTypes traceType)
+{
+	switch (traceType)
+	{
+		case TraceTypes::VISIBILITY:
+			return tileIndex;
+		case TraceTypes::PHYSICS:
+			return tileIndex;
+		default:
+			return false;
+	}
 }
