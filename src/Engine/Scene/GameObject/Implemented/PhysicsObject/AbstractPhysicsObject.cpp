@@ -21,7 +21,9 @@ void AbstractPhysicsObject::moveAlongAxis(bool x, double delta)
 		this->scene,
 		this->posX,
 		this->posY,
-		DIRECTION_ANGLE);
+		DIRECTION_ANGLE,
+		TraceTypes::PHYSICS,
+		this->RADIUS + 1.0);
 
 	if (!intersection.VALID)
 	{
