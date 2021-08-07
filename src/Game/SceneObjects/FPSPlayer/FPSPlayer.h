@@ -7,5 +7,4 @@ class FPSPlayer : public AbstractPlayer
 	public:
 		FPSPlayer(Scene& scene, double fov);
 		virtual void tick(double deltaTime) override;
-		const double RADIUS = 0.2;
 };
