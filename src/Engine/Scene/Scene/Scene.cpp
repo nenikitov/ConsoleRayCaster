@@ -105,6 +105,16 @@ void Scene::openLevelFile(std::string levelName)
 	}
 }
 
+int Scene::getWidth()
+{
+	return this->width;
+}
+
+int Scene::getHeight()
+{
+	return this->height;
+}
+
 void Scene::initLevelDimensions(Json::Value& json)
 {
 	if (!LoadingUtils::loadNotZero(json["tile"]["tileData"]["wall"].size(), this->height))

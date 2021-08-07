@@ -71,6 +71,15 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 			rayLengthY += UNIT_STEP_Y;
 		}
 
+		// Return empty intersection if the ray is outside boundaries and if it is a physics trace
+		if (traceType == TraceTypes::PHYSICS)
+		{
+			if (mapCheckX < 0 || mapCheckX >= scene.getWidth() || mapCheckY < 0 || mapCheckY >= scene.getHeight())
+				return Intersection(
+					startX + DIR_X * distance, startY + DIR_Y * distance,
+					distance, 0, SurfaceTypes::NONE);
+		}
+
 		// Check the tile
 		int levelTile = scene.wallIndexAt(mapCheckX, mapCheckY);
 

@@ -11,6 +11,10 @@ class Scene
 		Scene();
 		void openLevelFile(std::string levelName);
 		#pragma endregion
+		#pragma region Dimension getters
+		int getWidth();
+		int getHeight();
+		#pragma endregion
 		#pragma region Player start getters
 		double getPlayerStartX();
 		double getPlayerStartY();
