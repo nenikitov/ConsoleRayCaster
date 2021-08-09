@@ -168,6 +168,7 @@
     <ClCompile Include="src\Engine\Render\FrameBuffer\FrameBufferPixel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\RayCaster\TraceTypes\TraceTypes.h" />
     <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\ImplementedArguments\Simple\SimpleCommandLineArgument.h" />
     <ClInclude Include="src\Engine\Utils\CommandLineArgument\Argument\AbstractArgument\AbstractCommandLineArgument.h" />
@@ -208,6 +209,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\tiles\empty.tl.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\tiles\fakeArrow.tl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\tiles\arrow.tl.json">

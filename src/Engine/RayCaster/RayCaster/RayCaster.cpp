@@ -2,7 +2,7 @@
 
 const double RayCaster::MAX_RAY_LENGTH = 24.f;
 
-Intersection RayCaster::trace(Scene& scene, double startX, double startY, double angle, double maxRayLength)
+Intersection RayCaster::trace(Scene& scene, double startX, double startY, double angle, TraceTypes traceType, double maxRayLength)
 {
 	#pragma region Precalculate values
 	// Direction
@@ -71,11 +71,20 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 			rayLengthY += UNIT_STEP_Y;
 		}
 
+		// Return empty intersection if the ray is outside boundaries and if it is a physics trace
+		if (traceType == TraceTypes::PHYSICS)
+		{
+			if (mapCheckX < 0 || mapCheckX >= scene.getWidth() || mapCheckY < 0 || mapCheckY >= scene.getHeight())
+				return Intersection(
+					startX + DIR_X * distance, startY + DIR_Y * distance,
+					distance, 0, SurfaceTypes::NONE);
+		}
+
 		// Check the tile
 		int levelTile = scene.wallIndexAt(mapCheckX, mapCheckY);
 
-		// If found intersection - initialize it
-		if (levelTile)
+		// If found correcct intersection - initialize it
+		if (checkTile(scene, levelTile, traceType))
 			return Intersection(
 				startX + DIR_X * distance, startY + DIR_Y * distance,
 				distance, levelTile,
@@ -87,4 +96,16 @@ Intersection RayCaster::trace(Scene& scene, double startX, double startY, double
 	// Return empty intersection if the ray went too far
 	return Intersection(startX + DIR_X * distance, startY + DIR_Y * distance,
 		distance);
+}
+
+const bool RayCaster::checkTile(Scene& scene, int tileIndex, TraceTypes traceType)
+{
+	switch (traceType)
+	{
+		case TraceTypes::RENDERING:
+		case TraceTypes::PHYSICS:
+			return scene.wallTileFrom(tileIndex).isVisibleForTrace(traceType);
+		default:
+			return false;
+	}
 }

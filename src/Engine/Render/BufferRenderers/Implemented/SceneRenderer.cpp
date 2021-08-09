@@ -31,7 +31,9 @@ FrameBufferPixel** SceneRenderer::render()
 			this->scene,
 			this->camera.getPosX(),
 			this->camera.getPosY(),
-			this->camera.getAngle() + RAY_H_ANGLE);
+			this->camera.getAngle() + RAY_H_ANGLE,
+			TraceTypes::RENDERING,
+			this->scene.getFogDistance() + 8.0);
 		#pragma endregion
 
 		#pragma region Render from intersection

@@ -40,8 +40,12 @@ The levels are stored inside `data/levels/` folder. Level files are essentially 
 
 ## How to edit tiles
 The tiles are stored inside `data/tiles/` folder. Tile files are essentially `.json` files. The tile file should contain the following sections:
-* ### **`physics`**
-    This describes the possible interactions between the player and the tile. It is currently unused.
+* ### **`traceVisibility`**
+    This describes how the tile reacts to different traces (only applicable for wall tiles).
+    * #### `rendering`
+        * Should the tile be rendered
+    * #### `physics`
+        * Should the physics object collide with it
 * ### **`rendering`**
     This section describes the information necessary to render the tile. Tile rendering data arrays should be the squares of the same dimensions.
     * #### `brightness`

@@ -184,5 +184,8 @@
     <ClInclude Include="src\Engine\Render\Visualizers\Implemented\Shade\ShadeVisualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\RayCaster\TraceTypes\TraceTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

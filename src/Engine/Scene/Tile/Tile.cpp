@@ -21,6 +21,10 @@ Tile::Tile(std::string tileName)
 	if (json["rendering"]["colors"].size() != this->textureDimensions)
 		throw std::invalid_argument(tileName + " - brightness and color texture data have different sizes");
 
+	// Load trace visibility data
+	this->visibleForRenderingPath = json["traceVisibility"]["rendering"].asBool();
+	this->visibleForPhysicsPath = json["traceVisibility"]["physics"].asBool();
+
 	// Initialize internal arrays
 	this->textureBrightness = new double*[this->textureDimensions];
 	this->textureColors = new SurfaceColors*[this->textureDimensions];
@@ -76,6 +80,19 @@ SurfaceColors Tile::sampleColor(double x, double y)
 	this->treatCoords(x, y, sampleX, sampleY);
 
 	return this->textureColors[sampleY][sampleX];
+}
+
+bool Tile::isVisibleForTrace(TraceTypes traceType)
+{
+	switch (traceType)
+	{
+		case TraceTypes::RENDERING:
+			return this->visibleForRenderingPath;
+		case TraceTypes::PHYSICS:
+			return this->visibleForPhysicsPath;
+		default:
+			return false;
+	}
 }
 
 void Tile::treatCoords(double x, double y, int& outX, int& outY)
