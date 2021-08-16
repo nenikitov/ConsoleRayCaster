@@ -67,7 +67,6 @@ The tiles are stored inside `data/tiles/` folder. Tile files are essentially `.j
             * ![#FFFFFF](https://via.placeholder.com/15/FFFFFF?text=+) ![#C0C0C0](https://via.placeholder.com/15/C0C0C0?text=+) `7` - white / light gray
 
 ## TODO
-* Implementing player interaction (collision / use button)
 * Creating user-friendly editing tools (level and tile editor)
 
 ## References
