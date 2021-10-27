@@ -39,6 +39,16 @@ ConsoleRayCaster.exe -l test -r ascii -p 1
 !["Shade" rendering with "Raster" font](https://github.com/nenikitov/ConsoleRayCaster/blob/main/screenshots/shade-raster.png?raw=true)
 </details>
 
+## Arguments
+| Argument           | Short | Long                 | Options                  | Default option | Required | Description                                                                                              |
+|--------------------|-------|----------------------|--------------------------|----------------|----------|----------------------------------------------------------------------------------------------------------|
+| Help               | `-h`  | `--help`             | ---                      | ---            | no       | Prints the help message                                                                                  |
+| Resolution scaling | `-s`  | `--resolution-scale` | NUMBER(`0.25` - `2.0`)   | 1.0            | no       | Sets the resolution factor of the rendered image (0.25 for quarter resolution, 1 is normal, 2 is double) |
+| Field of View      | `-f`  | `--fov`              | NUMBER(`60` - `140`)     | 130            | no       | Sets the field of view of the camera                                                                     |
+| Font graphic ratio | `-p`  | `--font-ratio`       | NUMBER(`0.375` - `2.0`)  | 0.5            | no       | Sets the ratio width/height of the used font to correct the stretching with certain fonts                |
+| Renderer           | `-r`  | `--renderer`         | TEXT(`ascii` OR `shade`) | `ascii`        | no       | Sets the renderer (`ascii` for letter only rendering, `shade` for shading pseudo graphic character)      |
+| Level file         | `-l`  | `--level`            | TEXT()                   | ---            | YES      | Sets the played level (without `.lvl.json`)                                                              |
+
 ## How does it work
 For each column on the screen, the program shoots a ray and finds the closest wall. Knowing the distance between the wall and the virtual camera, we can calculate the visible height. For horizontal surfaces, the program projects the vector between the camera and the wall onto the surface. See **references** for more info.
 
