@@ -1,6 +1,44 @@
 # Console Ray Caster
 This is a rendering engine that uses raycasting to draw pseudo 3D graphics. It outputs the result in console using default 16 colors.
 
+## Screenshots
+> The font is selected inside the terminal settings. The arguments only changed the renderer type and the font graphic ratio.
+<details>
+<summary>"ASCII" rendering with "Consolas" font</summary>
+
+```powershell
+ConsoleRayCaster.exe -l test -r ascii
+```
+!["ASCII" rendering with "Consolas" font](https://github.com/nenikitov/ConsoleRayCaster/blob/main/screenshots/ascii-consolas.png?raw=true)
+</details>
+
+<details>
+<summary>"ASCII" rendering with "Raster" font</summary>
+
+```powershell
+ConsoleRayCaster.exe -l test -r ascii -p 1
+```
+!["ASCII" rendering with "Raster" font](https://github.com/nenikitov/ConsoleRayCaster/blob/main/screenshots/ascii-raster.png?raw=true)
+</details>
+
+<details>
+<summary>"Shade" rendering with "Consolas" font</summary>
+
+```powershell
+ConsoleRayCaster.exe -l test -r ascii
+```
+!["Shade" rendering with "Consolas" font](https://github.com/nenikitov/ConsoleRayCaster/blob/main/screenshots/shade-consolas.png?raw=true)
+</details>
+
+<details>
+<summary>"Shade" rendering with "Raster" font</summary>
+
+```powershell
+ConsoleRayCaster.exe -l test -r ascii -p 1
+```
+!["Shade" rendering with "Raster" font](https://github.com/nenikitov/ConsoleRayCaster/blob/main/screenshots/shade-raster.png?raw=true)
+</details>
+
 ## How does it work
 For each column on the screen, the program shoots a ray and finds the closest wall. Knowing the distance between the wall and the virtual camera, we can calculate the visible height. For horizontal surfaces, the program projects the vector between the camera and the wall onto the surface. See **references** for more info.
 
