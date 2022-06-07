@@ -130,11 +130,11 @@ int main(int argc, char* argv[])
     }
 
 
-    AbstractVisualizer* visualizer;
+    AbstractVisualizer* visualizer = nullptr;
     if (renderer == "ascii")
-        visualizer = &ASCIIVisualizer();
+		visualizer = new ASCIIVisualizer();
     else if (renderer == "shade")
-        visualizer = &ShadeVisualizer();
+        visualizer = new ShadeVisualizer();
     else
         return 1;
 
@@ -185,7 +185,8 @@ int main(int argc, char* argv[])
         const int FPS = int(round(1.f / DELTA_TIME));
 		// std::string title = "Console Ray Caster: FPS - " + std::to_string(FPS) + ", Frame Time - " + std::to_string(DELTA_TIME);
 		std::string title = "Console Ray Caster: Coords - " + std::to_string(player.getPosX()) + ", " + std::to_string(player.getPosY());
-        visualizer->setTitle(title.c_str());
+        if (visualizer != nullptr)
+			visualizer->setTitle(title.c_str());
         #pragma endregion
 
         #pragma region Update the objects
@@ -215,10 +216,11 @@ int main(int argc, char* argv[])
         visualizer->visualize(composer);
         #pragma endregion
 
-        #pragma region Delete screen buffers
+        #pragma region Clean up
         for (int i = 0; i < renderHeight; i++)
             delete sceneRenderResult[i];
         delete sceneRenderResult;
+        delete visualizer;
         #pragma endregion
     }
 }
