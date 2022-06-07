@@ -220,7 +220,8 @@ int main(int argc, char* argv[])
         for (int i = 0; i < renderHeight; i++)
             delete sceneRenderResult[i];
         delete sceneRenderResult;
-        delete visualizer;
         #pragma endregion
     }
+
+	delete visualizer;
 }
